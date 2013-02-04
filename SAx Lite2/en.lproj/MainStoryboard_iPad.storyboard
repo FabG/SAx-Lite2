@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="3084" systemVersion="11G63" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES" initialViewController="2">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="2083"/>
+    </dependencies>
+    <scenes>
+        <!--Ax View Controller-->
+        <scene sceneID="4">
+            <objects>
+                <viewController id="2" customClass="SAxViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="5">
+                        <rect key="frame" x="0.0" y="20" width="768" height="1004"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xor-yA-Y2r">
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="177" id="rQ0-TS-b6Q"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="SAxM">
+                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="TYx-wY-iXR" kind="modal" id="B6t-av-uqy"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ged-g0-USy">
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="SAxC">
+                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Select SAx Module to launch" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1RR-hS-fg4">
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="ged-g0-USy" firstAttribute="leading" secondItem="Xor-yA-Y2r" secondAttribute="leading" type="default" id="1cU-i9-RJY"/>
+                            <constraint firstAttribute="bottom" secondItem="ged-g0-USy" secondAttribute="bottom" constant="442" id="8SE-co-jAO"/>
+                            <constraint firstItem="Xor-yA-Y2r" firstAttribute="centerX" secondItem="1RR-hS-fg4" secondAttribute="centerX" type="default" id="CTT-xa-jJR"/>
+                            <constraint firstItem="ged-g0-USy" firstAttribute="trailing" secondItem="Xor-yA-Y2r" secondAttribute="trailing" type="default" id="NBL-ry-fpL"/>
+                            <constraint firstItem="Xor-yA-Y2r" firstAttribute="top" secondItem="5" secondAttribute="top" constant="416" id="ZcU-aV-oGF"/>
+                            <constraint firstItem="Xor-yA-Y2r" firstAttribute="centerX" secondItem="5" secondAttribute="centerX" type="default" id="kOS-oi-bq9"/>
+                            <constraint firstItem="1RR-hS-fg4" firstAttribute="top" secondItem="5" secondAttribute="top" constant="298" id="x9v-jm-9EZ"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="3zE-ej-t7u"/>
+                    <connections>
+                        <outlet property="buttonSAxCLaunch" destination="ged-g0-USy" id="eBp-gG-ov4"/>
+                        <outlet property="buttonSAxMLaunch" destination="Xor-yA-Y2r" id="AaP-yo-aoe"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3" sceneMemberID="firstResponder"/>
+            </objects>
+        </scene>
+        <!--AxM Launch Controller - SaxM LaunchPad-->
+        <scene sceneID="vLM-Kr-jGv">
+            <objects>
+                <viewController id="TYx-wY-iXR" customClass="SAxMLaunchController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Bsg-Gt-a25">
+                        <rect key="frame" x="0.0" y="20" width="768" height="1004"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5GA-CI-aVs">
+                                <items>
+                                    <navigationItem title="SAxM LaunchPad" id="dle-v0-LlG">
+                                        <barButtonItem key="leftBarButtonItem" title="Back" id="sTW-kS-Rk4">
+                                            <connections>
+                                                <action selector="backHome:" destination="QLq-GU-W0w" id="NoD-Mc-m4X"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="HF7-pm-6wv">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="121" id="tA1-J5-f3F"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="Data Services Analysis ">
+                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="0Mm-YJ-inA">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="121" id="maS-vX-TjT"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="Device Analysis ">
+                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="ISi-q5-eQ6">
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="Cust Interests Analysis ">
+                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="C9V-fl-3Yb">
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="Usage Reporting ">
+                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="pfh-iA-lY9">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="121" id="CHs-p5-QmG"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="Cust Oriented Analysis ">
+                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="cYu-bQ-hL9">
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="Tariff Plan Analysis ">
+                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="cYu-bQ-hL9" firstAttribute="bottom" secondItem="HF7-pm-6wv" secondAttribute="bottom" type="default" id="1tI-TN-e82"/>
+                            <constraint firstItem="pfh-iA-lY9" firstAttribute="top" secondItem="C9V-fl-3Yb" secondAttribute="top" type="default" id="8Cv-it-bqf"/>
+                            <constraint firstItem="0Mm-YJ-inA" firstAttribute="top" secondItem="Bsg-Gt-a25" secondAttribute="top" constant="357" id="8LL-Xd-oae"/>
+                            <constraint firstItem="HF7-pm-6wv" firstAttribute="top" secondItem="Bsg-Gt-a25" secondAttribute="top" constant="180" id="96b-W9-I3U"/>
+                            <constraint firstItem="5GA-CI-aVs" firstAttribute="leading" secondItem="Bsg-Gt-a25" secondAttribute="leading" type="default" id="DCC-Jh-aXD"/>
+                            <constraint firstItem="0Mm-YJ-inA" firstAttribute="leading" secondItem="HF7-pm-6wv" secondAttribute="leading" type="default" id="RoT-5M-aCu"/>
+                            <constraint firstItem="HF7-pm-6wv" firstAttribute="leading" secondItem="Bsg-Gt-a25" secondAttribute="leading" constant="180" id="ShX-Td-Dtm"/>
+                            <constraint firstItem="pfh-iA-lY9" firstAttribute="leading" secondItem="0Mm-YJ-inA" secondAttribute="leading" type="default" id="T55-KK-G34"/>
+                            <constraint firstItem="ISi-q5-eQ6" firstAttribute="trailing" secondItem="cYu-bQ-hL9" secondAttribute="trailing" type="default" id="TD0-UP-NKp"/>
+                            <constraint firstItem="cYu-bQ-hL9" firstAttribute="top" secondItem="HF7-pm-6wv" secondAttribute="top" type="default" id="TrP-n1-zZT"/>
+                            <constraint firstItem="ISi-q5-eQ6" firstAttribute="top" secondItem="0Mm-YJ-inA" secondAttribute="top" type="default" id="Vpp-M5-q9G"/>
+                            <constraint firstItem="0Mm-YJ-inA" firstAttribute="trailing" secondItem="HF7-pm-6wv" secondAttribute="trailing" type="default" id="b0U-0l-7xB"/>
+                            <constraint firstAttribute="trailing" secondItem="cYu-bQ-hL9" secondAttribute="trailing" constant="169" id="biv-bf-TqD"/>
+                            <constraint firstItem="C9V-fl-3Yb" firstAttribute="leading" secondItem="ISi-q5-eQ6" secondAttribute="leading" type="default" id="dHq-xS-7eM"/>
+                            <constraint firstItem="5GA-CI-aVs" firstAttribute="top" secondItem="Bsg-Gt-a25" secondAttribute="top" type="default" id="fjo-o3-Pdd"/>
+                            <constraint firstItem="ISi-q5-eQ6" firstAttribute="bottom" secondItem="0Mm-YJ-inA" secondAttribute="bottom" type="default" id="fm7-ah-aQO"/>
+                            <constraint firstItem="ISi-q5-eQ6" firstAttribute="leading" secondItem="cYu-bQ-hL9" secondAttribute="leading" type="default" id="goq-L1-igW"/>
+                            <constraint firstItem="5GA-CI-aVs" firstAttribute="trailing" secondItem="Bsg-Gt-a25" secondAttribute="trailing" type="default" id="iVe-qK-W5e"/>
+                            <constraint firstItem="pfh-iA-lY9" firstAttribute="bottom" secondItem="C9V-fl-3Yb" secondAttribute="bottom" type="default" id="lHX-ir-LIJ"/>
+                            <constraint firstItem="pfh-iA-lY9" firstAttribute="trailing" secondItem="0Mm-YJ-inA" secondAttribute="trailing" type="default" id="vxy-jn-9rJ"/>
+                            <constraint firstAttribute="bottom" secondItem="pfh-iA-lY9" secondAttribute="bottom" constant="355" id="xIi-es-n9j"/>
+                            <constraint firstItem="C9V-fl-3Yb" firstAttribute="trailing" secondItem="ISi-q5-eQ6" secondAttribute="trailing" type="default" id="zlY-eK-Ivv"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="SaxM LaunchPad" id="gYI-b0-ZQl">
+                        <barButtonItem key="leftBarButtonItem" title="Back" id="XzM-ZY-TJ8">
+                            <connections>
+                                <action selector="backHome:" destination="TYx-wY-iXR" id="ugX-OW-Jxa"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="QLq-GU-W0w" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1105" y="-292"/>
+        </scene>
+    </scenes>
+    <classes>
+        <class className="NSLayoutConstraint" superclassName="NSObject">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
+        </class>
+        <class className="SAxMLaunchController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SAxMLaunchController.h"/>
+            <relationships>
+                <relationship kind="action" name="backHome:"/>
+            </relationships>
+        </class>
+        <class className="SAxViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SAxViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="buttonSAxCLaunch" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="buttonSAxMLaunch" candidateClass="UIButton"/>
+            </relationships>
+        </class>
+    </classes>
+    <simulatedMetricsContainer key="defaultSimulatedMetrics">
+        <simulatedStatusBarMetrics key="statusBar" statusBarStyle="blackTranslucent"/>
+        <simulatedOrientationMetrics key="orientation"/>
+        <simulatedScreenMetrics key="destination"/>
+    </simulatedMetricsContainer>
+</document>
