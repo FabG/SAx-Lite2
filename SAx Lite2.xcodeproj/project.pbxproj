@@ -8,6 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		1B6EA5E316C0779600963111 /* SAxMLaunchController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B6EA5E216C0779600963111 /* SAxMLaunchController.m */; };
+		1B6EA5EB16C0A27300963111 /* SAxM_Launch_Pad_CIA_150x150_sel.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B6EA5E516C0A27300963111 /* SAxM_Launch_Pad_CIA_150x150_sel.png */; };
+		1B6EA5EC16C0A27300963111 /* SAxM_Launch_Pad_COA_150x150_sel.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B6EA5E616C0A27300963111 /* SAxM_Launch_Pad_COA_150x150_sel.png */; };
+		1B6EA5ED16C0A27300963111 /* SAxM_Launch_Pad_DA_150x150_sel.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B6EA5E716C0A27300963111 /* SAxM_Launch_Pad_DA_150x150_sel.png */; };
+		1B6EA5EE16C0A27300963111 /* SAxM_Launch_Pad_DSA_150x150_sel.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B6EA5E816C0A27300963111 /* SAxM_Launch_Pad_DSA_150x150_sel.png */; };
+		1B6EA5EF16C0A27300963111 /* SAxM_Launch_Pad_TPA_150x150_sel.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B6EA5E916C0A27300963111 /* SAxM_Launch_Pad_TPA_150x150_sel.png */; };
+		1B6EA5F016C0A27300963111 /* SAxM_Launch_Pad_UR_150x150_sel.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B6EA5EA16C0A27300963111 /* SAxM_Launch_Pad_UR_150x150_sel.png */; };
 		1BBC330A16C046D300EBB576 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BBC330916C046D300EBB576 /* UIKit.framework */; };
 		1BBC330C16C046D300EBB576 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BBC330B16C046D300EBB576 /* Foundation.framework */; };
 		1BBC330E16C046D300EBB576 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BBC330D16C046D300EBB576 /* CoreGraphics.framework */; };
@@ -33,6 +39,12 @@
 /* Begin PBXFileReference section */
 		1B6EA5E116C0779600963111 /* SAxMLaunchController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAxMLaunchController.h; sourceTree = "<group>"; };
 		1B6EA5E216C0779600963111 /* SAxMLaunchController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAxMLaunchController.m; sourceTree = "<group>"; };
+		1B6EA5E516C0A27300963111 /* SAxM_Launch_Pad_CIA_150x150_sel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SAxM_Launch_Pad_CIA_150x150_sel.png; path = saxmiconsselected/SAxM_Launch_Pad_CIA_150x150_sel.png; sourceTree = "<group>"; };
+		1B6EA5E616C0A27300963111 /* SAxM_Launch_Pad_COA_150x150_sel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SAxM_Launch_Pad_COA_150x150_sel.png; path = saxmiconsselected/SAxM_Launch_Pad_COA_150x150_sel.png; sourceTree = "<group>"; };
+		1B6EA5E716C0A27300963111 /* SAxM_Launch_Pad_DA_150x150_sel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SAxM_Launch_Pad_DA_150x150_sel.png; path = saxmiconsselected/SAxM_Launch_Pad_DA_150x150_sel.png; sourceTree = "<group>"; };
+		1B6EA5E816C0A27300963111 /* SAxM_Launch_Pad_DSA_150x150_sel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SAxM_Launch_Pad_DSA_150x150_sel.png; path = saxmiconsselected/SAxM_Launch_Pad_DSA_150x150_sel.png; sourceTree = "<group>"; };
+		1B6EA5E916C0A27300963111 /* SAxM_Launch_Pad_TPA_150x150_sel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SAxM_Launch_Pad_TPA_150x150_sel.png; path = saxmiconsselected/SAxM_Launch_Pad_TPA_150x150_sel.png; sourceTree = "<group>"; };
+		1B6EA5EA16C0A27300963111 /* SAxM_Launch_Pad_UR_150x150_sel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SAxM_Launch_Pad_UR_150x150_sel.png; path = saxmiconsselected/SAxM_Launch_Pad_UR_150x150_sel.png; sourceTree = "<group>"; };
 		1BBC330616C046D300EBB576 /* SAx Lite2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SAx Lite2.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1BBC330916C046D300EBB576 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		1BBC330B16C046D300EBB576 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -135,6 +147,12 @@
 		1BBC332F16C0471800EBB576 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				1B6EA5E516C0A27300963111 /* SAxM_Launch_Pad_CIA_150x150_sel.png */,
+				1B6EA5E616C0A27300963111 /* SAxM_Launch_Pad_COA_150x150_sel.png */,
+				1B6EA5E716C0A27300963111 /* SAxM_Launch_Pad_DA_150x150_sel.png */,
+				1B6EA5E816C0A27300963111 /* SAxM_Launch_Pad_DSA_150x150_sel.png */,
+				1B6EA5E916C0A27300963111 /* SAxM_Launch_Pad_TPA_150x150_sel.png */,
+				1B6EA5EA16C0A27300963111 /* SAxM_Launch_Pad_UR_150x150_sel.png */,
 				1BBC333016C0475C00EBB576 /* SAxC_238x31.png */,
 				1BBC333116C0475C00EBB576 /* SAxM_238x31.png */,
 				1BBC333216C0475C00EBB576 /* SAxM_Launch_Pad_CIA_150x150.png */,
@@ -213,6 +231,12 @@
 				1BBC333D16C0475C00EBB576 /* SAxM_Launch_Pad_DSA_150x150.png in Resources */,
 				1BBC333E16C0475C00EBB576 /* SAxM_Launch_Pad_TPA_150x150.png in Resources */,
 				1BBC333F16C0475C00EBB576 /* SAxM_Launch_Pad_UR_150x150.png in Resources */,
+				1B6EA5EB16C0A27300963111 /* SAxM_Launch_Pad_CIA_150x150_sel.png in Resources */,
+				1B6EA5EC16C0A27300963111 /* SAxM_Launch_Pad_COA_150x150_sel.png in Resources */,
+				1B6EA5ED16C0A27300963111 /* SAxM_Launch_Pad_DA_150x150_sel.png in Resources */,
+				1B6EA5EE16C0A27300963111 /* SAxM_Launch_Pad_DSA_150x150_sel.png in Resources */,
+				1B6EA5EF16C0A27300963111 /* SAxM_Launch_Pad_TPA_150x150_sel.png in Resources */,
+				1B6EA5F016C0A27300963111 /* SAxM_Launch_Pad_UR_150x150_sel.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -85,7 +85,8 @@
                             </navigationBar>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="HF7-pm-6wv">
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="121" id="tA1-J5-f3F"/>
+                                    <constraint firstAttribute="height" constant="155" id="MrE-IX-TDb"/>
+                                    <constraint firstAttribute="width" constant="155" id="uNc-DS-hG5"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal" title="Data Services Analysis ">
@@ -98,7 +99,8 @@
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="0Mm-YJ-inA">
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="121" id="maS-vX-TjT"/>
+                                    <constraint firstAttribute="width" constant="155" id="3wt-3i-OLY"/>
+                                    <constraint firstAttribute="height" constant="155" id="bop-r0-Ay9"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal" title="Device Analysis ">
@@ -110,6 +112,9 @@
                                 </state>
                             </button>
                             <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="ISi-q5-eQ6">
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="155" id="iOC-wD-4iZ"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal" title="Cust Interests Analysis ">
                                     <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -120,6 +125,9 @@
                                 </state>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="C9V-fl-3Yb">
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="155" id="bdw-Dy-umf"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal" title="Usage Reporting ">
                                     <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -131,7 +139,7 @@
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="pfh-iA-lY9">
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="121" id="CHs-p5-QmG"/>
+                                    <constraint firstAttribute="height" constant="155" id="WDY-Vp-wl2"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal" title="Cust Oriented Analysis ">
@@ -143,6 +151,9 @@
                                 </state>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="cYu-bQ-hL9">
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="155" id="UAG-BV-5pF"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal" title="Tariff Plan Analysis ">
                                     <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -153,30 +164,27 @@
                                 </state>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="cYu-bQ-hL9" firstAttribute="bottom" secondItem="HF7-pm-6wv" secondAttribute="bottom" type="default" id="1tI-TN-e82"/>
-                            <constraint firstItem="pfh-iA-lY9" firstAttribute="top" secondItem="C9V-fl-3Yb" secondAttribute="top" type="default" id="8Cv-it-bqf"/>
-                            <constraint firstItem="0Mm-YJ-inA" firstAttribute="top" secondItem="Bsg-Gt-a25" secondAttribute="top" constant="357" id="8LL-Xd-oae"/>
-                            <constraint firstItem="HF7-pm-6wv" firstAttribute="top" secondItem="Bsg-Gt-a25" secondAttribute="top" constant="180" id="96b-W9-I3U"/>
+                            <constraint firstItem="0Mm-YJ-inA" firstAttribute="top" secondItem="Bsg-Gt-a25" secondAttribute="top" constant="369" id="0St-8i-ulg"/>
+                            <constraint firstItem="HF7-pm-6wv" firstAttribute="leading" secondItem="pfh-iA-lY9" secondAttribute="leading" type="default" id="3pd-da-zaS"/>
+                            <constraint firstAttribute="trailing" secondItem="ISi-q5-eQ6" secondAttribute="trailing" constant="73" id="A98-wb-pNv"/>
+                            <constraint firstAttribute="trailing" secondItem="cYu-bQ-hL9" secondAttribute="trailing" constant="159" id="BtH-hE-cJz"/>
                             <constraint firstItem="5GA-CI-aVs" firstAttribute="leading" secondItem="Bsg-Gt-a25" secondAttribute="leading" type="default" id="DCC-Jh-aXD"/>
-                            <constraint firstItem="0Mm-YJ-inA" firstAttribute="leading" secondItem="HF7-pm-6wv" secondAttribute="leading" type="default" id="RoT-5M-aCu"/>
-                            <constraint firstItem="HF7-pm-6wv" firstAttribute="leading" secondItem="Bsg-Gt-a25" secondAttribute="leading" constant="180" id="ShX-Td-Dtm"/>
-                            <constraint firstItem="pfh-iA-lY9" firstAttribute="leading" secondItem="0Mm-YJ-inA" secondAttribute="leading" type="default" id="T55-KK-G34"/>
-                            <constraint firstItem="ISi-q5-eQ6" firstAttribute="trailing" secondItem="cYu-bQ-hL9" secondAttribute="trailing" type="default" id="TD0-UP-NKp"/>
-                            <constraint firstItem="cYu-bQ-hL9" firstAttribute="top" secondItem="HF7-pm-6wv" secondAttribute="top" type="default" id="TrP-n1-zZT"/>
-                            <constraint firstItem="ISi-q5-eQ6" firstAttribute="top" secondItem="0Mm-YJ-inA" secondAttribute="top" type="default" id="Vpp-M5-q9G"/>
-                            <constraint firstItem="0Mm-YJ-inA" firstAttribute="trailing" secondItem="HF7-pm-6wv" secondAttribute="trailing" type="default" id="b0U-0l-7xB"/>
-                            <constraint firstAttribute="trailing" secondItem="cYu-bQ-hL9" secondAttribute="trailing" constant="169" id="biv-bf-TqD"/>
-                            <constraint firstItem="C9V-fl-3Yb" firstAttribute="leading" secondItem="ISi-q5-eQ6" secondAttribute="leading" type="default" id="dHq-xS-7eM"/>
+                            <constraint firstItem="0Mm-YJ-inA" firstAttribute="leading" secondItem="Bsg-Gt-a25" secondAttribute="leading" constant="110" id="E1y-xe-AeF"/>
+                            <constraint firstAttribute="trailing" secondItem="C9V-fl-3Yb" secondAttribute="trailing" constant="166" id="HYs-cL-QMf"/>
+                            <constraint firstItem="HF7-pm-6wv" firstAttribute="top" secondItem="Bsg-Gt-a25" secondAttribute="top" constant="183" id="Kjs-m3-gBj"/>
+                            <constraint firstItem="ISi-q5-eQ6" firstAttribute="top" secondItem="0Mm-YJ-inA" secondAttribute="top" type="default" id="LdC-tp-TjC"/>
+                            <constraint firstAttribute="bottom" secondItem="pfh-iA-lY9" secondAttribute="bottom" constant="291" id="bSj-DF-4zH"/>
+                            <constraint firstItem="pfh-iA-lY9" firstAttribute="trailing" secondItem="HF7-pm-6wv" secondAttribute="trailing" type="default" id="bY5-Ry-4Wl"/>
+                            <constraint firstItem="cYu-bQ-hL9" firstAttribute="top" secondItem="HF7-pm-6wv" secondAttribute="top" type="default" id="cyc-H6-W1a"/>
+                            <constraint firstItem="pfh-iA-lY9" firstAttribute="top" secondItem="C9V-fl-3Yb" secondAttribute="top" type="default" id="fPh-Hh-upC"/>
                             <constraint firstItem="5GA-CI-aVs" firstAttribute="top" secondItem="Bsg-Gt-a25" secondAttribute="top" type="default" id="fjo-o3-Pdd"/>
-                            <constraint firstItem="ISi-q5-eQ6" firstAttribute="bottom" secondItem="0Mm-YJ-inA" secondAttribute="bottom" type="default" id="fm7-ah-aQO"/>
-                            <constraint firstItem="ISi-q5-eQ6" firstAttribute="leading" secondItem="cYu-bQ-hL9" secondAttribute="leading" type="default" id="goq-L1-igW"/>
+                            <constraint firstItem="cYu-bQ-hL9" firstAttribute="bottom" secondItem="HF7-pm-6wv" secondAttribute="bottom" type="default" id="i1f-w8-e60"/>
                             <constraint firstItem="5GA-CI-aVs" firstAttribute="trailing" secondItem="Bsg-Gt-a25" secondAttribute="trailing" type="default" id="iVe-qK-W5e"/>
-                            <constraint firstItem="pfh-iA-lY9" firstAttribute="bottom" secondItem="C9V-fl-3Yb" secondAttribute="bottom" type="default" id="lHX-ir-LIJ"/>
-                            <constraint firstItem="pfh-iA-lY9" firstAttribute="trailing" secondItem="0Mm-YJ-inA" secondAttribute="trailing" type="default" id="vxy-jn-9rJ"/>
-                            <constraint firstAttribute="bottom" secondItem="pfh-iA-lY9" secondAttribute="bottom" constant="355" id="xIi-es-n9j"/>
-                            <constraint firstItem="C9V-fl-3Yb" firstAttribute="trailing" secondItem="ISi-q5-eQ6" secondAttribute="trailing" type="default" id="zlY-eK-Ivv"/>
+                            <constraint firstItem="ISi-q5-eQ6" firstAttribute="bottom" secondItem="0Mm-YJ-inA" secondAttribute="bottom" type="default" id="lOg-i4-Day"/>
+                            <constraint firstItem="pfh-iA-lY9" firstAttribute="bottom" secondItem="C9V-fl-3Yb" secondAttribute="bottom" type="default" id="sGI-8T-nzC"/>
+                            <constraint firstItem="HF7-pm-6wv" firstAttribute="leading" secondItem="Bsg-Gt-a25" secondAttribute="leading" constant="230" id="wXK-C6-5XP"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="SaxM LaunchPad" id="gYI-b0-ZQl">
@@ -186,30 +194,20 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="buttonCIA" destination="ISi-q5-eQ6" id="11H-Ko-elp"/>
+                        <outlet property="buttonCOA" destination="pfh-iA-lY9" id="lPO-3H-B9B"/>
+                        <outlet property="buttonDA" destination="0Mm-YJ-inA" id="GKe-XM-ADm"/>
+                        <outlet property="buttonDSA" destination="HF7-pm-6wv" id="XVw-bj-JIA"/>
+                        <outlet property="buttonTPA" destination="cYu-bQ-hL9" id="m3M-6R-CnW"/>
+                        <outlet property="buttonUR" destination="C9V-fl-3Yb" id="EHR-nv-4c0"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QLq-GU-W0w" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1105" y="-292"/>
         </scene>
     </scenes>
-    <classes>
-        <class className="NSLayoutConstraint" superclassName="NSObject">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
-        </class>
-        <class className="SAxMLaunchController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SAxMLaunchController.h"/>
-            <relationships>
-                <relationship kind="action" name="backHome:"/>
-            </relationships>
-        </class>
-        <class className="SAxViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SAxViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="buttonSAxCLaunch" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="buttonSAxMLaunch" candidateClass="UIButton"/>
-            </relationships>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar" statusBarStyle="blackTranslucent"/>
         <simulatedOrientationMetrics key="orientation"/>

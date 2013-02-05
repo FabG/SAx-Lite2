@@ -10,5 +10,12 @@
 
 @interface SAxMLaunchController : UIViewController
 - (IBAction)backHome:(id)sender;
+- (void)applyIconsButtons;
 
+@property (weak, nonatomic) IBOutlet UIButton *buttonDSA;
+@property (weak, nonatomic) IBOutlet UIButton *buttonTPA;
+@property (weak, nonatomic) IBOutlet UIButton *buttonDA;
+@property (weak, nonatomic) IBOutlet UIButton *buttonCIA;
+@property (weak, nonatomic) IBOutlet UIButton *buttonCOA;
+@property (weak, nonatomic) IBOutlet UIButton *buttonUR;
 @end
