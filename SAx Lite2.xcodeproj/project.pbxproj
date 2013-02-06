@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1B1E784316C0C953004AA849 /* SAxDashboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B1E784216C0C953004AA849 /* SAxDashboard.m */; };
 		1B6EA5E316C0779600963111 /* SAxMLaunchController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B6EA5E216C0779600963111 /* SAxMLaunchController.m */; };
 		1B6EA5EB16C0A27300963111 /* SAxM_Launch_Pad_CIA_150x150_sel.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B6EA5E516C0A27300963111 /* SAxM_Launch_Pad_CIA_150x150_sel.png */; };
 		1B6EA5EC16C0A27300963111 /* SAxM_Launch_Pad_COA_150x150_sel.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B6EA5E616C0A27300963111 /* SAxM_Launch_Pad_COA_150x150_sel.png */; };
@@ -37,6 +38,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1B1E784116C0C953004AA849 /* SAxDashboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAxDashboard.h; sourceTree = "<group>"; };
+		1B1E784216C0C953004AA849 /* SAxDashboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAxDashboard.m; sourceTree = "<group>"; };
 		1B6EA5E116C0779600963111 /* SAxMLaunchController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAxMLaunchController.h; sourceTree = "<group>"; };
 		1B6EA5E216C0779600963111 /* SAxMLaunchController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAxMLaunchController.m; sourceTree = "<group>"; };
 		1B6EA5E516C0A27300963111 /* SAxM_Launch_Pad_CIA_150x150_sel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SAxM_Launch_Pad_CIA_150x150_sel.png; path = saxmiconsselected/SAxM_Launch_Pad_CIA_150x150_sel.png; sourceTree = "<group>"; };
@@ -119,6 +122,8 @@
 				1BBC332F16C0471800EBB576 /* Images */,
 				1BBC331816C046D300EBB576 /* SAxAppDelegate.h */,
 				1BBC331916C046D300EBB576 /* SAxAppDelegate.m */,
+				1B1E784116C0C953004AA849 /* SAxDashboard.h */,
+				1B1E784216C0C953004AA849 /* SAxDashboard.m */,
 				1BBC332116C046D300EBB576 /* MainStoryboard_iPhone.storyboard */,
 				1BBC332416C046D300EBB576 /* MainStoryboard_iPad.storyboard */,
 				1BBC332716C046D300EBB576 /* SAxViewController.h */,
@@ -251,6 +256,7 @@
 				1BBC331A16C046D300EBB576 /* SAxAppDelegate.m in Sources */,
 				1BBC332916C046D300EBB576 /* SAxViewController.m in Sources */,
 				1B6EA5E316C0779600963111 /* SAxMLaunchController.m in Sources */,
+				1B1E784316C0C953004AA849 /* SAxDashboard.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

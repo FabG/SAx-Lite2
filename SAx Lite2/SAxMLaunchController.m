@@ -29,6 +29,7 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     
+    // Apply images to SAx Launch buttons
     [self applyIconsButtons];
 
 
@@ -40,10 +41,6 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (IBAction)backHome:(id)sender {
-    NSLog(@"Back pressed");
-    [self dismissViewControllerAnimated:YES completion:NULL];
-}
 
 - (void)applyIconsButtons {
     // Remove static titles from storyboard for each button (6 or now)
@@ -67,8 +64,8 @@
                                imageNamePrefix,
                                [imageNameArrayCode objectAtIndex:i],
                                imageNamePostfix];
-                               
-        NSLog(@"Image name: %@", imageName);
+        
+        //NSLog(@"Image name: %@", imageName);
         
         [button setImage: [UIImage imageNamed:imageName] forState:UIControlStateNormal];
     }
@@ -81,11 +78,18 @@
                                [imageNameArrayCode objectAtIndex:i],
                                imageSelNamePostfix];
         
-        NSLog(@"Selected Image name: %@", imageName);
+        //NSLog(@"Selected Image name: %@", imageName);
         
         [button setImage: [UIImage imageNamed:imageName] forState:UIControlStateNormal];
     }
 }
 
 
+- (IBAction)buttonBackTouched:(id)sender {
+    NSLog(@"Back pressed");
+    [self dismissViewControllerAnimated:YES completion:NULL];
+}
+
+- (IBAction)buttonDSATouched:(id)sender {
+}
 @end

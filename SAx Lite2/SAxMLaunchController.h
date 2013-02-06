@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface SAxMLaunchController : UIViewController
-- (IBAction)backHome:(id)sender;
+
 - (void)applyIconsButtons;
 
 @property (weak, nonatomic) IBOutlet UIButton *buttonDSA;
@@ -18,4 +18,9 @@
 @property (weak, nonatomic) IBOutlet UIButton *buttonCIA;
 @property (weak, nonatomic) IBOutlet UIButton *buttonCOA;
 @property (weak, nonatomic) IBOutlet UIButton *buttonUR;
+
+- (IBAction)buttonBackTouched:(id)sender;
+
+- (IBAction)buttonDSATouched:(id)sender;
+
 @end
