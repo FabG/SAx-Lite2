@@ -8,8 +8,17 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SAxDSAPodTableViewController : UITableViewController
 
-@property (nonatomic, strong) NSMutableArray *listPods;
+
+@interface SAxDSAPodTableViewController : UITableViewController 
+
+@property (nonatomic, retain) NSDictionary *dashboardPods;
+
+@end
+
+
+@protocol dismissDelegate <NSObject>
+
+-(void)didTap;
 
 @end

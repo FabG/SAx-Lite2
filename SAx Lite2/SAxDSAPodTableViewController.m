@@ -13,7 +13,7 @@
 @end
 
 @implementation SAxDSAPodTableViewController
-@synthesize listPods;
+@synthesize dashboardPods;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -27,17 +27,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
- 
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    
-    // Initialize with a static set of pods for now
+
     // Will need to call a Webservice in the future to fill in the table
-    
-    listPods = [[NSMutableArray alloc]initWithObjects:@"Pod1", @"Pod2", @"Pod3", nil];
+    self.dashboardPods = [NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"SAx_DashboardPods" ofType:@"plist"]];
 }
 
 - (void)didReceiveMemoryWarning
@@ -46,30 +38,52 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+    // Return YES for supported orientations
+    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
 #warning Potentially incomplete method implementation.
     // Return the number of sections.
-    return 0;
+    return [self.dashboardPods count];
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+	return [[self.dashboardPods allKeys] objectAtIndex:section];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-#warning Incomplete method implementation.
-    // Return the number of rows in the section.
-    return [listPods count];
+	NSString *continent = [self tableView:tableView titleForHeaderInSection:section];
+	return [[self.dashboardPods valueForKey:continent] count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    static NSString *CellIdentifier = @"PodCell";
     
-    cell.textLabel.text = [listPods objectAtIndex: indexPath.row];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+    }
     
     // Configure the cell...
+	NSString *dashboard = [self tableView:tableView titleForHeaderInSection:indexPath.section];
+	NSString *pod = [[self.dashboardPods valueForKey:dashboard] objectAtIndex:indexPath.row];
+	
+	cell.textLabel.text = pod;
+	cell.accessoryType = UITableViewCellAccessoryNone;
+;
+    
+    UIImageView *imv = [[UIImageView alloc]initWithFrame:CGRectMake(3, 5, 25, 30)];
+    cell.imageView.image = [UIImage imageNamed:@"colorful_chart.png" ];
+
     
     return cell;
 }
@@ -124,6 +138,9 @@
      // Pass the selected object to the new view controller.
      [self.navigationController pushViewController:detailViewController animated:YES];
      */
+    // Call didTap to tell SAxDSA VC tjat tableView is tapped
+    // and dismiss the popover
+    [delegate didTap];
 }
 
 @end

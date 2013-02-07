@@ -14,6 +14,7 @@
 @end
 
 @implementation SAxDSAViewController
+
 @synthesize popover;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -50,7 +51,7 @@
     
     popover = [[UIPopoverController alloc] initWithContentViewController:tableVS];
     
-    [popover setPopoverContentSize:CGSizeMake(250, 350)];
+    [popover setPopoverContentSize:CGSizeMake(320, 600)];
     
     [popover presentPopoverFromBarButtonItem:sender permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
 }

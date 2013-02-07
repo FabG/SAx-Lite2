@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Data Services Overview</key>
+	<array>
+		<string>Data Services Consumption</string>
+		<string>Distribtion by Device Type</string>
+		<string>Volumne Distribution</string>
+		<string>Top Providers</string>
+		<string>Top Tariff Plans</string>
+		<string>Top Options</string>
+	</array>
+	<key>Services Details</key>
+	<array>
+		<string>Streaming Category Breakdown</string>
+		<string>Streaming Usage</string>
+		<string>VoIP Country Distribution</string>
+		<string>VoIP Usage</string>
+	</array>
+	<key>PC Tethering Overview</key>
+	<array>
+		<string>Top Devices used for Tethering</string>
+		<string>Data Services Consumption</string>
+		<string>OS Performance Analysis</string>
+		<string>Tethering Data Propertion by Tariff Plan</string>
+		<string>PC vs. Mobile Consumption</string>
+	</array>
+	<key>Data Consumption Trend</key>
+	<array>
+		<string>Trend of Consumption</string>
+	</array>
+	<key>Data Services Map</key>
+	<array>
+		<string>Data Services</string>
+	</array>
+	<key>Unique Active User Count</key>
+	<array>
+		<string>Unique Active User count</string>
+	</array>
+</dict>
+</plist>
