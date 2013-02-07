@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "SAxDSAPodTableViewController.h"
 
+
 @interface SAxDSAViewController : UIViewController <DismissDelegate, UIPopoverControllerDelegate> ;
 
 @property (strong,nonatomic) UIPopoverController *popover;
@@ -17,6 +18,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *labelSAx;
 
 - (IBAction)buttonPodListTapped:(id)sender;
-
+- (void)drawPieChart;
 
 @end

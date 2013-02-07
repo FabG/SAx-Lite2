@@ -9,6 +9,7 @@
 #import "SAxDSAViewController.h"
 #import "SAxDSAPodTableViewController.h"
 
+
 @interface SAxDSAViewController ()
 
 @end
@@ -40,10 +41,6 @@
     
     // set ourselves as the Table VS's delegate
     [popover setDelegate:self];
-    
-    // Ask user to select a pod
-    CGPoint center = CGPointMake([[UIScreen mainScreen]bounds].size.width/2,
-                                    [[UIScreen mainScreen]bounds].size.height/2);
     
     labelSAx.text = @"Please select a pod from the list in the top right corner...";
 
@@ -82,8 +79,10 @@
     
     dNSLog(@"update chart for selected pod:%@", podName);
     
+    
     // Clear previous chart and load new one
-
+    [self drawPieChart];
+     
 }
 
 // Implement delegate for touch outside of popover to dismiss it
@@ -91,5 +90,12 @@
 {
     dNSLog(@"User dismissed popover");
 }
+
+-(void) drawPieChart
+{
+    
+        
+}
+
 
 @end

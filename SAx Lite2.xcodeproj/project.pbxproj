@@ -38,6 +38,8 @@
 		1BDD07EA16C318C500126EEC /* SAxDSAPodTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BDD07E916C318C500126EEC /* SAxDSAPodTableViewController.m */; };
 		1BDD07EF16C3406700126EEC /* SAx_DashboardPods.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1BDD07EE16C3406700126EEC /* SAx_DashboardPods.plist */; };
 		1BDD07F116C34B8A00126EEC /* colorful_chart.png in Resources */ = {isa = PBXBuildFile; fileRef = 1BDD07F016C34B8A00126EEC /* colorful_chart.png */; };
+		1BDD080416C448C800126EEC /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BDD080316C448C800126EEC /* QuartzCore.framework */; };
+		1BDD080616C448D100126EEC /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BDD080516C448D100126EEC /* OpenGLES.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -80,6 +82,8 @@
 		1BDD07E916C318C500126EEC /* SAxDSAPodTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAxDSAPodTableViewController.m; sourceTree = "<group>"; };
 		1BDD07EE16C3406700126EEC /* SAx_DashboardPods.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = SAx_DashboardPods.plist; sourceTree = "<group>"; };
 		1BDD07F016C34B8A00126EEC /* colorful_chart.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = colorful_chart.png; sourceTree = "<group>"; };
+		1BDD080316C448C800126EEC /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		1BDD080516C448D100126EEC /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,6 +91,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1BDD080616C448D100126EEC /* OpenGLES.framework in Frameworks */,
+				1BDD080416C448C800126EEC /* QuartzCore.framework in Frameworks */,
 				1BBC330A16C046D300EBB576 /* UIKit.framework in Frameworks */,
 				1BBC330C16C046D300EBB576 /* Foundation.framework in Frameworks */,
 				1BBC330E16C046D300EBB576 /* CoreGraphics.framework in Frameworks */,
@@ -116,6 +122,8 @@
 		1BBC330816C046D300EBB576 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1BDD080516C448D100126EEC /* OpenGLES.framework */,
+				1BDD080316C448C800126EEC /* QuartzCore.framework */,
 				1BBC330916C046D300EBB576 /* UIKit.framework */,
 				1BBC330B16C046D300EBB576 /* Foundation.framework */,
 				1BBC330D16C046D300EBB576 /* CoreGraphics.framework */,
@@ -365,9 +373,17 @@
 		1BBC332D16C046D300EBB576 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+					"\"$(SRCROOT)/../../../ShinobiCharts Trial/ShinobiCharts.embeddedframework\"",
+					"\"$(SRCROOT)/ShinobiCharts.embeddedframework\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SAx Lite2/SAx Lite2-Prefix.pch";
 				INFOPLIST_FILE = "SAx Lite2/SAx Lite2-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -376,9 +392,17 @@
 		1BBC332E16C046D300EBB576 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+					"\"$(SRCROOT)/../../../ShinobiCharts Trial/ShinobiCharts.embeddedframework\"",
+					"\"$(SRCROOT)/ShinobiCharts.embeddedframework\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SAx Lite2/SAx Lite2-Prefix.pch";
 				INFOPLIST_FILE = "SAx Lite2/SAx Lite2-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
