@@ -12,3 +12,10 @@
     #import <UIKit/UIKit.h>
     #import <Foundation/Foundation.h>
 #endif
+
+#ifdef DEBUG
+#    define dNSLog(...) NSLog(__VA_ARGS__)
+#else
+#    define dNSLog(...) /* */
+#endif
+#define aNSLog(...) NSLog(__VA_ARGS__)

@@ -10,7 +10,7 @@
 
 @protocol DismissDelegate <NSObject>
 
--(void)dismissPopover;
+-(void)dismissPopover:(NSString *)selectedPod;
 
 @end
 

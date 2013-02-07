@@ -15,7 +15,7 @@
 
 @implementation SAxDSAViewController
 
-@synthesize popover;
+@synthesize popover, podName, labelSAx;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -41,6 +41,13 @@
     // set ourselves as the Table VS's delegate
     [popover setDelegate:self];
     
+    // Ask user to select a pod
+    CGPoint center = CGPointMake([[UIScreen mainScreen]bounds].size.width/2,
+                                    [[UIScreen mainScreen]bounds].size.height/2);
+    
+    labelSAx.text = @"Please select a pod from the list in the top right corner...";
+
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -60,21 +67,29 @@
     
     [popover presentPopoverFromBarButtonItem:sender permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
     
+    labelSAx.text = nil;
 }
 
+
 // Implement delegate method to dismiss pover
--(void)dismissPopover
+-(void)dismissPopover: (NSString *)selectedPod
 {
-    NSLog(@"dismiss popover delegate");
+    podName = selectedPod;
+    dNSLog(@"dismiss popover delegate");
     [popover dismissPopoverAnimated:YES];
-    //popover=nil;
+    
+    // Update chart fo row selection
+    
+    dNSLog(@"update chart for selected pod:%@", podName);
+    
+    // Clear previous chart and load new one
+
 }
 
 // Implement delegate for touch outside of popover to dismiss it
 -(void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController
 {
-    NSLog(@"User dismissed popover");
-    //popover = nil;
+    dNSLog(@"User dismissed popover");
 }
 
 @end

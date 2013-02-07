@@ -86,7 +86,7 @@
 
 
 - (IBAction)buttonBackTouched:(id)sender {
-    NSLog(@"Back pressed");
+    dNSLog(@"Back pressed");
     [self dismissViewControllerAnimated:YES completion:NULL];
 }
 

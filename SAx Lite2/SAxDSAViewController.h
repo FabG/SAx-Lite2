@@ -13,7 +13,8 @@
 
 @property (strong,nonatomic) UIPopoverController *popover;
 
-@property (nonatomic, strong) NSMutableArray *listPods;
+@property (nonatomic, strong) NSString *podName;
+@property (weak, nonatomic) IBOutlet UILabel *labelSAx;
 
 - (IBAction)buttonPodListTapped:(id)sender;
 
