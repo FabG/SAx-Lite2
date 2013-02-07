@@ -30,6 +30,17 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+    
+    // create popover and point it to the table of pods
+    SAxDSAPodTableViewController *tableVS = [[SAxDSAPodTableViewController alloc]init];
+    // set ourselves as the Table VS's delegate
+    tableVS.delegate=self;
+    
+    popover = [[UIPopoverController alloc] initWithContentViewController:tableVS];
+    
+    // set ourselves as the Table VS's delegate
+    [popover setDelegate:self];
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -45,14 +56,25 @@
         [popover dismissPopoverAnimated:YES];
     }
     
-    // create popover and point it to the table of pods
-    
-    SAxDSAPodTableViewController *tableVS = [[SAxDSAPodTableViewController alloc]init];
-    
-    popover = [[UIPopoverController alloc] initWithContentViewController:tableVS];
-    
     [popover setPopoverContentSize:CGSizeMake(320, 600)];
     
     [popover presentPopoverFromBarButtonItem:sender permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+    
 }
+
+// Implement delegate method to dismiss pover
+-(void)dismissPopover
+{
+    NSLog(@"dismiss popover delegate");
+    [popover dismissPopoverAnimated:YES];
+    //popover=nil;
+}
+
+// Implement delegate for touch outside of popover to dismiss it
+-(void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController
+{
+    NSLog(@"User dismissed popover");
+    //popover = nil;
+}
+
 @end

@@ -8,17 +8,20 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol DismissDelegate <NSObject>
+
+-(void)dismissPopover;
+
+@end
 
 
-@interface SAxDSAPodTableViewController : UITableViewController 
+@interface SAxDSAPodTableViewController : UITableViewController
+
+@property (nonatomic, assign) id <DismissDelegate> delegate;
+
 
 @property (nonatomic, retain) NSDictionary *dashboardPods;
 
-@end
-
-
-@protocol dismissDelegate <NSObject>
-
--(void)didTap;
 
 @end
+

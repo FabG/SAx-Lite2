@@ -7,6 +7,7 @@
 //
 
 #import "SAxDSAPodTableViewController.h"
+#import "SAxDSAViewController.h"
 
 @interface SAxDSAPodTableViewController ()
 
@@ -48,7 +49,6 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-#warning Potentially incomplete method implementation.
     // Return the number of sections.
     return [self.dashboardPods count];
 }
@@ -81,7 +81,7 @@
 	cell.accessoryType = UITableViewCellAccessoryNone;
 ;
     
-    UIImageView *imv = [[UIImageView alloc]initWithFrame:CGRectMake(3, 5, 25, 30)];
+    //UIImageView *imv = [[UIImageView alloc]initWithFrame:CGRectMake(3, 5, 25, 30)];
     cell.imageView.image = [UIImage imageNamed:@"colorful_chart.png" ];
 
     
@@ -138,9 +138,15 @@
      // Pass the selected object to the new view controller.
      [self.navigationController pushViewController:detailViewController animated:YES];
      */
-    // Call didTap to tell SAxDSA VC tjat tableView is tapped
+    // Call didTap to tell SAxDSA VC that tableView is tapped
     // and dismiss the popover
-    [delegate didTap];
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    //[delegate dismissPopover];
+    NSLog(@"Row selected, calling delegate");
+    [self.delegate dismissPopover];
+
+    
 }
 
 @end
