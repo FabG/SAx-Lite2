@@ -6,9 +6,10 @@
 //  Copyright (c) 2013 Fabrice Guillaume. All rights reserved.
 //
 
+
 #import "SAxDSAViewController.h"
 #import "SAxDSAPodTableViewController.h"
-
+#import "ShinobiLicense.h"
 
 @interface SAxDSAViewController ()
 
@@ -93,11 +94,49 @@
 
 -(void) drawPieChart
 {
-    // Enter License key
-    NSString *licenseKey = @"nwDHpmTwf5m31Y1MjAxMzAzMDlpbmZvQHNoaW5vYmljb250cm9scy5jb20=H35vNDlBhAc2WsUagWgYGOYIElNwXCIbtXSnnrPAt2vUOb8byKV52ZHv/0OaY1pgtnFe+ecC6AhgLA0ab3IXUFf1AtxMeCVXSIilzFm132O26DRjsu+q9Sk8RD7gnujMe5eHaAq8OTu/ajCo3brIhO3opGxs=BQxSUisl3BaWf/7myRmmlIjRnMU2cA7q+/03ZX9wdj30RzapYANf51ee3Pi8m2rVW6aD7t6Hi4Qy5vv9xpaQYXF5T7XzsafhzS3hbBokp36BoJZg8IrceBj742nQajYyV7trx5GIw9jy/V6r0bvctKYwTim7Kzq+YPWGMtqtQoU=PFJTQUtleVZhbHVlPjxNb2R1bHVzPnh6YlRrc2dYWWJvQUh5VGR6dkNzQXUrUVAxQnM5b2VrZUxxZVdacnRFbUx3OHZlWStBK3pteXg4NGpJbFkzT2hGdlNYbHZDSjlKVGZQTTF4S2ZweWZBVXBGeXgxRnVBMThOcDNETUxXR1JJbTJ6WXA3a1YyMEdYZGU3RnJyTHZjdGhIbW1BZ21PTTdwMFBsNWlSKzNVMDg5M1N4b2hCZlJ5RHdEeE9vdDNlMD08L01vZHVsdXM+PEV4cG9uZW50PkFRQUI8L0V4cG9uZW50PjwvUlNBS2V5VmFsdWU+";
+    // Enter License key / License date
+    NSString *licenseKey = [ShinobiLicense getShinobiLicenseKey];
+    NSDate *licenseDate = [ShinobiLicense getShinobiLicenseDate];
+    NSDate *today = [NSDate date];
     
+    dNSLog(@"Shinobi License expiration Date: %@", licenseDate);
+
     chart = [[ShinobiChart alloc] initWithFrame:self.view.bounds];
-    chart.title = @"My first chart";
+    
+    if (licenseKey)
+    {
+        chart.title = podName;
+        chart.theme.chartTitleStyle.position = SChartTitlePositionCenter;
+
+    }
+    else
+    {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Shinobi License Error"
+                                                            message:@"The license key is missing"
+                                                           delegate:self
+                                                            cancelButtonTitle:@"OK"
+                                                            otherButtonTitles:nil, nil];
+        
+        dNSLog(@"Shinobi License is missing. check ShinobiSettings.plist");
+        [alertView show];
+        return;
+    }
+    
+    if ((!licenseDate) || ([licenseDate compare:today] == NSOrderedAscending))
+    {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Shinobi License Error"
+                                                            message:@"The license key has expired or is missing. Please request a new 30days evaluation or get a permanent."
+                                                           delegate:self
+                                                            cancelButtonTitle:@"OK"
+                                                            otherButtonTitles:nil, nil];
+
+        if (!licenseDate)
+            dNSLog(@"Shinobi License Date is missing. check ShinobiSettings.plist");
+        dNSLog(@"Shinobi License expiration Date: %@ is older than current date: %@", licenseDate, today);
+        
+        [alertView show];
+        return;
+    }
     
     // Set the resizing mask to allow it to automatically resize when the screen orientation changes.
     chart.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin |

@@ -16,6 +16,8 @@
 		1B6EA5EE16C0A27300963111 /* SAxM_Launch_Pad_DSA_150x150_sel.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B6EA5E816C0A27300963111 /* SAxM_Launch_Pad_DSA_150x150_sel.png */; };
 		1B6EA5EF16C0A27300963111 /* SAxM_Launch_Pad_TPA_150x150_sel.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B6EA5E916C0A27300963111 /* SAxM_Launch_Pad_TPA_150x150_sel.png */; };
 		1B6EA5F016C0A27300963111 /* SAxM_Launch_Pad_UR_150x150_sel.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B6EA5EA16C0A27300963111 /* SAxM_Launch_Pad_UR_150x150_sel.png */; };
+		1BAB4F9916C543C70029E78C /* ShinobiLicense.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BAB4F9816C543C70029E78C /* ShinobiLicense.m */; };
+		1BAB4F9B16C545200029E78C /* ShinobiSettings.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1BAB4F9A16C545200029E78C /* ShinobiSettings.plist */; };
 		1BBC330A16C046D300EBB576 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BBC330916C046D300EBB576 /* UIKit.framework */; };
 		1BBC330C16C046D300EBB576 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BBC330B16C046D300EBB576 /* Foundation.framework */; };
 		1BBC330E16C046D300EBB576 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BBC330D16C046D300EBB576 /* CoreGraphics.framework */; };
@@ -55,6 +57,9 @@
 		1B6EA5E816C0A27300963111 /* SAxM_Launch_Pad_DSA_150x150_sel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SAxM_Launch_Pad_DSA_150x150_sel.png; path = saxmiconsselected/SAxM_Launch_Pad_DSA_150x150_sel.png; sourceTree = "<group>"; };
 		1B6EA5E916C0A27300963111 /* SAxM_Launch_Pad_TPA_150x150_sel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SAxM_Launch_Pad_TPA_150x150_sel.png; path = saxmiconsselected/SAxM_Launch_Pad_TPA_150x150_sel.png; sourceTree = "<group>"; };
 		1B6EA5EA16C0A27300963111 /* SAxM_Launch_Pad_UR_150x150_sel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SAxM_Launch_Pad_UR_150x150_sel.png; path = saxmiconsselected/SAxM_Launch_Pad_UR_150x150_sel.png; sourceTree = "<group>"; };
+		1BAB4F9716C543C70029E78C /* ShinobiLicense.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShinobiLicense.h; sourceTree = "<group>"; };
+		1BAB4F9816C543C70029E78C /* ShinobiLicense.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShinobiLicense.m; sourceTree = "<group>"; };
+		1BAB4F9A16C545200029E78C /* ShinobiSettings.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ShinobiSettings.plist; sourceTree = "<group>"; };
 		1BBC330616C046D300EBB576 /* SAx Lite2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SAx Lite2.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1BBC330916C046D300EBB576 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		1BBC330B16C046D300EBB576 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -108,6 +113,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1BAB4F9616C543880029E78C /* Shinobi */ = {
+			isa = PBXGroup;
+			children = (
+				1BAB4F9716C543C70029E78C /* ShinobiLicense.h */,
+				1BAB4F9816C543C70029E78C /* ShinobiLicense.m */,
+				1BAB4F9A16C545200029E78C /* ShinobiSettings.plist */,
+			);
+			name = Shinobi;
+			sourceTree = "<group>";
+		};
 		1BBC32FD16C046D300EBB576 = {
 			isa = PBXGroup;
 			children = (
@@ -142,11 +157,11 @@
 		1BBC330F16C046D300EBB576 /* SAx Lite2 */ = {
 			isa = PBXGroup;
 			children = (
+				1BAB4F9616C543880029E78C /* Shinobi */,
 				1BBC332F16C0471800EBB576 /* Images */,
 				1BBC331816C046D300EBB576 /* SAxAppDelegate.h */,
 				1BBC331916C046D300EBB576 /* SAxAppDelegate.m */,
 				1BBC332116C046D300EBB576 /* MainStoryboard_iPhone.storyboard */,
-				1BBC331016C046D300EBB576 /* Supporting Files */,
 				1BBC332416C046D300EBB576 /* MainStoryboard_iPad.storyboard */,
 				1BBC332716C046D300EBB576 /* SAxViewController.h */,
 				1BBC332816C046D300EBB576 /* SAxViewController.m */,
@@ -156,6 +171,7 @@
 				1BDD07E616C3176300126EEC /* SAxDSAViewController.m */,
 				1BDD07E816C318C500126EEC /* SAxDSAPodTableViewController.h */,
 				1BDD07E916C318C500126EEC /* SAxDSAPodTableViewController.m */,
+				1BBC331016C046D300EBB576 /* Supporting Files */,
 			);
 			path = "SAx Lite2";
 			sourceTree = "<group>";
@@ -271,6 +287,7 @@
 				1B6EA5F016C0A27300963111 /* SAxM_Launch_Pad_UR_150x150_sel.png in Resources */,
 				1BDD07EF16C3406700126EEC /* SAx_DashboardPods.plist in Resources */,
 				1BDD07F116C34B8A00126EEC /* colorful_chart.png in Resources */,
+				1BAB4F9B16C545200029E78C /* ShinobiSettings.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -287,6 +304,7 @@
 				1B6EA5E316C0779600963111 /* SAxMLaunchController.m in Sources */,
 				1BDD07E716C3176300126EEC /* SAxDSAViewController.m in Sources */,
 				1BDD07EA16C318C500126EEC /* SAxDSAPodTableViewController.m in Sources */,
+				1BAB4F9916C543C70029E78C /* ShinobiLicense.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
