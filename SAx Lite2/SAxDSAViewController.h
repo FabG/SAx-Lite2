@@ -8,14 +8,17 @@
 
 #import <UIKit/UIKit.h>
 #import "SAxDSAPodTableViewController.h"
+#import <ShinobiCharts/ShinobiChart.h>
 
 
-@interface SAxDSAViewController : UIViewController <DismissDelegate, UIPopoverControllerDelegate> ;
-
+@interface SAxDSAViewController : UIViewController <DismissDelegate, UIPopoverControllerDelegate, SChartDatasource>
+{
+    ShinobiChart *chart;
+}
 @property (strong,nonatomic) UIPopoverController *popover;
-
 @property (nonatomic, strong) NSString *podName;
 @property (weak, nonatomic) IBOutlet UILabel *labelSAx;
+//@property (strong, nonatomic) ShinobiChart *chart;
 
 - (IBAction)buttonPodListTapped:(id)sender;
 - (void)drawPieChart;

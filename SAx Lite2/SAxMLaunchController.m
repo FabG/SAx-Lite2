@@ -84,6 +84,13 @@
     }
 }
 
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+    // Return YES for supported orientations
+    //return (interfaceOrientation == UIInterfaceOrientationPortrait);
+    return (interfaceOrientation == UIInterfaceOrientationMaskAllButUpsideDown);
+}
+
 
 - (IBAction)buttonBackTouched:(id)sender {
     dNSLog(@"Back pressed");
