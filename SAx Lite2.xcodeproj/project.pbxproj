@@ -19,7 +19,6 @@
 		1BAB4F9916C543C70029E78C /* ShinobiLicense.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BAB4F9816C543C70029E78C /* ShinobiLicense.m */; };
 		1BAB4F9B16C545200029E78C /* ShinobiSettings.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1BAB4F9A16C545200029E78C /* ShinobiSettings.plist */; };
 		1BAB4F9F16C55B830029E78C /* SAxRequestGetData.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BAB4F9E16C55B830029E78C /* SAxRequestGetData.m */; };
-		1BAB4FB916C55FFD0029E78C /* DataProviderService.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BAB4FA216C55FFD0029E78C /* DataProviderService.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		1BAB4FBA16C55FFD0029E78C /* ns1.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BAB4FA416C55FFD0029E78C /* ns1.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		1BAB4FBB16C55FFD0029E78C /* NSDate+ISO8601Parsing.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BAB4FA616C55FFD0029E78C /* NSDate+ISO8601Parsing.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		1BAB4FBC16C55FFD0029E78C /* NSDate+ISO8601Unparsing.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BAB4FA816C55FFD0029E78C /* NSDate+ISO8601Unparsing.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -32,6 +31,8 @@
 		1BAB4FC316C55FFD0029E78C /* USGlobals.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BAB4FB616C55FFD0029E78C /* USGlobals.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		1BAB4FC416C55FFD0029E78C /* xs.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BAB4FB816C55FFD0029E78C /* xs.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		1BAB4FC616C560DB0029E78C /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BAB4FC516C560DB0029E78C /* CFNetwork.framework */; };
+		1BBA354416C6048C00D69349 /* DataProviderService.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BBA354316C6048C00D69349 /* DataProviderService.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		1BBA354716C6FBB800D69349 /* SAxSOAPProxyGetData.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BBA354616C6FBB800D69349 /* SAxSOAPProxyGetData.m */; };
 		1BBC330A16C046D300EBB576 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BBC330916C046D300EBB576 /* UIKit.framework */; };
 		1BBC330C16C046D300EBB576 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BBC330B16C046D300EBB576 /* Foundation.framework */; };
 		1BBC330E16C046D300EBB576 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BBC330D16C046D300EBB576 /* CoreGraphics.framework */; };
@@ -76,8 +77,6 @@
 		1BAB4F9A16C545200029E78C /* ShinobiSettings.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ShinobiSettings.plist; sourceTree = "<group>"; };
 		1BAB4F9D16C55B830029E78C /* SAxRequestGetData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAxRequestGetData.h; sourceTree = "<group>"; };
 		1BAB4F9E16C55B830029E78C /* SAxRequestGetData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAxRequestGetData.m; sourceTree = "<group>"; };
-		1BAB4FA116C55FFD0029E78C /* DataProviderService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataProviderService.h; sourceTree = "<group>"; };
-		1BAB4FA216C55FFD0029E78C /* DataProviderService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataProviderService.m; sourceTree = "<group>"; };
 		1BAB4FA316C55FFD0029E78C /* ns1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ns1.h; sourceTree = "<group>"; };
 		1BAB4FA416C55FFD0029E78C /* ns1.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ns1.m; sourceTree = "<group>"; };
 		1BAB4FA516C55FFD0029E78C /* NSDate+ISO8601Parsing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+ISO8601Parsing.h"; sourceTree = "<group>"; };
@@ -101,6 +100,10 @@
 		1BAB4FB716C55FFD0029E78C /* xs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xs.h; sourceTree = "<group>"; };
 		1BAB4FB816C55FFD0029E78C /* xs.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = xs.m; sourceTree = "<group>"; };
 		1BAB4FC516C560DB0029E78C /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		1BBA354216C6048C00D69349 /* DataProviderService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DataProviderService.h; path = ../../../../WSDL2OjC/Output/DataProviderService.h; sourceTree = "<group>"; };
+		1BBA354316C6048C00D69349 /* DataProviderService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DataProviderService.m; path = ../../../../WSDL2OjC/Output/DataProviderService.m; sourceTree = "<group>"; };
+		1BBA354516C6FBB800D69349 /* SAxSOAPProxyGetData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAxSOAPProxyGetData.h; sourceTree = "<group>"; };
+		1BBA354616C6FBB800D69349 /* SAxSOAPProxyGetData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAxSOAPProxyGetData.m; sourceTree = "<group>"; };
 		1BBC330616C046D300EBB576 /* SAx Lite2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SAx Lite2.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1BBC330916C046D300EBB576 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		1BBC330B16C046D300EBB576 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -168,6 +171,8 @@
 		1BAB4F9C16C555B00029E78C /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				1BBA354516C6FBB800D69349 /* SAxSOAPProxyGetData.h */,
+				1BBA354616C6FBB800D69349 /* SAxSOAPProxyGetData.m */,
 				1BAB4F9D16C55B830029E78C /* SAxRequestGetData.h */,
 				1BAB4F9E16C55B830029E78C /* SAxRequestGetData.m */,
 			);
@@ -177,8 +182,8 @@
 		1BAB4FA016C55FDF0029E78C /* SOAP */ = {
 			isa = PBXGroup;
 			children = (
-				1BAB4FA116C55FFD0029E78C /* DataProviderService.h */,
-				1BAB4FA216C55FFD0029E78C /* DataProviderService.m */,
+				1BBA354216C6048C00D69349 /* DataProviderService.h */,
+				1BBA354316C6048C00D69349 /* DataProviderService.m */,
 				1BAB4FA316C55FFD0029E78C /* ns1.h */,
 				1BAB4FA416C55FFD0029E78C /* ns1.m */,
 				1BAB4FA516C55FFD0029E78C /* NSDate+ISO8601Parsing.h */,
@@ -391,7 +396,6 @@
 				1BDD07EA16C318C500126EEC /* SAxDSAPodTableViewController.m in Sources */,
 				1BAB4F9916C543C70029E78C /* ShinobiLicense.m in Sources */,
 				1BAB4F9F16C55B830029E78C /* SAxRequestGetData.m in Sources */,
-				1BAB4FB916C55FFD0029E78C /* DataProviderService.m in Sources */,
 				1BAB4FBA16C55FFD0029E78C /* ns1.m in Sources */,
 				1BAB4FBB16C55FFD0029E78C /* NSDate+ISO8601Parsing.m in Sources */,
 				1BAB4FBC16C55FFD0029E78C /* NSDate+ISO8601Unparsing.m in Sources */,
@@ -403,6 +407,8 @@
 				1BAB4FC216C55FFD0029E78C /* USAdditions.m in Sources */,
 				1BAB4FC316C55FFD0029E78C /* USGlobals.m in Sources */,
 				1BAB4FC416C55FFD0029E78C /* xs.m in Sources */,
+				1BBA354416C6048C00D69349 /* DataProviderService.m in Sources */,
+				1BBA354716C6FBB800D69349 /* SAxSOAPProxyGetData.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -505,6 +511,7 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SAx Lite2/SAx Lite2-Prefix.pch";
+				HEADER_SEARCH_PATHS = /usr/include/libxml2;
 				INFOPLIST_FILE = "SAx Lite2/SAx Lite2-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				LIBRARY_SEARCH_PATHS = (
@@ -530,6 +537,7 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SAx Lite2/SAx Lite2-Prefix.pch";
+				HEADER_SEARCH_PATHS = /usr/include/libxml2;
 				INFOPLIST_FILE = "SAx Lite2/SAx Lite2-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				LIBRARY_SEARCH_PATHS = (

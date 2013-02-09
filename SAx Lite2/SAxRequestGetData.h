@@ -10,11 +10,10 @@
 #import "DataProviderService.h"
 
 @interface SAxRequestGetData : NSObject
-
-
-@property (nonatomic, strong) NSURLConnection *connection;
-@property (nonatomic, strong) NSMutableData *xmlData;
-
+{
+    NSURLConnection *connection;
+    NSMutableData *xmlData;
+}
 -(void)fecthData;
 
 @end

@@ -20,8 +20,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *labelSAx;
 //@property (strong, nonatomic) ShinobiChart *chart;
 
-- (IBAction)buttonPodListTapped:(id)sender;
-- (void)drawPieChart;
+- (IBAction) buttonPodListTapped:(id)sender;
+- (void) drawPieChart;
 - (void) updateChart;
 
 @end
