@@ -232,7 +232,7 @@
     [contexInfo addString:@"dashboardID=100001"];
     [contexInfo addString:@"podID=0"];
     [contexInfo addString:@"podModeID=0"];
-    [contexInfo addString:@"UserId=fminetti"];
+    [contexInfo addString:@"UserId=fguillaume"];
     [contexInfo addString:@"versionID=332"];
     [contexInfo addString:@"DASH_POD_TYPE=Pod"];
     [contexInfo addString:@"podType=SQLPod"];
@@ -461,6 +461,9 @@
     dNSLog(@"\t[SOAP-Request] Sending request, DashboardID = %d, PodID = %d", 100001, 0);
     
     response = [binding GetDataUsingParameters:request];
+    dNSLog(@"\t[SOAP-Request] request = %@", request.description);
+    dNSLog(@"\t[SOAP-Request] request parameters = %@", request.parameters.description);
+
     dispatch_async(dispatch_get_main_queue(), ^{ [self processResponseGetData:response]; });
 }
 
