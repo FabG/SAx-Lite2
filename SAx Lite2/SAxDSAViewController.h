@@ -22,5 +22,6 @@
 
 - (IBAction)buttonPodListTapped:(id)sender;
 - (void)drawPieChart;
+- (void) updateChart;
 
 @end
