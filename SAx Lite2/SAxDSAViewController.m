@@ -10,7 +10,7 @@
 #import "SAxDSAViewController.h"
 #import "SAxDSAPodTableViewController.h"
 #import "ShinobiLicense.h"
-#import "SAxRequestGetData.h"
+#import "SAxSOAPProxyGetData.h"
 
 
 @interface SAxDSAViewController ()
@@ -84,10 +84,15 @@
 
 -(void) updateChart
 {
+    dNSLog(@"[SAxDSA] Prepping the request to send to the webservice:%@", podName);
     // Send the request asynchronously
-    SAxRequestGetData *request = [[SAxRequestGetData alloc]init];
-
-    [request fecthData];
+    SAxSOAPProxyGetData *request = [[SAxSOAPProxyGetData alloc]init];
+    [request processRequestGetData];
+    
+    //[self processRequestGetDataProviderConfig];
+    
+    //SAxRequestGetData *request = [[SAxRequestGetData alloc]init];
+    // [request fecthData];
     
     // The delegate of an NSURLConnection is responsible for overseeing the connection and for
     // collectin the data returned from the request
@@ -219,6 +224,9 @@
     
     return datapoint;
 }
+
+
+
 
 
 

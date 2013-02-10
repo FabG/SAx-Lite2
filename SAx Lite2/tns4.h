@@ -15,7 +15,7 @@
 /* attributes */
 }
 - (NSString *)nsPrefix;
-- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName;
+- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix;
 - (void)addAttributesToNode:(xmlNodePtr)node;
 - (void)addElementsToNode:(xmlNodePtr)node;
 + (tns4_ExceptionParamDTO *)deserializeNode:(xmlNodePtr)cur;
@@ -43,7 +43,7 @@
 /* attributes */
 }
 - (NSString *)nsPrefix;
-- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName;
+- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix;
 - (void)addAttributesToNode:(xmlNodePtr)node;
 - (void)addElementsToNode:(xmlNodePtr)node;
 + (tns4_AnnotationParamDTO *)deserializeNode:(xmlNodePtr)cur;

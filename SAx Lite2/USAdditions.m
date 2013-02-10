@@ -18,9 +18,48 @@
 
 @implementation NSString (USAdditions)
 
-- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName
+- (NSString *)stringByEscapingXML
 {
-	return xmlNewDocNode(doc, NULL, (const xmlChar*)[elName UTF8String], (const xmlChar*)[self UTF8String]);
+	NSMutableString *escapedString = [[self mutableCopy] autorelease];
+	[escapedString replaceOccurrencesOfString:@"\"" withString:@"&quot;" options:0 range:NSMakeRange(0, [escapedString length])];
+	[escapedString replaceOccurrencesOfString:@"'" withString:@"&apos;" options:0 range:NSMakeRange(0, [escapedString length])];
+	[escapedString replaceOccurrencesOfString:@"<" withString:@"&lt;" options:0 range:NSMakeRange(0, [escapedString length])];
+	[escapedString replaceOccurrencesOfString:@">" withString:@"&gt;" options:0 range:NSMakeRange(0, [escapedString length])];
+	[escapedString replaceOccurrencesOfString:@"&" withString:@"&amp;" options:0 range:NSMakeRange(0, [escapedString length])];
+	return escapedString;
+}
+
+- (NSString *)stringByUnescapingXML
+{
+	NSMutableString *unescapedString = [[self mutableCopy] autorelease];
+	[unescapedString replaceOccurrencesOfString:@"&amp;" withString:@"&" options:0 range:NSMakeRange(0, [unescapedString length])];
+	[unescapedString replaceOccurrencesOfString:@"&quot;" withString:@"\"" options:0 range:NSMakeRange(0, [unescapedString length])];
+	[unescapedString replaceOccurrencesOfString:@"&apos;" withString:@"'" options:0 range:NSMakeRange(0, [unescapedString length])];
+	[unescapedString replaceOccurrencesOfString:@"&lt;" withString:@"<" options:0 range:NSMakeRange(0, [unescapedString length])];
+	[unescapedString replaceOccurrencesOfString:@"&gt;" withString:@">" options:0 range:NSMakeRange(0, [unescapedString length])];
+	return unescapedString;
+}
+
+- (const xmlChar *)xmlString
+{
+	return (xmlChar *)[[self stringByEscapingXML] UTF8String];
+}
+
+- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix
+{
+	NSString *nodeName = nil;
+	if(elNSPrefix != nil && [elNSPrefix length] > 0)
+	{
+		nodeName = [NSString stringWithFormat:@"%@:%@", elNSPrefix, elName];
+	}
+	else
+	{
+		nodeName = elName;
+	}
+	
+	xmlNodePtr node = xmlNewDocNode(doc, NULL, [nodeName xmlString], [self xmlString]);
+	
+	return node;
 }
 
 + (NSString *)deserializeNode:(xmlNodePtr)cur
@@ -33,16 +72,28 @@
 		xmlFree(elementText);
 	}
 	
-	return elementString;
+	return [elementString stringByUnescapingXML];
 }
 
 @end
 
 @implementation NSNumber (USAdditions)
 
-- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName
+- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix
 {
-	return xmlNewDocNode(doc, NULL, (const xmlChar*)[elName UTF8String], (const xmlChar*)[[self stringValue] UTF8String]);
+	NSString *nodeName = nil;
+	if(elNSPrefix != nil && [elNSPrefix length] > 0)
+	{
+		nodeName = [NSString stringWithFormat:@"%@:%@", elNSPrefix, elName];
+	}
+	else
+	{
+		nodeName = elName;
+	}
+	
+	xmlNodePtr node = xmlNewDocNode(doc, NULL, [nodeName xmlString], [[self stringValue] xmlString]);
+	
+	return node;
 }
 
 + (NSNumber *)deserializeNode:(xmlNodePtr)cur
@@ -55,9 +106,21 @@
 
 @implementation NSDate (USAdditions)
 
-- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName
+- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix
 {
-	return xmlNewDocNode(doc, NULL, (const xmlChar*)[elName UTF8String], (const xmlChar*)[[self ISO8601DateString] UTF8String]);
+	NSString *nodeName = nil;
+	if(elNSPrefix != nil && [elNSPrefix length] > 0)
+	{
+		nodeName = [NSString stringWithFormat:@"%@:%@", elNSPrefix, elName];
+	}
+	else
+	{
+		nodeName = elName;
+	}
+	
+	xmlNodePtr node = xmlNewDocNode(doc, NULL, [nodeName xmlString], [[self ISO8601DateString] xmlString]);
+	
+	return node;
 }
 
 + (NSDate *)deserializeNode:(xmlNodePtr)cur
@@ -69,14 +132,35 @@
 
 @implementation NSData (USAdditions)
 
-- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName
+- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix
 {
-	return xmlNewDocNode(doc, NULL, (const xmlChar*)[elName UTF8String], (const xmlChar*)[[self base64Encoding] UTF8String]);
+	NSString *nodeName = nil;
+	if(elNSPrefix != nil && [elNSPrefix length] > 0)
+	{
+		nodeName = [NSString stringWithFormat:@"%@:%@", elNSPrefix, elName];
+	}
+	else
+	{
+		nodeName = elName;
+	}
+	
+	xmlNodePtr node = xmlNewDocNode(doc, NULL, [nodeName xmlString], [[self base64Encoding] xmlString]);
+	
+	return node;
 }
 
 + (NSData *)deserializeNode:(xmlNodePtr)cur
 {
-	return [NSData dataWithBase64EncodedString:[NSString deserializeNode:cur]];
+	if(cur != NULL)
+	{
+		NSString *deserializedStringResult = [NSString deserializeNode:cur];
+		if(deserializedStringResult != nil)
+		{
+			return [NSData dataWithBase64EncodedString:deserializedStringResult];
+		}
+	}
+	
+	return nil;
 }
 
 @end
@@ -90,7 +174,7 @@ static const char encodingTable[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopq
 + (id)dataWithBase64EncodedString:(NSString *)string;
 {
 	if (string == nil)
-		[NSException raise:NSInvalidArgumentException format:nil];
+		[NSException raise:NSInvalidArgumentException format:@"Error: String must not be nil"];
 	if ([string length] == 0)
 		return [NSData data];
 	
@@ -206,9 +290,21 @@ static const char encodingTable[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopq
 	return value ? @"true" : @"false";
 }
 
-- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName
+- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix
 {
-	return xmlNewDocNode(doc, NULL, (const xmlChar*)[elName UTF8String], (const xmlChar*)[[self stringValue] UTF8String]);
+	NSString *nodeName = nil;
+	if(elNSPrefix != nil && [elNSPrefix length] > 0)
+	{
+		nodeName = [NSString stringWithFormat:@"%@:%@", elNSPrefix, elName];
+	}
+	else
+	{
+		nodeName = elName;
+	}
+	
+	xmlNodePtr node = xmlNewDocNode(doc, NULL, [nodeName xmlString], [[self stringValue] xmlString]);
+	
+	return node;
 }
 
 + (USBoolean *)deserializeNode:(xmlNodePtr)cur

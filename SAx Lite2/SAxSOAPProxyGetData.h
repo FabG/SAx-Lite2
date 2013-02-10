@@ -7,11 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "DataProviderService.h"
+#import "DataProviderServiceSvc.h"
 
 @interface SAxSOAPProxyGetData : NSObject
 
 -(void)processRequestGetData;
--(void)processResponseGetData :(BasicHttpBinding_IDataProviderServiceResponse *)soapResponse;
+-(void)processResponseGetData :(BasicHttpBinding_IDataProviderServiceBindingResponse *)soapResponse;
 
 @end

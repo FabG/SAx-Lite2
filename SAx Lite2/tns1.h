@@ -20,7 +20,7 @@
 /* attributes */
 }
 - (NSString *)nsPrefix;
-- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName;
+- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix;
 - (void)addAttributesToNode:(xmlNodePtr)node;
 - (void)addElementsToNode:(xmlNodePtr)node;
 + (tns1_GetConfigDTO *)deserializeNode:(xmlNodePtr)cur;
@@ -42,7 +42,7 @@
 /* attributes */
 }
 - (NSString *)nsPrefix;
-- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName;
+- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix;
 - (void)addAttributesToNode:(xmlNodePtr)node;
 - (void)addElementsToNode:(xmlNodePtr)node;
 + (tns1_DataProviderWSResultDTO *)deserializeNode:(xmlNodePtr)cur;
@@ -72,7 +72,7 @@ NSString * tns1_ExceptionMode_stringFromEnum(tns1_ExceptionMode enumValue);
 /* attributes */
 }
 - (NSString *)nsPrefix;
-- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName;
+- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix;
 - (void)addAttributesToNode:(xmlNodePtr)node;
 - (void)addElementsToNode:(xmlNodePtr)node;
 + (tns1_PagingDTO *)deserializeNode:(xmlNodePtr)cur;
@@ -93,7 +93,7 @@ NSString * tns1_ExceptionMode_stringFromEnum(tns1_ExceptionMode enumValue);
 /* attributes */
 }
 - (NSString *)nsPrefix;
-- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName;
+- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix;
 - (void)addAttributesToNode:(xmlNodePtr)node;
 - (void)addElementsToNode:(xmlNodePtr)node;
 + (tns1_FilterDTO *)deserializeNode:(xmlNodePtr)cur;
@@ -113,7 +113,7 @@ NSString * tns1_ExceptionMode_stringFromEnum(tns1_ExceptionMode enumValue);
 /* attributes */
 }
 - (NSString *)nsPrefix;
-- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName;
+- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix;
 - (void)addAttributesToNode:(xmlNodePtr)node;
 - (void)addElementsToNode:(xmlNodePtr)node;
 + (tns1_ArrayOfFilterDTO *)deserializeNode:(xmlNodePtr)cur;
@@ -133,7 +133,7 @@ NSString * tns1_ExceptionMode_stringFromEnum(tns1_ExceptionMode enumValue);
 /* attributes */
 }
 - (NSString *)nsPrefix;
-- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName;
+- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix;
 - (void)addAttributesToNode:(xmlNodePtr)node;
 - (void)addElementsToNode:(xmlNodePtr)node;
 + (tns1_SortDTO *)deserializeNode:(xmlNodePtr)cur;
@@ -152,7 +152,7 @@ NSString * tns1_ExceptionMode_stringFromEnum(tns1_ExceptionMode enumValue);
 /* attributes */
 }
 - (NSString *)nsPrefix;
-- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName;
+- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix;
 - (void)addAttributesToNode:(xmlNodePtr)node;
 - (void)addElementsToNode:(xmlNodePtr)node;
 + (tns1_ArrayOfSortDTO *)deserializeNode:(xmlNodePtr)cur;
@@ -178,7 +178,7 @@ NSString * tns1_ExceptionMode_stringFromEnum(tns1_ExceptionMode enumValue);
 /* attributes */
 }
 - (NSString *)nsPrefix;
-- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName;
+- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix;
 - (void)addAttributesToNode:(xmlNodePtr)node;
 - (void)addElementsToNode:(xmlNodePtr)node;
 + (tns1_GetDataParamsDTO *)deserializeNode:(xmlNodePtr)cur;

@@ -26,15 +26,20 @@
 {
 	return @"tns1";
 }
-- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName
+- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix
 {
-	xmlNodePtr root = xmlDocGetRootElement(doc);
+	NSString *nodeName = nil;
+	if(elNSPrefix != nil && [elNSPrefix length] > 0)
+	{
+		nodeName = [NSString stringWithFormat:@"%@:%@", elNSPrefix, elName];
+	}
+	else
+	{
+		nodeName = [NSString stringWithFormat:@"%@:%@", @"tns1", elName];
+	}
 	
-	xmlNsPtr xsi = xmlSearchNs(doc, root, (const xmlChar*)"xsi");
+	xmlNodePtr node = xmlNewDocNode(doc, NULL, [nodeName xmlString], NULL);
 	
-	xmlNodePtr node = xmlNewDocNode(doc, NULL, (const xmlChar*)[elName UTF8String], NULL);
-	xmlSetNsProp(node, xsi, (const xmlChar*)"type", (const xmlChar*)"tns1:GetConfigDTO");
-	xmlSetNsProp(node, nil, (const xmlChar*)"xmlns", (const xmlChar*)"http://schemas.datacontract.org/2004/07/Xplore.Framework.Common.DataProvider.DTO");
 	
 	[self addAttributesToNode:node];
 	
@@ -50,13 +55,13 @@
 {
 	
 	if(self.ContextInfo != 0) {
-		xmlAddChild(node, [self.ContextInfo xmlNodeForDoc:node->doc elementName:@"ContextInfo"]);
+		xmlAddChild(node, [self.ContextInfo xmlNodeForDoc:node->doc elementName:@"ContextInfo" elementNSPrefix:@"tns1"]);
 	}
 	if(self.DataProviderId != 0) {
-		xmlAddChild(node, [self.DataProviderId xmlNodeForDoc:node->doc elementName:@"DataProviderId"]);
+		xmlAddChild(node, [self.DataProviderId xmlNodeForDoc:node->doc elementName:@"DataProviderId" elementNSPrefix:@"tns1"]);
 	}
 	if(self.ForceConfigRefresh != 0) {
-		xmlAddChild(node, [self.ForceConfigRefresh xmlNodeForDoc:node->doc elementName:@"ForceConfigRefresh"]);
+		xmlAddChild(node, [self.ForceConfigRefresh xmlNodeForDoc:node->doc elementName:@"ForceConfigRefresh" elementNSPrefix:@"tns1"]);
 	}
 }
 /* elements */
@@ -112,7 +117,7 @@
 						NSString *prefix = [elementTypeArray objectAtIndex:0];
 						NSString *localName = [elementTypeArray objectAtIndex:1];
 						
-						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, (const xmlChar *)[prefix UTF8String]);
+						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, [prefix xmlString]);
 						
 						NSString *standardPrefix = [[USGlobals sharedInstance].wsdlStandardNamespaces objectForKey:[NSString stringWithCString:(char*)elementNamespace->href encoding:NSUTF8StringEncoding]];
 						
@@ -145,7 +150,7 @@
 						NSString *prefix = [elementTypeArray objectAtIndex:0];
 						NSString *localName = [elementTypeArray objectAtIndex:1];
 						
-						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, (const xmlChar *)[prefix UTF8String]);
+						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, [prefix xmlString]);
 						
 						NSString *standardPrefix = [[USGlobals sharedInstance].wsdlStandardNamespaces objectForKey:[NSString stringWithCString:(char*)elementNamespace->href encoding:NSUTF8StringEncoding]];
 						
@@ -178,7 +183,7 @@
 						NSString *prefix = [elementTypeArray objectAtIndex:0];
 						NSString *localName = [elementTypeArray objectAtIndex:1];
 						
-						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, (const xmlChar *)[prefix UTF8String]);
+						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, [prefix xmlString]);
 						
 						NSString *standardPrefix = [[USGlobals sharedInstance].wsdlStandardNamespaces objectForKey:[NSString stringWithCString:(char*)elementNamespace->href encoding:NSUTF8StringEncoding]];
 						
@@ -222,15 +227,20 @@
 {
 	return @"tns1";
 }
-- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName
+- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix
 {
-	xmlNodePtr root = xmlDocGetRootElement(doc);
+	NSString *nodeName = nil;
+	if(elNSPrefix != nil && [elNSPrefix length] > 0)
+	{
+		nodeName = [NSString stringWithFormat:@"%@:%@", elNSPrefix, elName];
+	}
+	else
+	{
+		nodeName = [NSString stringWithFormat:@"%@:%@", @"tns1", elName];
+	}
 	
-	xmlNsPtr xsi = xmlSearchNs(doc, root, (const xmlChar*)"xsi");
+	xmlNodePtr node = xmlNewDocNode(doc, NULL, [nodeName xmlString], NULL);
 	
-	xmlNodePtr node = xmlNewDocNode(doc, NULL, (const xmlChar*)[elName UTF8String], NULL);
-	xmlSetNsProp(node, xsi, (const xmlChar*)"type", (const xmlChar*)"tns1:DataProviderWSResultDTO");
-	xmlSetNsProp(node, nil, (const xmlChar*)"xmlns", (const xmlChar*)"http://schemas.datacontract.org/2004/07/Xplore.Framework.Common.DataProvider.DTO");
 	
 	[self addAttributesToNode:node];
 	
@@ -246,13 +256,13 @@
 {
 	
 	if(self.Code != 0) {
-		xmlAddChild(node, [self.Code xmlNodeForDoc:node->doc elementName:@"Code"]);
+		xmlAddChild(node, [self.Code xmlNodeForDoc:node->doc elementName:@"Code" elementNSPrefix:@"tns1"]);
 	}
 	if(self.Description != 0) {
-		xmlAddChild(node, [self.Description xmlNodeForDoc:node->doc elementName:@"Description"]);
+		xmlAddChild(node, [self.Description xmlNodeForDoc:node->doc elementName:@"Description" elementNSPrefix:@"tns1"]);
 	}
 	if(self.ResultObject != 0) {
-		xmlAddChild(node, [self.ResultObject xmlNodeForDoc:node->doc elementName:@"ResultObject"]);
+		xmlAddChild(node, [self.ResultObject xmlNodeForDoc:node->doc elementName:@"ResultObject" elementNSPrefix:@"tns1"]);
 	}
 }
 /* elements */
@@ -308,7 +318,7 @@
 						NSString *prefix = [elementTypeArray objectAtIndex:0];
 						NSString *localName = [elementTypeArray objectAtIndex:1];
 						
-						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, (const xmlChar *)[prefix UTF8String]);
+						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, [prefix xmlString]);
 						
 						NSString *standardPrefix = [[USGlobals sharedInstance].wsdlStandardNamespaces objectForKey:[NSString stringWithCString:(char*)elementNamespace->href encoding:NSUTF8StringEncoding]];
 						
@@ -341,7 +351,7 @@
 						NSString *prefix = [elementTypeArray objectAtIndex:0];
 						NSString *localName = [elementTypeArray objectAtIndex:1];
 						
-						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, (const xmlChar *)[prefix UTF8String]);
+						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, [prefix xmlString]);
 						
 						NSString *standardPrefix = [[USGlobals sharedInstance].wsdlStandardNamespaces objectForKey:[NSString stringWithCString:(char*)elementNamespace->href encoding:NSUTF8StringEncoding]];
 						
@@ -361,7 +371,7 @@
 			if(xmlStrEqual(cur->name, (const xmlChar *) "ResultObject")) {
 				
 				Class elementClass = nil;
-				xmlChar *instanceType = xmlGetNsProp(cur, (const xmlChar *) "type", (const xmlChar *) "http://www.w3.org/2001/XMLSchema-instance");
+				xmlChar *instanceType = nil;//xmlGetNsProp(cur, (const xmlChar *) "type", (const xmlChar *) "http://www.w3.org/2001/XMLSchema-instance");
 				if(instanceType == NULL) {
 					elementClass = [NSString  class];
 				} else {
@@ -374,7 +384,7 @@
 						NSString *prefix = [elementTypeArray objectAtIndex:0];
 						NSString *localName = [elementTypeArray objectAtIndex:1];
 						
-						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, (const xmlChar *)[prefix UTF8String]);
+						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, [prefix xmlString]);
 						
 						NSString *standardPrefix = [[USGlobals sharedInstance].wsdlStandardNamespaces objectForKey:[NSString stringWithCString:(char*)elementNamespace->href encoding:NSUTF8StringEncoding]];
 						
@@ -452,15 +462,20 @@ NSString * tns1_ExceptionMode_stringFromEnum(tns1_ExceptionMode enumValue)
 {
 	return @"tns1";
 }
-- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName
+- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix
 {
-	xmlNodePtr root = xmlDocGetRootElement(doc);
+	NSString *nodeName = nil;
+	if(elNSPrefix != nil && [elNSPrefix length] > 0)
+	{
+		nodeName = [NSString stringWithFormat:@"%@:%@", elNSPrefix, elName];
+	}
+	else
+	{
+		nodeName = [NSString stringWithFormat:@"%@:%@", @"tns1", elName];
+	}
 	
-	xmlNsPtr xsi = xmlSearchNs(doc, root, (const xmlChar*)"xsi");
+	xmlNodePtr node = xmlNewDocNode(doc, NULL, [nodeName xmlString], NULL);
 	
-	xmlNodePtr node = xmlNewDocNode(doc, NULL, (const xmlChar*)[elName UTF8String], NULL);
-	xmlSetNsProp(node, xsi, (const xmlChar*)"type", (const xmlChar*)"tns1:PagingDTO");
-	xmlSetNsProp(node, nil, (const xmlChar*)"xmlns", (const xmlChar*)"http://schemas.datacontract.org/2004/07/Xplore.Framework.Common.DataProvider.DTO");
 	
 	[self addAttributesToNode:node];
 	
@@ -476,10 +491,10 @@ NSString * tns1_ExceptionMode_stringFromEnum(tns1_ExceptionMode enumValue)
 {
 	
 	if(self.PageSize != 0) {
-		xmlAddChild(node, [self.PageSize xmlNodeForDoc:node->doc elementName:@"PageSize"]);
+		xmlAddChild(node, [self.PageSize xmlNodeForDoc:node->doc elementName:@"PageSize" elementNSPrefix:@"tns1"]);
 	}
 	if(self.RequiredPage != 0) {
-		xmlAddChild(node, [self.RequiredPage xmlNodeForDoc:node->doc elementName:@"RequiredPage"]);
+		xmlAddChild(node, [self.RequiredPage xmlNodeForDoc:node->doc elementName:@"RequiredPage" elementNSPrefix:@"tns1"]);
 	}
 }
 /* elements */
@@ -534,7 +549,7 @@ NSString * tns1_ExceptionMode_stringFromEnum(tns1_ExceptionMode enumValue)
 						NSString *prefix = [elementTypeArray objectAtIndex:0];
 						NSString *localName = [elementTypeArray objectAtIndex:1];
 						
-						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, (const xmlChar *)[prefix UTF8String]);
+						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, [prefix xmlString]);
 						
 						NSString *standardPrefix = [[USGlobals sharedInstance].wsdlStandardNamespaces objectForKey:[NSString stringWithCString:(char*)elementNamespace->href encoding:NSUTF8StringEncoding]];
 						
@@ -567,7 +582,7 @@ NSString * tns1_ExceptionMode_stringFromEnum(tns1_ExceptionMode enumValue)
 						NSString *prefix = [elementTypeArray objectAtIndex:0];
 						NSString *localName = [elementTypeArray objectAtIndex:1];
 						
-						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, (const xmlChar *)[prefix UTF8String]);
+						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, [prefix xmlString]);
 						
 						NSString *standardPrefix = [[USGlobals sharedInstance].wsdlStandardNamespaces objectForKey:[NSString stringWithCString:(char*)elementNamespace->href encoding:NSUTF8StringEncoding]];
 						
@@ -611,15 +626,20 @@ NSString * tns1_ExceptionMode_stringFromEnum(tns1_ExceptionMode enumValue)
 {
 	return @"tns1";
 }
-- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName
+- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix
 {
-	xmlNodePtr root = xmlDocGetRootElement(doc);
+	NSString *nodeName = nil;
+	if(elNSPrefix != nil && [elNSPrefix length] > 0)
+	{
+		nodeName = [NSString stringWithFormat:@"%@:%@", elNSPrefix, elName];
+	}
+	else
+	{
+		nodeName = [NSString stringWithFormat:@"%@:%@", @"tns1", elName];
+	}
 	
-	xmlNsPtr xsi = xmlSearchNs(doc, root, (const xmlChar*)"xsi");
+	xmlNodePtr node = xmlNewDocNode(doc, NULL, [nodeName xmlString], NULL);
 	
-	xmlNodePtr node = xmlNewDocNode(doc, NULL, (const xmlChar*)[elName UTF8String], NULL);
-	xmlSetNsProp(node, xsi, (const xmlChar*)"type", (const xmlChar*)"tns1:FilterDTO");
-	xmlSetNsProp(node, nil, (const xmlChar*)"xmlns", (const xmlChar*)"http://schemas.datacontract.org/2004/07/Xplore.Framework.Common.DataProvider.DTO");
 	
 	[self addAttributesToNode:node];
 	
@@ -635,13 +655,13 @@ NSString * tns1_ExceptionMode_stringFromEnum(tns1_ExceptionMode enumValue)
 {
 	
 	if(self.ComparisonOperator != 0) {
-		xmlAddChild(node, [self.ComparisonOperator xmlNodeForDoc:node->doc elementName:@"ComparisonOperator"]);
+		xmlAddChild(node, [self.ComparisonOperator xmlNodeForDoc:node->doc elementName:@"ComparisonOperator" elementNSPrefix:@"tns1"]);
 	}
 	if(self.Name != 0) {
-		xmlAddChild(node, [self.Name xmlNodeForDoc:node->doc elementName:@"Name"]);
+		xmlAddChild(node, [self.Name xmlNodeForDoc:node->doc elementName:@"Name" elementNSPrefix:@"tns1"]);
 	}
 	if(self.Value != 0) {
-		xmlAddChild(node, [self.Value xmlNodeForDoc:node->doc elementName:@"Value"]);
+		xmlAddChild(node, [self.Value xmlNodeForDoc:node->doc elementName:@"Value" elementNSPrefix:@"tns1"]);
 	}
 }
 /* elements */
@@ -697,7 +717,7 @@ NSString * tns1_ExceptionMode_stringFromEnum(tns1_ExceptionMode enumValue)
 						NSString *prefix = [elementTypeArray objectAtIndex:0];
 						NSString *localName = [elementTypeArray objectAtIndex:1];
 						
-						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, (const xmlChar *)[prefix UTF8String]);
+						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, [prefix xmlString]);
 						
 						NSString *standardPrefix = [[USGlobals sharedInstance].wsdlStandardNamespaces objectForKey:[NSString stringWithCString:(char*)elementNamespace->href encoding:NSUTF8StringEncoding]];
 						
@@ -730,7 +750,7 @@ NSString * tns1_ExceptionMode_stringFromEnum(tns1_ExceptionMode enumValue)
 						NSString *prefix = [elementTypeArray objectAtIndex:0];
 						NSString *localName = [elementTypeArray objectAtIndex:1];
 						
-						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, (const xmlChar *)[prefix UTF8String]);
+						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, [prefix xmlString]);
 						
 						NSString *standardPrefix = [[USGlobals sharedInstance].wsdlStandardNamespaces objectForKey:[NSString stringWithCString:(char*)elementNamespace->href encoding:NSUTF8StringEncoding]];
 						
@@ -763,7 +783,7 @@ NSString * tns1_ExceptionMode_stringFromEnum(tns1_ExceptionMode enumValue)
 						NSString *prefix = [elementTypeArray objectAtIndex:0];
 						NSString *localName = [elementTypeArray objectAtIndex:1];
 						
-						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, (const xmlChar *)[prefix UTF8String]);
+						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, [prefix xmlString]);
 						
 						NSString *standardPrefix = [[USGlobals sharedInstance].wsdlStandardNamespaces objectForKey:[NSString stringWithCString:(char*)elementNamespace->href encoding:NSUTF8StringEncoding]];
 						
@@ -803,15 +823,20 @@ NSString * tns1_ExceptionMode_stringFromEnum(tns1_ExceptionMode enumValue)
 {
 	return @"tns1";
 }
-- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName
+- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix
 {
-	xmlNodePtr root = xmlDocGetRootElement(doc);
+	NSString *nodeName = nil;
+	if(elNSPrefix != nil && [elNSPrefix length] > 0)
+	{
+		nodeName = [NSString stringWithFormat:@"%@:%@", elNSPrefix, elName];
+	}
+	else
+	{
+		nodeName = [NSString stringWithFormat:@"%@:%@", @"tns1", elName];
+	}
 	
-	xmlNsPtr xsi = xmlSearchNs(doc, root, (const xmlChar*)"xsi");
+	xmlNodePtr node = xmlNewDocNode(doc, NULL, [nodeName xmlString], NULL);
 	
-	xmlNodePtr node = xmlNewDocNode(doc, NULL, (const xmlChar*)[elName UTF8String], NULL);
-	xmlSetNsProp(node, xsi, (const xmlChar*)"type", (const xmlChar*)"tns1:ArrayOfFilterDTO");
-	xmlSetNsProp(node, nil, (const xmlChar*)"xmlns", (const xmlChar*)"http://schemas.datacontract.org/2004/07/Xplore.Framework.Common.DataProvider.DTO");
 	
 	[self addAttributesToNode:node];
 	
@@ -828,7 +853,7 @@ NSString * tns1_ExceptionMode_stringFromEnum(tns1_ExceptionMode enumValue)
 	
 	if(self.FilterDTO != 0) {
 		for(tns1_FilterDTO * child in self.FilterDTO) {
-			xmlAddChild(node, [child xmlNodeForDoc:node->doc elementName:@"FilterDTO"]);
+			xmlAddChild(node, [child xmlNodeForDoc:node->doc elementName:@"FilterDTO" elementNSPrefix:@"tns1"]);
 		}
 	}
 }
@@ -887,7 +912,7 @@ NSString * tns1_ExceptionMode_stringFromEnum(tns1_ExceptionMode enumValue)
 						NSString *prefix = [elementTypeArray objectAtIndex:0];
 						NSString *localName = [elementTypeArray objectAtIndex:1];
 						
-						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, (const xmlChar *)[prefix UTF8String]);
+						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, [prefix xmlString]);
 						
 						NSString *standardPrefix = [[USGlobals sharedInstance].wsdlStandardNamespaces objectForKey:[NSString stringWithCString:(char*)elementNamespace->href encoding:NSUTF8StringEncoding]];
 						
@@ -929,15 +954,20 @@ NSString * tns1_ExceptionMode_stringFromEnum(tns1_ExceptionMode enumValue)
 {
 	return @"tns1";
 }
-- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName
+- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix
 {
-	xmlNodePtr root = xmlDocGetRootElement(doc);
+	NSString *nodeName = nil;
+	if(elNSPrefix != nil && [elNSPrefix length] > 0)
+	{
+		nodeName = [NSString stringWithFormat:@"%@:%@", elNSPrefix, elName];
+	}
+	else
+	{
+		nodeName = [NSString stringWithFormat:@"%@:%@", @"tns1", elName];
+	}
 	
-	xmlNsPtr xsi = xmlSearchNs(doc, root, (const xmlChar*)"xsi");
+	xmlNodePtr node = xmlNewDocNode(doc, NULL, [nodeName xmlString], NULL);
 	
-	xmlNodePtr node = xmlNewDocNode(doc, NULL, (const xmlChar*)[elName UTF8String], NULL);
-	xmlSetNsProp(node, xsi, (const xmlChar*)"type", (const xmlChar*)"tns1:SortDTO");
-	xmlSetNsProp(node, nil, (const xmlChar*)"xmlns", (const xmlChar*)"http://schemas.datacontract.org/2004/07/Xplore.Framework.Common.DataProvider.DTO");
 	
 	[self addAttributesToNode:node];
 	
@@ -953,10 +983,10 @@ NSString * tns1_ExceptionMode_stringFromEnum(tns1_ExceptionMode enumValue)
 {
 	
 	if(self.ColumnId != 0) {
-		xmlAddChild(node, [self.ColumnId xmlNodeForDoc:node->doc elementName:@"ColumnId"]);
+		xmlAddChild(node, [self.ColumnId xmlNodeForDoc:node->doc elementName:@"ColumnId" elementNSPrefix:@"tns1"]);
 	}
 	if(self.Direction != 0) {
-		xmlAddChild(node, [self.Direction xmlNodeForDoc:node->doc elementName:@"Direction"]);
+		xmlAddChild(node, [self.Direction xmlNodeForDoc:node->doc elementName:@"Direction" elementNSPrefix:@"tns1"]);
 	}
 }
 /* elements */
@@ -1011,7 +1041,7 @@ NSString * tns1_ExceptionMode_stringFromEnum(tns1_ExceptionMode enumValue)
 						NSString *prefix = [elementTypeArray objectAtIndex:0];
 						NSString *localName = [elementTypeArray objectAtIndex:1];
 						
-						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, (const xmlChar *)[prefix UTF8String]);
+						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, [prefix xmlString]);
 						
 						NSString *standardPrefix = [[USGlobals sharedInstance].wsdlStandardNamespaces objectForKey:[NSString stringWithCString:(char*)elementNamespace->href encoding:NSUTF8StringEncoding]];
 						
@@ -1044,7 +1074,7 @@ NSString * tns1_ExceptionMode_stringFromEnum(tns1_ExceptionMode enumValue)
 						NSString *prefix = [elementTypeArray objectAtIndex:0];
 						NSString *localName = [elementTypeArray objectAtIndex:1];
 						
-						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, (const xmlChar *)[prefix UTF8String]);
+						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, [prefix xmlString]);
 						
 						NSString *standardPrefix = [[USGlobals sharedInstance].wsdlStandardNamespaces objectForKey:[NSString stringWithCString:(char*)elementNamespace->href encoding:NSUTF8StringEncoding]];
 						
@@ -1084,15 +1114,20 @@ NSString * tns1_ExceptionMode_stringFromEnum(tns1_ExceptionMode enumValue)
 {
 	return @"tns1";
 }
-- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName
+- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix
 {
-	xmlNodePtr root = xmlDocGetRootElement(doc);
+	NSString *nodeName = nil;
+	if(elNSPrefix != nil && [elNSPrefix length] > 0)
+	{
+		nodeName = [NSString stringWithFormat:@"%@:%@", elNSPrefix, elName];
+	}
+	else
+	{
+		nodeName = [NSString stringWithFormat:@"%@:%@", @"tns1", elName];
+	}
 	
-	xmlNsPtr xsi = xmlSearchNs(doc, root, (const xmlChar*)"xsi");
+	xmlNodePtr node = xmlNewDocNode(doc, NULL, [nodeName xmlString], NULL);
 	
-	xmlNodePtr node = xmlNewDocNode(doc, NULL, (const xmlChar*)[elName UTF8String], NULL);
-	xmlSetNsProp(node, xsi, (const xmlChar*)"type", (const xmlChar*)"tns1:ArrayOfSortDTO");
-	xmlSetNsProp(node, nil, (const xmlChar*)"xmlns", (const xmlChar*)"http://schemas.datacontract.org/2004/07/Xplore.Framework.Common.DataProvider.DTO");
 	
 	[self addAttributesToNode:node];
 	
@@ -1109,7 +1144,7 @@ NSString * tns1_ExceptionMode_stringFromEnum(tns1_ExceptionMode enumValue)
 	
 	if(self.SortDTO != 0) {
 		for(tns1_SortDTO * child in self.SortDTO) {
-			xmlAddChild(node, [child xmlNodeForDoc:node->doc elementName:@"SortDTO"]);
+			xmlAddChild(node, [child xmlNodeForDoc:node->doc elementName:@"SortDTO" elementNSPrefix:@"tns1"]);
 		}
 	}
 }
@@ -1168,7 +1203,7 @@ NSString * tns1_ExceptionMode_stringFromEnum(tns1_ExceptionMode enumValue)
 						NSString *prefix = [elementTypeArray objectAtIndex:0];
 						NSString *localName = [elementTypeArray objectAtIndex:1];
 						
-						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, (const xmlChar *)[prefix UTF8String]);
+						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, [prefix xmlString]);
 						
 						NSString *standardPrefix = [[USGlobals sharedInstance].wsdlStandardNamespaces objectForKey:[NSString stringWithCString:(char*)elementNamespace->href encoding:NSUTF8StringEncoding]];
 						
@@ -1221,15 +1256,20 @@ NSString * tns1_ExceptionMode_stringFromEnum(tns1_ExceptionMode enumValue)
 {
 	return @"tns1";
 }
-- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName
+- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix
 {
-	xmlNodePtr root = xmlDocGetRootElement(doc);
+	NSString *nodeName = nil;
+	if(elNSPrefix != nil && [elNSPrefix length] > 0)
+	{
+		nodeName = [NSString stringWithFormat:@"%@:%@", elNSPrefix, elName];
+	}
+	else
+	{
+		nodeName = [NSString stringWithFormat:@"%@:%@", @"tns1", elName];
+	}
 	
-	xmlNsPtr xsi = xmlSearchNs(doc, root, (const xmlChar*)"xsi");
+	xmlNodePtr node = xmlNewDocNode(doc, NULL, [nodeName xmlString], NULL);
 	
-	xmlNodePtr node = xmlNewDocNode(doc, NULL, (const xmlChar*)[elName UTF8String], NULL);
-	xmlSetNsProp(node, xsi, (const xmlChar*)"type", (const xmlChar*)"tns1:GetDataParamsDTO");
-	xmlSetNsProp(node, nil, (const xmlChar*)"xmlns", (const xmlChar*)"http://schemas.datacontract.org/2004/07/Xplore.Framework.Common.DataProvider.DTO");
 	
 	[self addAttributesToNode:node];
 	
@@ -1245,28 +1285,28 @@ NSString * tns1_ExceptionMode_stringFromEnum(tns1_ExceptionMode enumValue)
 {
 	
 	if(self.ContextInfo != 0) {
-		xmlAddChild(node, [self.ContextInfo xmlNodeForDoc:node->doc elementName:@"ContextInfo"]);
+		xmlAddChild(node, [self.ContextInfo xmlNodeForDoc:node->doc elementName:@"ContextInfo" elementNSPrefix:@"tns1"]);
 	}
 	if(self.ExceptionMode != 0) {
-		xmlNewChild(node, NULL, (const xmlChar*)"ExceptionMode", (const xmlChar*)[tns1_ExceptionMode_stringFromEnum(self.ExceptionMode) UTF8String]);
+		xmlNewChild(node, NULL, (const xmlChar*)"tns1:ExceptionMode", [tns1_ExceptionMode_stringFromEnum(self.ExceptionMode) xmlString]);
 	}
 	if(self.ForceDataRefresh != 0) {
-		xmlAddChild(node, [self.ForceDataRefresh xmlNodeForDoc:node->doc elementName:@"ForceDataRefresh"]);
+		xmlAddChild(node, [self.ForceDataRefresh xmlNodeForDoc:node->doc elementName:@"ForceDataRefresh" elementNSPrefix:@"tns1"]);
 	}
 	if(self.PageInfo != 0) {
-		xmlAddChild(node, [self.PageInfo xmlNodeForDoc:node->doc elementName:@"PageInfo"]);
+		xmlAddChild(node, [self.PageInfo xmlNodeForDoc:node->doc elementName:@"PageInfo" elementNSPrefix:@"tns1"]);
 	}
 	if(self.PostExecFilter != 0) {
-		xmlAddChild(node, [self.PostExecFilter xmlNodeForDoc:node->doc elementName:@"PostExecFilter"]);
+		xmlAddChild(node, [self.PostExecFilter xmlNodeForDoc:node->doc elementName:@"PostExecFilter" elementNSPrefix:@"tns1"]);
 	}
 	if(self.PreExecFilter != 0) {
-		xmlAddChild(node, [self.PreExecFilter xmlNodeForDoc:node->doc elementName:@"PreExecFilter"]);
+		xmlAddChild(node, [self.PreExecFilter xmlNodeForDoc:node->doc elementName:@"PreExecFilter" elementNSPrefix:@"tns1"]);
 	}
 	if(self.RequestId != 0) {
-		xmlAddChild(node, [self.RequestId xmlNodeForDoc:node->doc elementName:@"RequestId"]);
+		xmlAddChild(node, [self.RequestId xmlNodeForDoc:node->doc elementName:@"RequestId" elementNSPrefix:@"tns1"]);
 	}
 	if(self.SortInfo != 0) {
-		xmlAddChild(node, [self.SortInfo xmlNodeForDoc:node->doc elementName:@"SortInfo"]);
+		xmlAddChild(node, [self.SortInfo xmlNodeForDoc:node->doc elementName:@"SortInfo" elementNSPrefix:@"tns1"]);
 	}
 }
 /* elements */
@@ -1327,7 +1367,7 @@ NSString * tns1_ExceptionMode_stringFromEnum(tns1_ExceptionMode enumValue)
 						NSString *prefix = [elementTypeArray objectAtIndex:0];
 						NSString *localName = [elementTypeArray objectAtIndex:1];
 						
-						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, (const xmlChar *)[prefix UTF8String]);
+						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, [prefix xmlString]);
 						
 						NSString *standardPrefix = [[USGlobals sharedInstance].wsdlStandardNamespaces objectForKey:[NSString stringWithCString:(char*)elementNamespace->href encoding:NSUTF8StringEncoding]];
 						
@@ -1365,7 +1405,7 @@ NSString * tns1_ExceptionMode_stringFromEnum(tns1_ExceptionMode enumValue)
 						NSString *prefix = [elementTypeArray objectAtIndex:0];
 						NSString *localName = [elementTypeArray objectAtIndex:1];
 						
-						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, (const xmlChar *)[prefix UTF8String]);
+						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, [prefix xmlString]);
 						
 						NSString *standardPrefix = [[USGlobals sharedInstance].wsdlStandardNamespaces objectForKey:[NSString stringWithCString:(char*)elementNamespace->href encoding:NSUTF8StringEncoding]];
 						
@@ -1398,7 +1438,7 @@ NSString * tns1_ExceptionMode_stringFromEnum(tns1_ExceptionMode enumValue)
 						NSString *prefix = [elementTypeArray objectAtIndex:0];
 						NSString *localName = [elementTypeArray objectAtIndex:1];
 						
-						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, (const xmlChar *)[prefix UTF8String]);
+						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, [prefix xmlString]);
 						
 						NSString *standardPrefix = [[USGlobals sharedInstance].wsdlStandardNamespaces objectForKey:[NSString stringWithCString:(char*)elementNamespace->href encoding:NSUTF8StringEncoding]];
 						
@@ -1431,7 +1471,7 @@ NSString * tns1_ExceptionMode_stringFromEnum(tns1_ExceptionMode enumValue)
 						NSString *prefix = [elementTypeArray objectAtIndex:0];
 						NSString *localName = [elementTypeArray objectAtIndex:1];
 						
-						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, (const xmlChar *)[prefix UTF8String]);
+						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, [prefix xmlString]);
 						
 						NSString *standardPrefix = [[USGlobals sharedInstance].wsdlStandardNamespaces objectForKey:[NSString stringWithCString:(char*)elementNamespace->href encoding:NSUTF8StringEncoding]];
 						
@@ -1464,7 +1504,7 @@ NSString * tns1_ExceptionMode_stringFromEnum(tns1_ExceptionMode enumValue)
 						NSString *prefix = [elementTypeArray objectAtIndex:0];
 						NSString *localName = [elementTypeArray objectAtIndex:1];
 						
-						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, (const xmlChar *)[prefix UTF8String]);
+						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, [prefix xmlString]);
 						
 						NSString *standardPrefix = [[USGlobals sharedInstance].wsdlStandardNamespaces objectForKey:[NSString stringWithCString:(char*)elementNamespace->href encoding:NSUTF8StringEncoding]];
 						
@@ -1497,7 +1537,7 @@ NSString * tns1_ExceptionMode_stringFromEnum(tns1_ExceptionMode enumValue)
 						NSString *prefix = [elementTypeArray objectAtIndex:0];
 						NSString *localName = [elementTypeArray objectAtIndex:1];
 						
-						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, (const xmlChar *)[prefix UTF8String]);
+						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, [prefix xmlString]);
 						
 						NSString *standardPrefix = [[USGlobals sharedInstance].wsdlStandardNamespaces objectForKey:[NSString stringWithCString:(char*)elementNamespace->href encoding:NSUTF8StringEncoding]];
 						
@@ -1530,7 +1570,7 @@ NSString * tns1_ExceptionMode_stringFromEnum(tns1_ExceptionMode enumValue)
 						NSString *prefix = [elementTypeArray objectAtIndex:0];
 						NSString *localName = [elementTypeArray objectAtIndex:1];
 						
-						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, (const xmlChar *)[prefix UTF8String]);
+						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, [prefix xmlString]);
 						
 						NSString *standardPrefix = [[USGlobals sharedInstance].wsdlStandardNamespaces objectForKey:[NSString stringWithCString:(char*)elementNamespace->href encoding:NSUTF8StringEncoding]];
 						

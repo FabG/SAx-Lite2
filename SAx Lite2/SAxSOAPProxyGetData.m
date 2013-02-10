@@ -11,14 +11,90 @@
 // This class is going to use the generated objective C code
 // using the WSDL url: http://saxm.comscore.com/DataProviderService.svc?wsdl
 // and the "wsdl2objc" google tool (see: http://code.google.com/p/wsdl2objc/)
+// Note that when generating the code, I had to select
+// "Add tag to service name (avoid name conflicts)
 
 @implementation SAxSOAPProxyGetData
 
+-(void)processRequestGetDataProviderConfig
+{
+    dNSLog(@"\t[SOAP-Request] processRequestGetDataProviderConfig");
+    BasicHttpBinding_IDataProviderServiceBinding *binding =
+        [DataProviderServiceSvc BasicHttpBinding_IDataProviderServiceBinding];
+    
+    BasicHttpBinding_IDataProviderServiceBindingResponse *response;
+    
+    DataProviderServiceSvc_GetDataProviderConfig *request = [[DataProviderServiceSvc_GetDataProviderConfig alloc] init];
+    
+    // Context Info Parameter
+    tns2_ArrayOfstring *contexInfo = [[tns2_ArrayOfstring alloc] init];
+    [contexInfo addString:@"dashboardID=100001"];
+    [contexInfo addString:@"podID=0"];
+    [contexInfo addString:@"podModeID=0"];
+    [contexInfo addString:@"UserId=fminetti"];
+    [contexInfo addString:@"versionID=332"];
+    [contexInfo addString:@"DASH_POD_TYPE=Pod"];
+    [contexInfo addString:@"podType=SQLPod"];
+    
+    // Force Data Refresh Parameter
+    USBoolean *forceConfigRefresh = [[USBoolean alloc] init];
+    forceConfigRefresh.boolValue = NO;
+    
+    // Parameter object creation
+    tns1_GetConfigDTO *parameters = [[tns1_GetConfigDTO alloc] init];
+    parameters.ContextInfo = contexInfo;
+    parameters.ForceConfigRefresh = forceConfigRefresh;
+    parameters.DataProviderId = @"DASH_SQL_EXEC";
+    
+    request.config = parameters;
+    
+    // Send Request
+    response = [binding GetDataProviderConfigUsingParameters:request];
+    dispatch_async(dispatch_get_main_queue(), ^{ [self processResponseGetDataProviderConfig:response]; });
+    
+}
+
+-(void)processResponseGetDataProviderConfig :(BasicHttpBinding_IDataProviderServiceBindingResponse*)soapResponse
+{
+    dNSLog(@"\t[SOAP-Response] Response received");
+    NSArray *responseBodyParts = soapResponse.bodyParts;
+    
+    id bodyPart;
+    
+    @try {
+        bodyPart = [responseBodyParts objectAtIndex:0];
+    }
+    @catch (NSException *exception) {
+        UIAlertView* alert = [[UIAlertView alloc]initWithTitle:@"Server Error" message:@"Error while trying to process request" delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        [alert show];
+        return;
+    }
+    
+    if ([bodyPart isKindOfClass:[SOAPFault class]]) {
+        NSString *errorMsg = ((SOAPFault *)bodyPart).simpleFaultString;
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Server Error" message:errorMsg delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        [alert show];
+    }
+    else if ([bodyPart isKindOfClass:[DataProviderServiceSvc_GetDataProviderConfigResponse class]]) {
+        DataProviderServiceSvc_GetDataProviderConfigResponse *dataProviderConfigResponse = bodyPart;
+        
+        dNSLog(@"\t codeText=%@", dataProviderConfigResponse.GetDataProviderConfigResult.Code);
+        dNSLog(@"\t descriptionText=%@", dataProviderConfigResponse.GetDataProviderConfigResult.Description);
+        dNSLog(@"\t resultObject=%@", dataProviderConfigResponse.GetDataProviderConfigResult.ResultObject);
+    }
+}
+
 -(void)processRequestGetData 
 {
-    BasicHttpBinding_IDataProviderService *binding = [DataProviderService BasicHttpBinding_IDataProviderService];
-    DataProviderService_GetData *request = [[DataProviderService_GetData alloc] init];
-    BasicHttpBinding_IDataProviderServiceResponse *response;
+    dNSLog(@"\t[SOAP-Request] processRequestGetData");
+    
+    BasicHttpBinding_IDataProviderServiceBinding *binding =
+        [DataProviderServiceSvc BasicHttpBinding_IDataProviderServiceBinding];
+    
+    BasicHttpBinding_IDataProviderServiceBindingResponse *response;
+    
+    DataProviderServiceSvc_GetData *request =
+        [[DataProviderServiceSvc_GetData alloc] init];
     
     // Context Info Parameter
     tns2_ArrayOfstring *contexInfo = [[tns2_ArrayOfstring alloc] init];
@@ -263,7 +339,7 @@
 }
 
 
--(void)processResponseGetData :(BasicHttpBinding_IDataProviderServiceResponse *)soapResponse
+-(void)processResponseGetData :(BasicHttpBinding_IDataProviderServiceBindingResponse *)soapResponse
 {
     dNSLog(@"\t[SOAP-Response] Response received");
     NSArray *responseBodyParts = soapResponse.bodyParts;
@@ -285,13 +361,14 @@
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Server Error" message:errorMsg delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
         [alert show];
     }
-    else if ([bodyPart isKindOfClass:[DataProviderService_GetDataResponse class]]) {
-        DataProviderService_GetDataResponse *dataResponse = bodyPart;
+    else if ([bodyPart isKindOfClass:[DataProviderServiceSvc_GetDataResponse class]]) {
+        DataProviderServiceSvc_GetDataResponse *dataResponse = bodyPart;
         dNSLog(@"\t codeText=%@", dataResponse.GetDataResult.Code);
         dNSLog(@"\t descriptionText=%@", dataResponse.GetDataResult.Description);
         dNSLog(@"\t resultObject=%@", dataResponse.GetDataResult.ResultObject);
         
     }
 }
+
 
 @end

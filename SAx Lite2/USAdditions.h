@@ -14,28 +14,31 @@
 
 @interface NSString (USAdditions)
 
-- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName;
+- (NSString *)stringByEscapingXML;
+- (NSString *)stringByUnescapingXML;
+- (const xmlChar *)xmlString;
+- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix;
 + (NSString *)deserializeNode:(xmlNodePtr)cur;
 
 @end
 
 @interface NSNumber (USAdditions)
 
-- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName;
+- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix;
 + (NSNumber *)deserializeNode:(xmlNodePtr)cur;
 
 @end
 
 @interface NSDate (USAdditions)
 
-- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName;
+- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix;
 + (NSDate *)deserializeNode:(xmlNodePtr)cur;
 
 @end
 
 @interface NSData (USAdditions)
 
-- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName;
+- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix;
 + (NSData *)deserializeNode:(xmlNodePtr)cur;
 
 @end
@@ -55,7 +58,7 @@
 - (id)initWithBool:(BOOL)aValue;
 - (NSString *)stringValue;
 
-- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName;
+- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix;
 + (USBoolean *)deserializeNode:(xmlNodePtr)cur;
 
 @end

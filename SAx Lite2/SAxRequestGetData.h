@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "DataProviderService.h"
 
 @interface SAxRequestGetData : NSObject
 {

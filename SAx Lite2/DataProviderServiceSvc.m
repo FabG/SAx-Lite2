@@ -1,9 +1,9 @@
-#import "DataProviderService.h"
+#import "DataProviderServiceSvc.h"
 #import <libxml/xmlstring.h>
 #if TARGET_OS_IPHONE
 #import <CFNetwork/CFNetwork.h>
 #endif
-@implementation DataProviderService_GetDataProviderConfig
+@implementation DataProviderServiceSvc_GetDataProviderConfig
 - (id)init
 {
 	if((self = [super init])) {
@@ -20,16 +20,22 @@
 }
 - (NSString *)nsPrefix
 {
-	return @"DataProviderService";
+	return @"DataProviderServiceSvc";
 }
-- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName
+- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix
 {
-	xmlNodePtr root = xmlDocGetRootElement(doc);
+	NSString *nodeName = nil;
+	if(elNSPrefix != nil && [elNSPrefix length] > 0)
+	{
+		nodeName = [NSString stringWithFormat:@"%@:%@", elNSPrefix, elName];
+	}
+	else
+	{
+		nodeName = [NSString stringWithFormat:@"%@:%@", @"DataProviderServiceSvc", elName];
+	}
 	
-	xmlNsPtr xsi = xmlSearchNs(doc, root, (const xmlChar*)"xsi");
+	xmlNodePtr node = xmlNewDocNode(doc, NULL, [nodeName xmlString], NULL);
 	
-	xmlNodePtr node = xmlNewDocNode(doc, NULL, (const xmlChar*)[elName UTF8String], NULL);
-	xmlSetNsProp(node, xsi, (const xmlChar*)"type", (const xmlChar*)"DataProviderService:GetDataProviderConfig");
 	
 	[self addAttributesToNode:node];
 	
@@ -45,7 +51,7 @@
 {
 	
 	if(self.config != 0) {
-		xmlAddChild(node, [self.config xmlNodeForDoc:node->doc elementName:@"config"]);
+		xmlAddChild(node, [self.config xmlNodeForDoc:node->doc elementName:@"config" elementNSPrefix:@"DataProviderServiceSvc"]);
 	}
 }
 /* elements */
@@ -57,9 +63,9 @@
 	
 	return attributes;
 }
-+ (DataProviderService_GetDataProviderConfig *)deserializeNode:(xmlNodePtr)cur
++ (DataProviderServiceSvc_GetDataProviderConfig *)deserializeNode:(xmlNodePtr)cur
 {
-	DataProviderService_GetDataProviderConfig *newObject = [[DataProviderService_GetDataProviderConfig new] autorelease];
+	DataProviderServiceSvc_GetDataProviderConfig *newObject = [[DataProviderServiceSvc_GetDataProviderConfig new] autorelease];
 	
 	[newObject deserializeAttributesFromNode:cur];
 	[newObject deserializeElementsFromNode:cur];
@@ -99,7 +105,7 @@
 						NSString *prefix = [elementTypeArray objectAtIndex:0];
 						NSString *localName = [elementTypeArray objectAtIndex:1];
 						
-						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, (const xmlChar *)[prefix UTF8String]);
+						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, [prefix xmlString]);
 						
 						NSString *standardPrefix = [[USGlobals sharedInstance].wsdlStandardNamespaces objectForKey:[NSString stringWithCString:(char*)elementNamespace->href encoding:NSUTF8StringEncoding]];
 						
@@ -120,7 +126,7 @@
 	}
 }
 @end
-@implementation DataProviderService_GetDataProviderConfigResponse
+@implementation DataProviderServiceSvc_GetDataProviderConfigResponse
 - (id)init
 {
 	if((self = [super init])) {
@@ -137,16 +143,22 @@
 }
 - (NSString *)nsPrefix
 {
-	return @"DataProviderService";
+	return @"DataProviderServiceSvc";
 }
-- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName
+- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix
 {
-	xmlNodePtr root = xmlDocGetRootElement(doc);
+	NSString *nodeName = nil;
+	if(elNSPrefix != nil && [elNSPrefix length] > 0)
+	{
+		nodeName = [NSString stringWithFormat:@"%@:%@", elNSPrefix, elName];
+	}
+	else
+	{
+		nodeName = [NSString stringWithFormat:@"%@:%@", @"DataProviderServiceSvc", elName];
+	}
 	
-	xmlNsPtr xsi = xmlSearchNs(doc, root, (const xmlChar*)"xsi");
+	xmlNodePtr node = xmlNewDocNode(doc, NULL, [nodeName xmlString], NULL);
 	
-	xmlNodePtr node = xmlNewDocNode(doc, NULL, (const xmlChar*)[elName UTF8String], NULL);
-	xmlSetNsProp(node, xsi, (const xmlChar*)"type", (const xmlChar*)"DataProviderService:GetDataProviderConfigResponse");
 	
 	[self addAttributesToNode:node];
 	
@@ -162,7 +174,7 @@
 {
 	
 	if(self.GetDataProviderConfigResult != 0) {
-		xmlAddChild(node, [self.GetDataProviderConfigResult xmlNodeForDoc:node->doc elementName:@"GetDataProviderConfigResult"]);
+		xmlAddChild(node, [self.GetDataProviderConfigResult xmlNodeForDoc:node->doc elementName:@"GetDataProviderConfigResult" elementNSPrefix:@"DataProviderServiceSvc"]);
 	}
 }
 /* elements */
@@ -174,9 +186,9 @@
 	
 	return attributes;
 }
-+ (DataProviderService_GetDataProviderConfigResponse *)deserializeNode:(xmlNodePtr)cur
++ (DataProviderServiceSvc_GetDataProviderConfigResponse *)deserializeNode:(xmlNodePtr)cur
 {
-	DataProviderService_GetDataProviderConfigResponse *newObject = [[DataProviderService_GetDataProviderConfigResponse new] autorelease];
+	DataProviderServiceSvc_GetDataProviderConfigResponse *newObject = [[DataProviderServiceSvc_GetDataProviderConfigResponse new] autorelease];
 	
 	[newObject deserializeAttributesFromNode:cur];
 	[newObject deserializeElementsFromNode:cur];
@@ -216,7 +228,7 @@
 						NSString *prefix = [elementTypeArray objectAtIndex:0];
 						NSString *localName = [elementTypeArray objectAtIndex:1];
 						
-						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, (const xmlChar *)[prefix UTF8String]);
+						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, [prefix xmlString]);
 						
 						NSString *standardPrefix = [[USGlobals sharedInstance].wsdlStandardNamespaces objectForKey:[NSString stringWithCString:(char*)elementNamespace->href encoding:NSUTF8StringEncoding]];
 						
@@ -237,7 +249,7 @@
 	}
 }
 @end
-@implementation DataProviderService_GetData
+@implementation DataProviderServiceSvc_GetData
 - (id)init
 {
 	if((self = [super init])) {
@@ -256,16 +268,22 @@
 }
 - (NSString *)nsPrefix
 {
-	return @"DataProviderService";
+	return @"DataProviderServiceSvc";
 }
-- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName
+- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix
 {
-	xmlNodePtr root = xmlDocGetRootElement(doc);
+	NSString *nodeName = nil;
+	if(elNSPrefix != nil && [elNSPrefix length] > 0)
+	{
+		nodeName = [NSString stringWithFormat:@"%@:%@", elNSPrefix, elName];
+	}
+	else
+	{
+		nodeName = [NSString stringWithFormat:@"%@:%@", @"DataProviderServiceSvc", elName];
+	}
 	
-	xmlNsPtr xsi = xmlSearchNs(doc, root, (const xmlChar*)"xsi");
+	xmlNodePtr node = xmlNewDocNode(doc, NULL, [nodeName xmlString], NULL);
 	
-	xmlNodePtr node = xmlNewDocNode(doc, NULL, (const xmlChar*)[elName UTF8String], NULL);
-	xmlSetNsProp(node, xsi, (const xmlChar*)"type", (const xmlChar*)"DataProviderService:GetData");
 	
 	[self addAttributesToNode:node];
 	
@@ -281,10 +299,10 @@
 {
 	
 	if(self.dataProvID != 0) {
-		xmlAddChild(node, [self.dataProvID xmlNodeForDoc:node->doc elementName:@"dataProvID"]);
+		xmlAddChild(node, [self.dataProvID xmlNodeForDoc:node->doc elementName:@"dataProvID" elementNSPrefix:@"DataProviderServiceSvc"]);
 	}
 	if(self.parameters != 0) {
-		xmlAddChild(node, [self.parameters xmlNodeForDoc:node->doc elementName:@"parameters"]);
+		xmlAddChild(node, [self.parameters xmlNodeForDoc:node->doc elementName:@"parameters" elementNSPrefix:@"DataProviderServiceSvc"]);
 	}
 }
 /* elements */
@@ -297,9 +315,9 @@
 	
 	return attributes;
 }
-+ (DataProviderService_GetData *)deserializeNode:(xmlNodePtr)cur
++ (DataProviderServiceSvc_GetData *)deserializeNode:(xmlNodePtr)cur
 {
-	DataProviderService_GetData *newObject = [[DataProviderService_GetData new] autorelease];
+	DataProviderServiceSvc_GetData *newObject = [[DataProviderServiceSvc_GetData new] autorelease];
 	
 	[newObject deserializeAttributesFromNode:cur];
 	[newObject deserializeElementsFromNode:cur];
@@ -339,7 +357,7 @@
 						NSString *prefix = [elementTypeArray objectAtIndex:0];
 						NSString *localName = [elementTypeArray objectAtIndex:1];
 						
-						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, (const xmlChar *)[prefix UTF8String]);
+						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, [prefix xmlString]);
 						
 						NSString *standardPrefix = [[USGlobals sharedInstance].wsdlStandardNamespaces objectForKey:[NSString stringWithCString:(char*)elementNamespace->href encoding:NSUTF8StringEncoding]];
 						
@@ -372,7 +390,7 @@
 						NSString *prefix = [elementTypeArray objectAtIndex:0];
 						NSString *localName = [elementTypeArray objectAtIndex:1];
 						
-						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, (const xmlChar *)[prefix UTF8String]);
+						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, [prefix xmlString]);
 						
 						NSString *standardPrefix = [[USGlobals sharedInstance].wsdlStandardNamespaces objectForKey:[NSString stringWithCString:(char*)elementNamespace->href encoding:NSUTF8StringEncoding]];
 						
@@ -393,7 +411,7 @@
 	}
 }
 @end
-@implementation DataProviderService_GetDataResponse
+@implementation DataProviderServiceSvc_GetDataResponse
 - (id)init
 {
 	if((self = [super init])) {
@@ -410,16 +428,22 @@
 }
 - (NSString *)nsPrefix
 {
-	return @"DataProviderService";
+	return @"DataProviderServiceSvc";
 }
-- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName
+- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix
 {
-	xmlNodePtr root = xmlDocGetRootElement(doc);
+	NSString *nodeName = nil;
+	if(elNSPrefix != nil && [elNSPrefix length] > 0)
+	{
+		nodeName = [NSString stringWithFormat:@"%@:%@", elNSPrefix, elName];
+	}
+	else
+	{
+		nodeName = [NSString stringWithFormat:@"%@:%@", @"DataProviderServiceSvc", elName];
+	}
 	
-	xmlNsPtr xsi = xmlSearchNs(doc, root, (const xmlChar*)"xsi");
+	xmlNodePtr node = xmlNewDocNode(doc, NULL, [nodeName xmlString], NULL);
 	
-	xmlNodePtr node = xmlNewDocNode(doc, NULL, (const xmlChar*)[elName UTF8String], NULL);
-	xmlSetNsProp(node, xsi, (const xmlChar*)"type", (const xmlChar*)"DataProviderService:GetDataResponse");
 	
 	[self addAttributesToNode:node];
 	
@@ -435,7 +459,7 @@
 {
 	
 	if(self.GetDataResult != 0) {
-		xmlAddChild(node, [self.GetDataResult xmlNodeForDoc:node->doc elementName:@"GetDataResult"]);
+		xmlAddChild(node, [self.GetDataResult xmlNodeForDoc:node->doc elementName:@"GetDataResult" elementNSPrefix:@"DataProviderServiceSvc"]);
 	}
 }
 /* elements */
@@ -447,9 +471,9 @@
 	
 	return attributes;
 }
-+ (DataProviderService_GetDataResponse *)deserializeNode:(xmlNodePtr)cur
++ (DataProviderServiceSvc_GetDataResponse *)deserializeNode:(xmlNodePtr)cur
 {
-	DataProviderService_GetDataResponse *newObject = [[DataProviderService_GetDataResponse new] autorelease];
+	DataProviderServiceSvc_GetDataResponse *newObject = [[DataProviderServiceSvc_GetDataResponse new] autorelease];
 	
 	[newObject deserializeAttributesFromNode:cur];
 	[newObject deserializeElementsFromNode:cur];
@@ -489,7 +513,7 @@
 						NSString *prefix = [elementTypeArray objectAtIndex:0];
 						NSString *localName = [elementTypeArray objectAtIndex:1];
 						
-						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, (const xmlChar *)[prefix UTF8String]);
+						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, [prefix xmlString]);
 						
 						NSString *standardPrefix = [[USGlobals sharedInstance].wsdlStandardNamespaces objectForKey:[NSString stringWithCString:(char*)elementNamespace->href encoding:NSUTF8StringEncoding]];
 						
@@ -510,7 +534,7 @@
 	}
 }
 @end
-@implementation DataProviderService_CancelGetData
+@implementation DataProviderServiceSvc_CancelGetData
 - (id)init
 {
 	if((self = [super init])) {
@@ -527,16 +551,22 @@
 }
 - (NSString *)nsPrefix
 {
-	return @"DataProviderService";
+	return @"DataProviderServiceSvc";
 }
-- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName
+- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix
 {
-	xmlNodePtr root = xmlDocGetRootElement(doc);
+	NSString *nodeName = nil;
+	if(elNSPrefix != nil && [elNSPrefix length] > 0)
+	{
+		nodeName = [NSString stringWithFormat:@"%@:%@", elNSPrefix, elName];
+	}
+	else
+	{
+		nodeName = [NSString stringWithFormat:@"%@:%@", @"DataProviderServiceSvc", elName];
+	}
 	
-	xmlNsPtr xsi = xmlSearchNs(doc, root, (const xmlChar*)"xsi");
+	xmlNodePtr node = xmlNewDocNode(doc, NULL, [nodeName xmlString], NULL);
 	
-	xmlNodePtr node = xmlNewDocNode(doc, NULL, (const xmlChar*)[elName UTF8String], NULL);
-	xmlSetNsProp(node, xsi, (const xmlChar*)"type", (const xmlChar*)"DataProviderService:CancelGetData");
 	
 	[self addAttributesToNode:node];
 	
@@ -552,7 +582,7 @@
 {
 	
 	if(self.parameters != 0) {
-		xmlAddChild(node, [self.parameters xmlNodeForDoc:node->doc elementName:@"parameters"]);
+		xmlAddChild(node, [self.parameters xmlNodeForDoc:node->doc elementName:@"parameters" elementNSPrefix:@"DataProviderServiceSvc"]);
 	}
 }
 /* elements */
@@ -564,9 +594,9 @@
 	
 	return attributes;
 }
-+ (DataProviderService_CancelGetData *)deserializeNode:(xmlNodePtr)cur
++ (DataProviderServiceSvc_CancelGetData *)deserializeNode:(xmlNodePtr)cur
 {
-	DataProviderService_CancelGetData *newObject = [[DataProviderService_CancelGetData new] autorelease];
+	DataProviderServiceSvc_CancelGetData *newObject = [[DataProviderServiceSvc_CancelGetData new] autorelease];
 	
 	[newObject deserializeAttributesFromNode:cur];
 	[newObject deserializeElementsFromNode:cur];
@@ -606,7 +636,7 @@
 						NSString *prefix = [elementTypeArray objectAtIndex:0];
 						NSString *localName = [elementTypeArray objectAtIndex:1];
 						
-						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, (const xmlChar *)[prefix UTF8String]);
+						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, [prefix xmlString]);
 						
 						NSString *standardPrefix = [[USGlobals sharedInstance].wsdlStandardNamespaces objectForKey:[NSString stringWithCString:(char*)elementNamespace->href encoding:NSUTF8StringEncoding]];
 						
@@ -627,7 +657,7 @@
 	}
 }
 @end
-@implementation DataProviderService_CancelGetDataResponse
+@implementation DataProviderServiceSvc_CancelGetDataResponse
 - (id)init
 {
 	if((self = [super init])) {
@@ -642,16 +672,22 @@
 }
 - (NSString *)nsPrefix
 {
-	return @"DataProviderService";
+	return @"DataProviderServiceSvc";
 }
-- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName
+- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix
 {
-	xmlNodePtr root = xmlDocGetRootElement(doc);
+	NSString *nodeName = nil;
+	if(elNSPrefix != nil && [elNSPrefix length] > 0)
+	{
+		nodeName = [NSString stringWithFormat:@"%@:%@", elNSPrefix, elName];
+	}
+	else
+	{
+		nodeName = [NSString stringWithFormat:@"%@:%@", @"DataProviderServiceSvc", elName];
+	}
 	
-	xmlNsPtr xsi = xmlSearchNs(doc, root, (const xmlChar*)"xsi");
+	xmlNodePtr node = xmlNewDocNode(doc, NULL, [nodeName xmlString], NULL);
 	
-	xmlNodePtr node = xmlNewDocNode(doc, NULL, (const xmlChar*)[elName UTF8String], NULL);
-	xmlSetNsProp(node, xsi, (const xmlChar*)"type", (const xmlChar*)"DataProviderService:CancelGetDataResponse");
 	
 	[self addAttributesToNode:node];
 	
@@ -674,9 +710,9 @@
 	
 	return attributes;
 }
-+ (DataProviderService_CancelGetDataResponse *)deserializeNode:(xmlNodePtr)cur
++ (DataProviderServiceSvc_CancelGetDataResponse *)deserializeNode:(xmlNodePtr)cur
 {
-	DataProviderService_CancelGetDataResponse *newObject = [[DataProviderService_CancelGetDataResponse new] autorelease];
+	DataProviderServiceSvc_CancelGetDataResponse *newObject = [[DataProviderServiceSvc_CancelGetDataResponse new] autorelease];
 	
 	[newObject deserializeAttributesFromNode:cur];
 	[newObject deserializeElementsFromNode:cur];
@@ -692,7 +728,7 @@
 	
 }
 @end
-@implementation DataProviderService_GetExportData
+@implementation DataProviderServiceSvc_GetExportData
 - (id)init
 {
 	if((self = [super init])) {
@@ -711,16 +747,22 @@
 }
 - (NSString *)nsPrefix
 {
-	return @"DataProviderService";
+	return @"DataProviderServiceSvc";
 }
-- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName
+- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix
 {
-	xmlNodePtr root = xmlDocGetRootElement(doc);
+	NSString *nodeName = nil;
+	if(elNSPrefix != nil && [elNSPrefix length] > 0)
+	{
+		nodeName = [NSString stringWithFormat:@"%@:%@", elNSPrefix, elName];
+	}
+	else
+	{
+		nodeName = [NSString stringWithFormat:@"%@:%@", @"DataProviderServiceSvc", elName];
+	}
 	
-	xmlNsPtr xsi = xmlSearchNs(doc, root, (const xmlChar*)"xsi");
+	xmlNodePtr node = xmlNewDocNode(doc, NULL, [nodeName xmlString], NULL);
 	
-	xmlNodePtr node = xmlNewDocNode(doc, NULL, (const xmlChar*)[elName UTF8String], NULL);
-	xmlSetNsProp(node, xsi, (const xmlChar*)"type", (const xmlChar*)"DataProviderService:GetExportData");
 	
 	[self addAttributesToNode:node];
 	
@@ -736,10 +778,10 @@
 {
 	
 	if(self.dataProvID != 0) {
-		xmlAddChild(node, [self.dataProvID xmlNodeForDoc:node->doc elementName:@"dataProvID"]);
+		xmlAddChild(node, [self.dataProvID xmlNodeForDoc:node->doc elementName:@"dataProvID" elementNSPrefix:@"DataProviderServiceSvc"]);
 	}
 	if(self.parameters != 0) {
-		xmlAddChild(node, [self.parameters xmlNodeForDoc:node->doc elementName:@"parameters"]);
+		xmlAddChild(node, [self.parameters xmlNodeForDoc:node->doc elementName:@"parameters" elementNSPrefix:@"DataProviderServiceSvc"]);
 	}
 }
 /* elements */
@@ -752,9 +794,9 @@
 	
 	return attributes;
 }
-+ (DataProviderService_GetExportData *)deserializeNode:(xmlNodePtr)cur
++ (DataProviderServiceSvc_GetExportData *)deserializeNode:(xmlNodePtr)cur
 {
-	DataProviderService_GetExportData *newObject = [[DataProviderService_GetExportData new] autorelease];
+	DataProviderServiceSvc_GetExportData *newObject = [[DataProviderServiceSvc_GetExportData new] autorelease];
 	
 	[newObject deserializeAttributesFromNode:cur];
 	[newObject deserializeElementsFromNode:cur];
@@ -794,7 +836,7 @@
 						NSString *prefix = [elementTypeArray objectAtIndex:0];
 						NSString *localName = [elementTypeArray objectAtIndex:1];
 						
-						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, (const xmlChar *)[prefix UTF8String]);
+						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, [prefix xmlString]);
 						
 						NSString *standardPrefix = [[USGlobals sharedInstance].wsdlStandardNamespaces objectForKey:[NSString stringWithCString:(char*)elementNamespace->href encoding:NSUTF8StringEncoding]];
 						
@@ -827,7 +869,7 @@
 						NSString *prefix = [elementTypeArray objectAtIndex:0];
 						NSString *localName = [elementTypeArray objectAtIndex:1];
 						
-						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, (const xmlChar *)[prefix UTF8String]);
+						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, [prefix xmlString]);
 						
 						NSString *standardPrefix = [[USGlobals sharedInstance].wsdlStandardNamespaces objectForKey:[NSString stringWithCString:(char*)elementNamespace->href encoding:NSUTF8StringEncoding]];
 						
@@ -848,7 +890,7 @@
 	}
 }
 @end
-@implementation DataProviderService_GetExportDataResponse
+@implementation DataProviderServiceSvc_GetExportDataResponse
 - (id)init
 {
 	if((self = [super init])) {
@@ -865,16 +907,22 @@
 }
 - (NSString *)nsPrefix
 {
-	return @"DataProviderService";
+	return @"DataProviderServiceSvc";
 }
-- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName
+- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix
 {
-	xmlNodePtr root = xmlDocGetRootElement(doc);
+	NSString *nodeName = nil;
+	if(elNSPrefix != nil && [elNSPrefix length] > 0)
+	{
+		nodeName = [NSString stringWithFormat:@"%@:%@", elNSPrefix, elName];
+	}
+	else
+	{
+		nodeName = [NSString stringWithFormat:@"%@:%@", @"DataProviderServiceSvc", elName];
+	}
 	
-	xmlNsPtr xsi = xmlSearchNs(doc, root, (const xmlChar*)"xsi");
+	xmlNodePtr node = xmlNewDocNode(doc, NULL, [nodeName xmlString], NULL);
 	
-	xmlNodePtr node = xmlNewDocNode(doc, NULL, (const xmlChar*)[elName UTF8String], NULL);
-	xmlSetNsProp(node, xsi, (const xmlChar*)"type", (const xmlChar*)"DataProviderService:GetExportDataResponse");
 	
 	[self addAttributesToNode:node];
 	
@@ -890,7 +938,7 @@
 {
 	
 	if(self.GetExportDataResult != 0) {
-		xmlAddChild(node, [self.GetExportDataResult xmlNodeForDoc:node->doc elementName:@"GetExportDataResult"]);
+		xmlAddChild(node, [self.GetExportDataResult xmlNodeForDoc:node->doc elementName:@"GetExportDataResult" elementNSPrefix:@"DataProviderServiceSvc"]);
 	}
 }
 /* elements */
@@ -902,9 +950,9 @@
 	
 	return attributes;
 }
-+ (DataProviderService_GetExportDataResponse *)deserializeNode:(xmlNodePtr)cur
++ (DataProviderServiceSvc_GetExportDataResponse *)deserializeNode:(xmlNodePtr)cur
 {
-	DataProviderService_GetExportDataResponse *newObject = [[DataProviderService_GetExportDataResponse new] autorelease];
+	DataProviderServiceSvc_GetExportDataResponse *newObject = [[DataProviderServiceSvc_GetExportDataResponse new] autorelease];
 	
 	[newObject deserializeAttributesFromNode:cur];
 	[newObject deserializeElementsFromNode:cur];
@@ -944,7 +992,7 @@
 						NSString *prefix = [elementTypeArray objectAtIndex:0];
 						NSString *localName = [elementTypeArray objectAtIndex:1];
 						
-						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, (const xmlChar *)[prefix UTF8String]);
+						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, [prefix xmlString]);
 						
 						NSString *standardPrefix = [[USGlobals sharedInstance].wsdlStandardNamespaces objectForKey:[NSString stringWithCString:(char*)elementNamespace->href encoding:NSUTF8StringEncoding]];
 						
@@ -965,7 +1013,7 @@
 	}
 }
 @end
-@implementation DataProviderService_GetTopologyDiagramConfig
+@implementation DataProviderServiceSvc_GetTopologyDiagramConfig
 - (id)init
 {
 	if((self = [super init])) {
@@ -982,16 +1030,22 @@
 }
 - (NSString *)nsPrefix
 {
-	return @"DataProviderService";
+	return @"DataProviderServiceSvc";
 }
-- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName
+- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix
 {
-	xmlNodePtr root = xmlDocGetRootElement(doc);
+	NSString *nodeName = nil;
+	if(elNSPrefix != nil && [elNSPrefix length] > 0)
+	{
+		nodeName = [NSString stringWithFormat:@"%@:%@", elNSPrefix, elName];
+	}
+	else
+	{
+		nodeName = [NSString stringWithFormat:@"%@:%@", @"DataProviderServiceSvc", elName];
+	}
 	
-	xmlNsPtr xsi = xmlSearchNs(doc, root, (const xmlChar*)"xsi");
+	xmlNodePtr node = xmlNewDocNode(doc, NULL, [nodeName xmlString], NULL);
 	
-	xmlNodePtr node = xmlNewDocNode(doc, NULL, (const xmlChar*)[elName UTF8String], NULL);
-	xmlSetNsProp(node, xsi, (const xmlChar*)"type", (const xmlChar*)"DataProviderService:GetTopologyDiagramConfig");
 	
 	[self addAttributesToNode:node];
 	
@@ -1007,7 +1061,7 @@
 {
 	
 	if(self.config != 0) {
-		xmlAddChild(node, [self.config xmlNodeForDoc:node->doc elementName:@"config"]);
+		xmlAddChild(node, [self.config xmlNodeForDoc:node->doc elementName:@"config" elementNSPrefix:@"DataProviderServiceSvc"]);
 	}
 }
 /* elements */
@@ -1019,9 +1073,9 @@
 	
 	return attributes;
 }
-+ (DataProviderService_GetTopologyDiagramConfig *)deserializeNode:(xmlNodePtr)cur
++ (DataProviderServiceSvc_GetTopologyDiagramConfig *)deserializeNode:(xmlNodePtr)cur
 {
-	DataProviderService_GetTopologyDiagramConfig *newObject = [[DataProviderService_GetTopologyDiagramConfig new] autorelease];
+	DataProviderServiceSvc_GetTopologyDiagramConfig *newObject = [[DataProviderServiceSvc_GetTopologyDiagramConfig new] autorelease];
 	
 	[newObject deserializeAttributesFromNode:cur];
 	[newObject deserializeElementsFromNode:cur];
@@ -1061,7 +1115,7 @@
 						NSString *prefix = [elementTypeArray objectAtIndex:0];
 						NSString *localName = [elementTypeArray objectAtIndex:1];
 						
-						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, (const xmlChar *)[prefix UTF8String]);
+						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, [prefix xmlString]);
 						
 						NSString *standardPrefix = [[USGlobals sharedInstance].wsdlStandardNamespaces objectForKey:[NSString stringWithCString:(char*)elementNamespace->href encoding:NSUTF8StringEncoding]];
 						
@@ -1082,7 +1136,7 @@
 	}
 }
 @end
-@implementation DataProviderService_GetTopologyDiagramConfigResponse
+@implementation DataProviderServiceSvc_GetTopologyDiagramConfigResponse
 - (id)init
 {
 	if((self = [super init])) {
@@ -1099,16 +1153,22 @@
 }
 - (NSString *)nsPrefix
 {
-	return @"DataProviderService";
+	return @"DataProviderServiceSvc";
 }
-- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName
+- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix
 {
-	xmlNodePtr root = xmlDocGetRootElement(doc);
+	NSString *nodeName = nil;
+	if(elNSPrefix != nil && [elNSPrefix length] > 0)
+	{
+		nodeName = [NSString stringWithFormat:@"%@:%@", elNSPrefix, elName];
+	}
+	else
+	{
+		nodeName = [NSString stringWithFormat:@"%@:%@", @"DataProviderServiceSvc", elName];
+	}
 	
-	xmlNsPtr xsi = xmlSearchNs(doc, root, (const xmlChar*)"xsi");
+	xmlNodePtr node = xmlNewDocNode(doc, NULL, [nodeName xmlString], NULL);
 	
-	xmlNodePtr node = xmlNewDocNode(doc, NULL, (const xmlChar*)[elName UTF8String], NULL);
-	xmlSetNsProp(node, xsi, (const xmlChar*)"type", (const xmlChar*)"DataProviderService:GetTopologyDiagramConfigResponse");
 	
 	[self addAttributesToNode:node];
 	
@@ -1124,7 +1184,7 @@
 {
 	
 	if(self.GetTopologyDiagramConfigResult != 0) {
-		xmlAddChild(node, [self.GetTopologyDiagramConfigResult xmlNodeForDoc:node->doc elementName:@"GetTopologyDiagramConfigResult"]);
+		xmlAddChild(node, [self.GetTopologyDiagramConfigResult xmlNodeForDoc:node->doc elementName:@"GetTopologyDiagramConfigResult" elementNSPrefix:@"DataProviderServiceSvc"]);
 	}
 }
 /* elements */
@@ -1136,9 +1196,9 @@
 	
 	return attributes;
 }
-+ (DataProviderService_GetTopologyDiagramConfigResponse *)deserializeNode:(xmlNodePtr)cur
++ (DataProviderServiceSvc_GetTopologyDiagramConfigResponse *)deserializeNode:(xmlNodePtr)cur
 {
-	DataProviderService_GetTopologyDiagramConfigResponse *newObject = [[DataProviderService_GetTopologyDiagramConfigResponse new] autorelease];
+	DataProviderServiceSvc_GetTopologyDiagramConfigResponse *newObject = [[DataProviderServiceSvc_GetTopologyDiagramConfigResponse new] autorelease];
 	
 	[newObject deserializeAttributesFromNode:cur];
 	[newObject deserializeElementsFromNode:cur];
@@ -1178,7 +1238,7 @@
 						NSString *prefix = [elementTypeArray objectAtIndex:0];
 						NSString *localName = [elementTypeArray objectAtIndex:1];
 						
-						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, (const xmlChar *)[prefix UTF8String]);
+						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, [prefix xmlString]);
 						
 						NSString *standardPrefix = [[USGlobals sharedInstance].wsdlStandardNamespaces objectForKey:[NSString stringWithCString:(char*)elementNamespace->href encoding:NSUTF8StringEncoding]];
 						
@@ -1199,7 +1259,7 @@
 	}
 }
 @end
-@implementation DataProviderService_GetTopologyDiagramData
+@implementation DataProviderServiceSvc_GetTopologyDiagramData
 - (id)init
 {
 	if((self = [super init])) {
@@ -1218,16 +1278,22 @@
 }
 - (NSString *)nsPrefix
 {
-	return @"DataProviderService";
+	return @"DataProviderServiceSvc";
 }
-- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName
+- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix
 {
-	xmlNodePtr root = xmlDocGetRootElement(doc);
+	NSString *nodeName = nil;
+	if(elNSPrefix != nil && [elNSPrefix length] > 0)
+	{
+		nodeName = [NSString stringWithFormat:@"%@:%@", elNSPrefix, elName];
+	}
+	else
+	{
+		nodeName = [NSString stringWithFormat:@"%@:%@", @"DataProviderServiceSvc", elName];
+	}
 	
-	xmlNsPtr xsi = xmlSearchNs(doc, root, (const xmlChar*)"xsi");
+	xmlNodePtr node = xmlNewDocNode(doc, NULL, [nodeName xmlString], NULL);
 	
-	xmlNodePtr node = xmlNewDocNode(doc, NULL, (const xmlChar*)[elName UTF8String], NULL);
-	xmlSetNsProp(node, xsi, (const xmlChar*)"type", (const xmlChar*)"DataProviderService:GetTopologyDiagramData");
 	
 	[self addAttributesToNode:node];
 	
@@ -1243,10 +1309,10 @@
 {
 	
 	if(self.dataProvID != 0) {
-		xmlAddChild(node, [self.dataProvID xmlNodeForDoc:node->doc elementName:@"dataProvID"]);
+		xmlAddChild(node, [self.dataProvID xmlNodeForDoc:node->doc elementName:@"dataProvID" elementNSPrefix:@"DataProviderServiceSvc"]);
 	}
 	if(self.parameters != 0) {
-		xmlAddChild(node, [self.parameters xmlNodeForDoc:node->doc elementName:@"parameters"]);
+		xmlAddChild(node, [self.parameters xmlNodeForDoc:node->doc elementName:@"parameters" elementNSPrefix:@"DataProviderServiceSvc"]);
 	}
 }
 /* elements */
@@ -1259,9 +1325,9 @@
 	
 	return attributes;
 }
-+ (DataProviderService_GetTopologyDiagramData *)deserializeNode:(xmlNodePtr)cur
++ (DataProviderServiceSvc_GetTopologyDiagramData *)deserializeNode:(xmlNodePtr)cur
 {
-	DataProviderService_GetTopologyDiagramData *newObject = [[DataProviderService_GetTopologyDiagramData new] autorelease];
+	DataProviderServiceSvc_GetTopologyDiagramData *newObject = [[DataProviderServiceSvc_GetTopologyDiagramData new] autorelease];
 	
 	[newObject deserializeAttributesFromNode:cur];
 	[newObject deserializeElementsFromNode:cur];
@@ -1301,7 +1367,7 @@
 						NSString *prefix = [elementTypeArray objectAtIndex:0];
 						NSString *localName = [elementTypeArray objectAtIndex:1];
 						
-						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, (const xmlChar *)[prefix UTF8String]);
+						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, [prefix xmlString]);
 						
 						NSString *standardPrefix = [[USGlobals sharedInstance].wsdlStandardNamespaces objectForKey:[NSString stringWithCString:(char*)elementNamespace->href encoding:NSUTF8StringEncoding]];
 						
@@ -1334,7 +1400,7 @@
 						NSString *prefix = [elementTypeArray objectAtIndex:0];
 						NSString *localName = [elementTypeArray objectAtIndex:1];
 						
-						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, (const xmlChar *)[prefix UTF8String]);
+						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, [prefix xmlString]);
 						
 						NSString *standardPrefix = [[USGlobals sharedInstance].wsdlStandardNamespaces objectForKey:[NSString stringWithCString:(char*)elementNamespace->href encoding:NSUTF8StringEncoding]];
 						
@@ -1355,7 +1421,7 @@
 	}
 }
 @end
-@implementation DataProviderService_GetTopologyDiagramDataResponse
+@implementation DataProviderServiceSvc_GetTopologyDiagramDataResponse
 - (id)init
 {
 	if((self = [super init])) {
@@ -1372,16 +1438,22 @@
 }
 - (NSString *)nsPrefix
 {
-	return @"DataProviderService";
+	return @"DataProviderServiceSvc";
 }
-- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName
+- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix
 {
-	xmlNodePtr root = xmlDocGetRootElement(doc);
+	NSString *nodeName = nil;
+	if(elNSPrefix != nil && [elNSPrefix length] > 0)
+	{
+		nodeName = [NSString stringWithFormat:@"%@:%@", elNSPrefix, elName];
+	}
+	else
+	{
+		nodeName = [NSString stringWithFormat:@"%@:%@", @"DataProviderServiceSvc", elName];
+	}
 	
-	xmlNsPtr xsi = xmlSearchNs(doc, root, (const xmlChar*)"xsi");
+	xmlNodePtr node = xmlNewDocNode(doc, NULL, [nodeName xmlString], NULL);
 	
-	xmlNodePtr node = xmlNewDocNode(doc, NULL, (const xmlChar*)[elName UTF8String], NULL);
-	xmlSetNsProp(node, xsi, (const xmlChar*)"type", (const xmlChar*)"DataProviderService:GetTopologyDiagramDataResponse");
 	
 	[self addAttributesToNode:node];
 	
@@ -1397,7 +1469,7 @@
 {
 	
 	if(self.GetTopologyDiagramDataResult != 0) {
-		xmlAddChild(node, [self.GetTopologyDiagramDataResult xmlNodeForDoc:node->doc elementName:@"GetTopologyDiagramDataResult"]);
+		xmlAddChild(node, [self.GetTopologyDiagramDataResult xmlNodeForDoc:node->doc elementName:@"GetTopologyDiagramDataResult" elementNSPrefix:@"DataProviderServiceSvc"]);
 	}
 }
 /* elements */
@@ -1409,9 +1481,9 @@
 	
 	return attributes;
 }
-+ (DataProviderService_GetTopologyDiagramDataResponse *)deserializeNode:(xmlNodePtr)cur
++ (DataProviderServiceSvc_GetTopologyDiagramDataResponse *)deserializeNode:(xmlNodePtr)cur
 {
-	DataProviderService_GetTopologyDiagramDataResponse *newObject = [[DataProviderService_GetTopologyDiagramDataResponse new] autorelease];
+	DataProviderServiceSvc_GetTopologyDiagramDataResponse *newObject = [[DataProviderServiceSvc_GetTopologyDiagramDataResponse new] autorelease];
 	
 	[newObject deserializeAttributesFromNode:cur];
 	[newObject deserializeElementsFromNode:cur];
@@ -1451,7 +1523,7 @@
 						NSString *prefix = [elementTypeArray objectAtIndex:0];
 						NSString *localName = [elementTypeArray objectAtIndex:1];
 						
-						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, (const xmlChar *)[prefix UTF8String]);
+						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, [prefix xmlString]);
 						
 						NSString *standardPrefix = [[USGlobals sharedInstance].wsdlStandardNamespaces objectForKey:[NSString stringWithCString:(char*)elementNamespace->href encoding:NSUTF8StringEncoding]];
 						
@@ -1472,7 +1544,7 @@
 	}
 }
 @end
-@implementation DataProviderService_MarkException
+@implementation DataProviderServiceSvc_MarkException
 - (id)init
 {
 	if((self = [super init])) {
@@ -1489,16 +1561,22 @@
 }
 - (NSString *)nsPrefix
 {
-	return @"DataProviderService";
+	return @"DataProviderServiceSvc";
 }
-- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName
+- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix
 {
-	xmlNodePtr root = xmlDocGetRootElement(doc);
+	NSString *nodeName = nil;
+	if(elNSPrefix != nil && [elNSPrefix length] > 0)
+	{
+		nodeName = [NSString stringWithFormat:@"%@:%@", elNSPrefix, elName];
+	}
+	else
+	{
+		nodeName = [NSString stringWithFormat:@"%@:%@", @"DataProviderServiceSvc", elName];
+	}
 	
-	xmlNsPtr xsi = xmlSearchNs(doc, root, (const xmlChar*)"xsi");
+	xmlNodePtr node = xmlNewDocNode(doc, NULL, [nodeName xmlString], NULL);
 	
-	xmlNodePtr node = xmlNewDocNode(doc, NULL, (const xmlChar*)[elName UTF8String], NULL);
-	xmlSetNsProp(node, xsi, (const xmlChar*)"type", (const xmlChar*)"DataProviderService:MarkException");
 	
 	[self addAttributesToNode:node];
 	
@@ -1514,7 +1592,7 @@
 {
 	
 	if(self.exceptionParam != 0) {
-		xmlAddChild(node, [self.exceptionParam xmlNodeForDoc:node->doc elementName:@"exceptionParam"]);
+		xmlAddChild(node, [self.exceptionParam xmlNodeForDoc:node->doc elementName:@"exceptionParam" elementNSPrefix:@"DataProviderServiceSvc"]);
 	}
 }
 /* elements */
@@ -1526,9 +1604,9 @@
 	
 	return attributes;
 }
-+ (DataProviderService_MarkException *)deserializeNode:(xmlNodePtr)cur
++ (DataProviderServiceSvc_MarkException *)deserializeNode:(xmlNodePtr)cur
 {
-	DataProviderService_MarkException *newObject = [[DataProviderService_MarkException new] autorelease];
+	DataProviderServiceSvc_MarkException *newObject = [[DataProviderServiceSvc_MarkException new] autorelease];
 	
 	[newObject deserializeAttributesFromNode:cur];
 	[newObject deserializeElementsFromNode:cur];
@@ -1568,7 +1646,7 @@
 						NSString *prefix = [elementTypeArray objectAtIndex:0];
 						NSString *localName = [elementTypeArray objectAtIndex:1];
 						
-						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, (const xmlChar *)[prefix UTF8String]);
+						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, [prefix xmlString]);
 						
 						NSString *standardPrefix = [[USGlobals sharedInstance].wsdlStandardNamespaces objectForKey:[NSString stringWithCString:(char*)elementNamespace->href encoding:NSUTF8StringEncoding]];
 						
@@ -1589,7 +1667,7 @@
 	}
 }
 @end
-@implementation DataProviderService_MarkExceptionResponse
+@implementation DataProviderServiceSvc_MarkExceptionResponse
 - (id)init
 {
 	if((self = [super init])) {
@@ -1606,16 +1684,22 @@
 }
 - (NSString *)nsPrefix
 {
-	return @"DataProviderService";
+	return @"DataProviderServiceSvc";
 }
-- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName
+- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix
 {
-	xmlNodePtr root = xmlDocGetRootElement(doc);
+	NSString *nodeName = nil;
+	if(elNSPrefix != nil && [elNSPrefix length] > 0)
+	{
+		nodeName = [NSString stringWithFormat:@"%@:%@", elNSPrefix, elName];
+	}
+	else
+	{
+		nodeName = [NSString stringWithFormat:@"%@:%@", @"DataProviderServiceSvc", elName];
+	}
 	
-	xmlNsPtr xsi = xmlSearchNs(doc, root, (const xmlChar*)"xsi");
+	xmlNodePtr node = xmlNewDocNode(doc, NULL, [nodeName xmlString], NULL);
 	
-	xmlNodePtr node = xmlNewDocNode(doc, NULL, (const xmlChar*)[elName UTF8String], NULL);
-	xmlSetNsProp(node, xsi, (const xmlChar*)"type", (const xmlChar*)"DataProviderService:MarkExceptionResponse");
 	
 	[self addAttributesToNode:node];
 	
@@ -1631,7 +1715,7 @@
 {
 	
 	if(self.MarkExceptionResult != 0) {
-		xmlAddChild(node, [self.MarkExceptionResult xmlNodeForDoc:node->doc elementName:@"MarkExceptionResult"]);
+		xmlAddChild(node, [self.MarkExceptionResult xmlNodeForDoc:node->doc elementName:@"MarkExceptionResult" elementNSPrefix:@"DataProviderServiceSvc"]);
 	}
 }
 /* elements */
@@ -1643,9 +1727,9 @@
 	
 	return attributes;
 }
-+ (DataProviderService_MarkExceptionResponse *)deserializeNode:(xmlNodePtr)cur
++ (DataProviderServiceSvc_MarkExceptionResponse *)deserializeNode:(xmlNodePtr)cur
 {
-	DataProviderService_MarkExceptionResponse *newObject = [[DataProviderService_MarkExceptionResponse new] autorelease];
+	DataProviderServiceSvc_MarkExceptionResponse *newObject = [[DataProviderServiceSvc_MarkExceptionResponse new] autorelease];
 	
 	[newObject deserializeAttributesFromNode:cur];
 	[newObject deserializeElementsFromNode:cur];
@@ -1685,7 +1769,7 @@
 						NSString *prefix = [elementTypeArray objectAtIndex:0];
 						NSString *localName = [elementTypeArray objectAtIndex:1];
 						
-						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, (const xmlChar *)[prefix UTF8String]);
+						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, [prefix xmlString]);
 						
 						NSString *standardPrefix = [[USGlobals sharedInstance].wsdlStandardNamespaces objectForKey:[NSString stringWithCString:(char*)elementNamespace->href encoding:NSUTF8StringEncoding]];
 						
@@ -1706,7 +1790,7 @@
 	}
 }
 @end
-@implementation DataProviderService_UnmarkException
+@implementation DataProviderServiceSvc_UnmarkException
 - (id)init
 {
 	if((self = [super init])) {
@@ -1723,16 +1807,22 @@
 }
 - (NSString *)nsPrefix
 {
-	return @"DataProviderService";
+	return @"DataProviderServiceSvc";
 }
-- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName
+- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix
 {
-	xmlNodePtr root = xmlDocGetRootElement(doc);
+	NSString *nodeName = nil;
+	if(elNSPrefix != nil && [elNSPrefix length] > 0)
+	{
+		nodeName = [NSString stringWithFormat:@"%@:%@", elNSPrefix, elName];
+	}
+	else
+	{
+		nodeName = [NSString stringWithFormat:@"%@:%@", @"DataProviderServiceSvc", elName];
+	}
 	
-	xmlNsPtr xsi = xmlSearchNs(doc, root, (const xmlChar*)"xsi");
+	xmlNodePtr node = xmlNewDocNode(doc, NULL, [nodeName xmlString], NULL);
 	
-	xmlNodePtr node = xmlNewDocNode(doc, NULL, (const xmlChar*)[elName UTF8String], NULL);
-	xmlSetNsProp(node, xsi, (const xmlChar*)"type", (const xmlChar*)"DataProviderService:UnmarkException");
 	
 	[self addAttributesToNode:node];
 	
@@ -1748,7 +1838,7 @@
 {
 	
 	if(self.exceptionParam != 0) {
-		xmlAddChild(node, [self.exceptionParam xmlNodeForDoc:node->doc elementName:@"exceptionParam"]);
+		xmlAddChild(node, [self.exceptionParam xmlNodeForDoc:node->doc elementName:@"exceptionParam" elementNSPrefix:@"DataProviderServiceSvc"]);
 	}
 }
 /* elements */
@@ -1760,9 +1850,9 @@
 	
 	return attributes;
 }
-+ (DataProviderService_UnmarkException *)deserializeNode:(xmlNodePtr)cur
++ (DataProviderServiceSvc_UnmarkException *)deserializeNode:(xmlNodePtr)cur
 {
-	DataProviderService_UnmarkException *newObject = [[DataProviderService_UnmarkException new] autorelease];
+	DataProviderServiceSvc_UnmarkException *newObject = [[DataProviderServiceSvc_UnmarkException new] autorelease];
 	
 	[newObject deserializeAttributesFromNode:cur];
 	[newObject deserializeElementsFromNode:cur];
@@ -1802,7 +1892,7 @@
 						NSString *prefix = [elementTypeArray objectAtIndex:0];
 						NSString *localName = [elementTypeArray objectAtIndex:1];
 						
-						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, (const xmlChar *)[prefix UTF8String]);
+						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, [prefix xmlString]);
 						
 						NSString *standardPrefix = [[USGlobals sharedInstance].wsdlStandardNamespaces objectForKey:[NSString stringWithCString:(char*)elementNamespace->href encoding:NSUTF8StringEncoding]];
 						
@@ -1823,7 +1913,7 @@
 	}
 }
 @end
-@implementation DataProviderService_UnmarkExceptionResponse
+@implementation DataProviderServiceSvc_UnmarkExceptionResponse
 - (id)init
 {
 	if((self = [super init])) {
@@ -1840,16 +1930,22 @@
 }
 - (NSString *)nsPrefix
 {
-	return @"DataProviderService";
+	return @"DataProviderServiceSvc";
 }
-- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName
+- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix
 {
-	xmlNodePtr root = xmlDocGetRootElement(doc);
+	NSString *nodeName = nil;
+	if(elNSPrefix != nil && [elNSPrefix length] > 0)
+	{
+		nodeName = [NSString stringWithFormat:@"%@:%@", elNSPrefix, elName];
+	}
+	else
+	{
+		nodeName = [NSString stringWithFormat:@"%@:%@", @"DataProviderServiceSvc", elName];
+	}
 	
-	xmlNsPtr xsi = xmlSearchNs(doc, root, (const xmlChar*)"xsi");
+	xmlNodePtr node = xmlNewDocNode(doc, NULL, [nodeName xmlString], NULL);
 	
-	xmlNodePtr node = xmlNewDocNode(doc, NULL, (const xmlChar*)[elName UTF8String], NULL);
-	xmlSetNsProp(node, xsi, (const xmlChar*)"type", (const xmlChar*)"DataProviderService:UnmarkExceptionResponse");
 	
 	[self addAttributesToNode:node];
 	
@@ -1865,7 +1961,7 @@
 {
 	
 	if(self.UnmarkExceptionResult != 0) {
-		xmlAddChild(node, [self.UnmarkExceptionResult xmlNodeForDoc:node->doc elementName:@"UnmarkExceptionResult"]);
+		xmlAddChild(node, [self.UnmarkExceptionResult xmlNodeForDoc:node->doc elementName:@"UnmarkExceptionResult" elementNSPrefix:@"DataProviderServiceSvc"]);
 	}
 }
 /* elements */
@@ -1877,9 +1973,9 @@
 	
 	return attributes;
 }
-+ (DataProviderService_UnmarkExceptionResponse *)deserializeNode:(xmlNodePtr)cur
++ (DataProviderServiceSvc_UnmarkExceptionResponse *)deserializeNode:(xmlNodePtr)cur
 {
-	DataProviderService_UnmarkExceptionResponse *newObject = [[DataProviderService_UnmarkExceptionResponse new] autorelease];
+	DataProviderServiceSvc_UnmarkExceptionResponse *newObject = [[DataProviderServiceSvc_UnmarkExceptionResponse new] autorelease];
 	
 	[newObject deserializeAttributesFromNode:cur];
 	[newObject deserializeElementsFromNode:cur];
@@ -1919,7 +2015,7 @@
 						NSString *prefix = [elementTypeArray objectAtIndex:0];
 						NSString *localName = [elementTypeArray objectAtIndex:1];
 						
-						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, (const xmlChar *)[prefix UTF8String]);
+						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, [prefix xmlString]);
 						
 						NSString *standardPrefix = [[USGlobals sharedInstance].wsdlStandardNamespaces objectForKey:[NSString stringWithCString:(char*)elementNamespace->href encoding:NSUTF8StringEncoding]];
 						
@@ -1940,7 +2036,7 @@
 	}
 }
 @end
-@implementation DataProviderService_CreateAnnotation
+@implementation DataProviderServiceSvc_CreateAnnotation
 - (id)init
 {
 	if((self = [super init])) {
@@ -1957,16 +2053,22 @@
 }
 - (NSString *)nsPrefix
 {
-	return @"DataProviderService";
+	return @"DataProviderServiceSvc";
 }
-- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName
+- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix
 {
-	xmlNodePtr root = xmlDocGetRootElement(doc);
+	NSString *nodeName = nil;
+	if(elNSPrefix != nil && [elNSPrefix length] > 0)
+	{
+		nodeName = [NSString stringWithFormat:@"%@:%@", elNSPrefix, elName];
+	}
+	else
+	{
+		nodeName = [NSString stringWithFormat:@"%@:%@", @"DataProviderServiceSvc", elName];
+	}
 	
-	xmlNsPtr xsi = xmlSearchNs(doc, root, (const xmlChar*)"xsi");
+	xmlNodePtr node = xmlNewDocNode(doc, NULL, [nodeName xmlString], NULL);
 	
-	xmlNodePtr node = xmlNewDocNode(doc, NULL, (const xmlChar*)[elName UTF8String], NULL);
-	xmlSetNsProp(node, xsi, (const xmlChar*)"type", (const xmlChar*)"DataProviderService:CreateAnnotation");
 	
 	[self addAttributesToNode:node];
 	
@@ -1982,7 +2084,7 @@
 {
 	
 	if(self.annotationParamDTO != 0) {
-		xmlAddChild(node, [self.annotationParamDTO xmlNodeForDoc:node->doc elementName:@"annotationParamDTO"]);
+		xmlAddChild(node, [self.annotationParamDTO xmlNodeForDoc:node->doc elementName:@"annotationParamDTO" elementNSPrefix:@"DataProviderServiceSvc"]);
 	}
 }
 /* elements */
@@ -1994,9 +2096,9 @@
 	
 	return attributes;
 }
-+ (DataProviderService_CreateAnnotation *)deserializeNode:(xmlNodePtr)cur
++ (DataProviderServiceSvc_CreateAnnotation *)deserializeNode:(xmlNodePtr)cur
 {
-	DataProviderService_CreateAnnotation *newObject = [[DataProviderService_CreateAnnotation new] autorelease];
+	DataProviderServiceSvc_CreateAnnotation *newObject = [[DataProviderServiceSvc_CreateAnnotation new] autorelease];
 	
 	[newObject deserializeAttributesFromNode:cur];
 	[newObject deserializeElementsFromNode:cur];
@@ -2036,7 +2138,7 @@
 						NSString *prefix = [elementTypeArray objectAtIndex:0];
 						NSString *localName = [elementTypeArray objectAtIndex:1];
 						
-						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, (const xmlChar *)[prefix UTF8String]);
+						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, [prefix xmlString]);
 						
 						NSString *standardPrefix = [[USGlobals sharedInstance].wsdlStandardNamespaces objectForKey:[NSString stringWithCString:(char*)elementNamespace->href encoding:NSUTF8StringEncoding]];
 						
@@ -2057,7 +2159,7 @@
 	}
 }
 @end
-@implementation DataProviderService_CreateAnnotationResponse
+@implementation DataProviderServiceSvc_CreateAnnotationResponse
 - (id)init
 {
 	if((self = [super init])) {
@@ -2074,16 +2176,22 @@
 }
 - (NSString *)nsPrefix
 {
-	return @"DataProviderService";
+	return @"DataProviderServiceSvc";
 }
-- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName
+- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix
 {
-	xmlNodePtr root = xmlDocGetRootElement(doc);
+	NSString *nodeName = nil;
+	if(elNSPrefix != nil && [elNSPrefix length] > 0)
+	{
+		nodeName = [NSString stringWithFormat:@"%@:%@", elNSPrefix, elName];
+	}
+	else
+	{
+		nodeName = [NSString stringWithFormat:@"%@:%@", @"DataProviderServiceSvc", elName];
+	}
 	
-	xmlNsPtr xsi = xmlSearchNs(doc, root, (const xmlChar*)"xsi");
+	xmlNodePtr node = xmlNewDocNode(doc, NULL, [nodeName xmlString], NULL);
 	
-	xmlNodePtr node = xmlNewDocNode(doc, NULL, (const xmlChar*)[elName UTF8String], NULL);
-	xmlSetNsProp(node, xsi, (const xmlChar*)"type", (const xmlChar*)"DataProviderService:CreateAnnotationResponse");
 	
 	[self addAttributesToNode:node];
 	
@@ -2099,7 +2207,7 @@
 {
 	
 	if(self.CreateAnnotationResult != 0) {
-		xmlAddChild(node, [self.CreateAnnotationResult xmlNodeForDoc:node->doc elementName:@"CreateAnnotationResult"]);
+		xmlAddChild(node, [self.CreateAnnotationResult xmlNodeForDoc:node->doc elementName:@"CreateAnnotationResult" elementNSPrefix:@"DataProviderServiceSvc"]);
 	}
 }
 /* elements */
@@ -2111,9 +2219,9 @@
 	
 	return attributes;
 }
-+ (DataProviderService_CreateAnnotationResponse *)deserializeNode:(xmlNodePtr)cur
++ (DataProviderServiceSvc_CreateAnnotationResponse *)deserializeNode:(xmlNodePtr)cur
 {
-	DataProviderService_CreateAnnotationResponse *newObject = [[DataProviderService_CreateAnnotationResponse new] autorelease];
+	DataProviderServiceSvc_CreateAnnotationResponse *newObject = [[DataProviderServiceSvc_CreateAnnotationResponse new] autorelease];
 	
 	[newObject deserializeAttributesFromNode:cur];
 	[newObject deserializeElementsFromNode:cur];
@@ -2153,7 +2261,7 @@
 						NSString *prefix = [elementTypeArray objectAtIndex:0];
 						NSString *localName = [elementTypeArray objectAtIndex:1];
 						
-						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, (const xmlChar *)[prefix UTF8String]);
+						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, [prefix xmlString]);
 						
 						NSString *standardPrefix = [[USGlobals sharedInstance].wsdlStandardNamespaces objectForKey:[NSString stringWithCString:(char*)elementNamespace->href encoding:NSUTF8StringEncoding]];
 						
@@ -2174,7 +2282,7 @@
 	}
 }
 @end
-@implementation DataProviderService_UpdateAnnotation
+@implementation DataProviderServiceSvc_UpdateAnnotation
 - (id)init
 {
 	if((self = [super init])) {
@@ -2191,16 +2299,22 @@
 }
 - (NSString *)nsPrefix
 {
-	return @"DataProviderService";
+	return @"DataProviderServiceSvc";
 }
-- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName
+- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix
 {
-	xmlNodePtr root = xmlDocGetRootElement(doc);
+	NSString *nodeName = nil;
+	if(elNSPrefix != nil && [elNSPrefix length] > 0)
+	{
+		nodeName = [NSString stringWithFormat:@"%@:%@", elNSPrefix, elName];
+	}
+	else
+	{
+		nodeName = [NSString stringWithFormat:@"%@:%@", @"DataProviderServiceSvc", elName];
+	}
 	
-	xmlNsPtr xsi = xmlSearchNs(doc, root, (const xmlChar*)"xsi");
+	xmlNodePtr node = xmlNewDocNode(doc, NULL, [nodeName xmlString], NULL);
 	
-	xmlNodePtr node = xmlNewDocNode(doc, NULL, (const xmlChar*)[elName UTF8String], NULL);
-	xmlSetNsProp(node, xsi, (const xmlChar*)"type", (const xmlChar*)"DataProviderService:UpdateAnnotation");
 	
 	[self addAttributesToNode:node];
 	
@@ -2216,7 +2330,7 @@
 {
 	
 	if(self.annotationParamDTO != 0) {
-		xmlAddChild(node, [self.annotationParamDTO xmlNodeForDoc:node->doc elementName:@"annotationParamDTO"]);
+		xmlAddChild(node, [self.annotationParamDTO xmlNodeForDoc:node->doc elementName:@"annotationParamDTO" elementNSPrefix:@"DataProviderServiceSvc"]);
 	}
 }
 /* elements */
@@ -2228,9 +2342,9 @@
 	
 	return attributes;
 }
-+ (DataProviderService_UpdateAnnotation *)deserializeNode:(xmlNodePtr)cur
++ (DataProviderServiceSvc_UpdateAnnotation *)deserializeNode:(xmlNodePtr)cur
 {
-	DataProviderService_UpdateAnnotation *newObject = [[DataProviderService_UpdateAnnotation new] autorelease];
+	DataProviderServiceSvc_UpdateAnnotation *newObject = [[DataProviderServiceSvc_UpdateAnnotation new] autorelease];
 	
 	[newObject deserializeAttributesFromNode:cur];
 	[newObject deserializeElementsFromNode:cur];
@@ -2270,7 +2384,7 @@
 						NSString *prefix = [elementTypeArray objectAtIndex:0];
 						NSString *localName = [elementTypeArray objectAtIndex:1];
 						
-						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, (const xmlChar *)[prefix UTF8String]);
+						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, [prefix xmlString]);
 						
 						NSString *standardPrefix = [[USGlobals sharedInstance].wsdlStandardNamespaces objectForKey:[NSString stringWithCString:(char*)elementNamespace->href encoding:NSUTF8StringEncoding]];
 						
@@ -2291,7 +2405,7 @@
 	}
 }
 @end
-@implementation DataProviderService_UpdateAnnotationResponse
+@implementation DataProviderServiceSvc_UpdateAnnotationResponse
 - (id)init
 {
 	if((self = [super init])) {
@@ -2308,16 +2422,22 @@
 }
 - (NSString *)nsPrefix
 {
-	return @"DataProviderService";
+	return @"DataProviderServiceSvc";
 }
-- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName
+- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix
 {
-	xmlNodePtr root = xmlDocGetRootElement(doc);
+	NSString *nodeName = nil;
+	if(elNSPrefix != nil && [elNSPrefix length] > 0)
+	{
+		nodeName = [NSString stringWithFormat:@"%@:%@", elNSPrefix, elName];
+	}
+	else
+	{
+		nodeName = [NSString stringWithFormat:@"%@:%@", @"DataProviderServiceSvc", elName];
+	}
 	
-	xmlNsPtr xsi = xmlSearchNs(doc, root, (const xmlChar*)"xsi");
+	xmlNodePtr node = xmlNewDocNode(doc, NULL, [nodeName xmlString], NULL);
 	
-	xmlNodePtr node = xmlNewDocNode(doc, NULL, (const xmlChar*)[elName UTF8String], NULL);
-	xmlSetNsProp(node, xsi, (const xmlChar*)"type", (const xmlChar*)"DataProviderService:UpdateAnnotationResponse");
 	
 	[self addAttributesToNode:node];
 	
@@ -2333,7 +2453,7 @@
 {
 	
 	if(self.UpdateAnnotationResult != 0) {
-		xmlAddChild(node, [self.UpdateAnnotationResult xmlNodeForDoc:node->doc elementName:@"UpdateAnnotationResult"]);
+		xmlAddChild(node, [self.UpdateAnnotationResult xmlNodeForDoc:node->doc elementName:@"UpdateAnnotationResult" elementNSPrefix:@"DataProviderServiceSvc"]);
 	}
 }
 /* elements */
@@ -2345,9 +2465,9 @@
 	
 	return attributes;
 }
-+ (DataProviderService_UpdateAnnotationResponse *)deserializeNode:(xmlNodePtr)cur
++ (DataProviderServiceSvc_UpdateAnnotationResponse *)deserializeNode:(xmlNodePtr)cur
 {
-	DataProviderService_UpdateAnnotationResponse *newObject = [[DataProviderService_UpdateAnnotationResponse new] autorelease];
+	DataProviderServiceSvc_UpdateAnnotationResponse *newObject = [[DataProviderServiceSvc_UpdateAnnotationResponse new] autorelease];
 	
 	[newObject deserializeAttributesFromNode:cur];
 	[newObject deserializeElementsFromNode:cur];
@@ -2387,7 +2507,7 @@
 						NSString *prefix = [elementTypeArray objectAtIndex:0];
 						NSString *localName = [elementTypeArray objectAtIndex:1];
 						
-						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, (const xmlChar *)[prefix UTF8String]);
+						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, [prefix xmlString]);
 						
 						NSString *standardPrefix = [[USGlobals sharedInstance].wsdlStandardNamespaces objectForKey:[NSString stringWithCString:(char*)elementNamespace->href encoding:NSUTF8StringEncoding]];
 						
@@ -2408,7 +2528,7 @@
 	}
 }
 @end
-@implementation DataProviderService_RemoveAnnotation
+@implementation DataProviderServiceSvc_RemoveAnnotation
 - (id)init
 {
 	if((self = [super init])) {
@@ -2425,16 +2545,22 @@
 }
 - (NSString *)nsPrefix
 {
-	return @"DataProviderService";
+	return @"DataProviderServiceSvc";
 }
-- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName
+- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix
 {
-	xmlNodePtr root = xmlDocGetRootElement(doc);
+	NSString *nodeName = nil;
+	if(elNSPrefix != nil && [elNSPrefix length] > 0)
+	{
+		nodeName = [NSString stringWithFormat:@"%@:%@", elNSPrefix, elName];
+	}
+	else
+	{
+		nodeName = [NSString stringWithFormat:@"%@:%@", @"DataProviderServiceSvc", elName];
+	}
 	
-	xmlNsPtr xsi = xmlSearchNs(doc, root, (const xmlChar*)"xsi");
+	xmlNodePtr node = xmlNewDocNode(doc, NULL, [nodeName xmlString], NULL);
 	
-	xmlNodePtr node = xmlNewDocNode(doc, NULL, (const xmlChar*)[elName UTF8String], NULL);
-	xmlSetNsProp(node, xsi, (const xmlChar*)"type", (const xmlChar*)"DataProviderService:RemoveAnnotation");
 	
 	[self addAttributesToNode:node];
 	
@@ -2450,7 +2576,7 @@
 {
 	
 	if(self.annotationParamDTO != 0) {
-		xmlAddChild(node, [self.annotationParamDTO xmlNodeForDoc:node->doc elementName:@"annotationParamDTO"]);
+		xmlAddChild(node, [self.annotationParamDTO xmlNodeForDoc:node->doc elementName:@"annotationParamDTO" elementNSPrefix:@"DataProviderServiceSvc"]);
 	}
 }
 /* elements */
@@ -2462,9 +2588,9 @@
 	
 	return attributes;
 }
-+ (DataProviderService_RemoveAnnotation *)deserializeNode:(xmlNodePtr)cur
++ (DataProviderServiceSvc_RemoveAnnotation *)deserializeNode:(xmlNodePtr)cur
 {
-	DataProviderService_RemoveAnnotation *newObject = [[DataProviderService_RemoveAnnotation new] autorelease];
+	DataProviderServiceSvc_RemoveAnnotation *newObject = [[DataProviderServiceSvc_RemoveAnnotation new] autorelease];
 	
 	[newObject deserializeAttributesFromNode:cur];
 	[newObject deserializeElementsFromNode:cur];
@@ -2504,7 +2630,7 @@
 						NSString *prefix = [elementTypeArray objectAtIndex:0];
 						NSString *localName = [elementTypeArray objectAtIndex:1];
 						
-						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, (const xmlChar *)[prefix UTF8String]);
+						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, [prefix xmlString]);
 						
 						NSString *standardPrefix = [[USGlobals sharedInstance].wsdlStandardNamespaces objectForKey:[NSString stringWithCString:(char*)elementNamespace->href encoding:NSUTF8StringEncoding]];
 						
@@ -2525,7 +2651,7 @@
 	}
 }
 @end
-@implementation DataProviderService_RemoveAnnotationResponse
+@implementation DataProviderServiceSvc_RemoveAnnotationResponse
 - (id)init
 {
 	if((self = [super init])) {
@@ -2542,16 +2668,22 @@
 }
 - (NSString *)nsPrefix
 {
-	return @"DataProviderService";
+	return @"DataProviderServiceSvc";
 }
-- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName
+- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix
 {
-	xmlNodePtr root = xmlDocGetRootElement(doc);
+	NSString *nodeName = nil;
+	if(elNSPrefix != nil && [elNSPrefix length] > 0)
+	{
+		nodeName = [NSString stringWithFormat:@"%@:%@", elNSPrefix, elName];
+	}
+	else
+	{
+		nodeName = [NSString stringWithFormat:@"%@:%@", @"DataProviderServiceSvc", elName];
+	}
 	
-	xmlNsPtr xsi = xmlSearchNs(doc, root, (const xmlChar*)"xsi");
+	xmlNodePtr node = xmlNewDocNode(doc, NULL, [nodeName xmlString], NULL);
 	
-	xmlNodePtr node = xmlNewDocNode(doc, NULL, (const xmlChar*)[elName UTF8String], NULL);
-	xmlSetNsProp(node, xsi, (const xmlChar*)"type", (const xmlChar*)"DataProviderService:RemoveAnnotationResponse");
 	
 	[self addAttributesToNode:node];
 	
@@ -2567,7 +2699,7 @@
 {
 	
 	if(self.RemoveAnnotationResult != 0) {
-		xmlAddChild(node, [self.RemoveAnnotationResult xmlNodeForDoc:node->doc elementName:@"RemoveAnnotationResult"]);
+		xmlAddChild(node, [self.RemoveAnnotationResult xmlNodeForDoc:node->doc elementName:@"RemoveAnnotationResult" elementNSPrefix:@"DataProviderServiceSvc"]);
 	}
 }
 /* elements */
@@ -2579,9 +2711,9 @@
 	
 	return attributes;
 }
-+ (DataProviderService_RemoveAnnotationResponse *)deserializeNode:(xmlNodePtr)cur
++ (DataProviderServiceSvc_RemoveAnnotationResponse *)deserializeNode:(xmlNodePtr)cur
 {
-	DataProviderService_RemoveAnnotationResponse *newObject = [[DataProviderService_RemoveAnnotationResponse new] autorelease];
+	DataProviderServiceSvc_RemoveAnnotationResponse *newObject = [[DataProviderServiceSvc_RemoveAnnotationResponse new] autorelease];
 	
 	[newObject deserializeAttributesFromNode:cur];
 	[newObject deserializeElementsFromNode:cur];
@@ -2621,7 +2753,7 @@
 						NSString *prefix = [elementTypeArray objectAtIndex:0];
 						NSString *localName = [elementTypeArray objectAtIndex:1];
 						
-						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, (const xmlChar *)[prefix UTF8String]);
+						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, [prefix xmlString]);
 						
 						NSString *standardPrefix = [[USGlobals sharedInstance].wsdlStandardNamespaces objectForKey:[NSString stringWithCString:(char*)elementNamespace->href encoding:NSUTF8StringEncoding]];
 						
@@ -2642,11 +2774,11 @@
 	}
 }
 @end
-@implementation DataProviderService
+@implementation DataProviderServiceSvc
 + (void)initialize
 {
 	[[USGlobals sharedInstance].wsdlStandardNamespaces setObject:@"xs" forKey:@"http://www.w3.org/2001/XMLSchema"];
-	[[USGlobals sharedInstance].wsdlStandardNamespaces setObject:@"DataProviderService" forKey:@"http://tempuri.org/"];
+	[[USGlobals sharedInstance].wsdlStandardNamespaces setObject:@"DataProviderServiceSvc" forKey:@"http://tempuri.org/"];
 	[[USGlobals sharedInstance].wsdlStandardNamespaces setObject:@"ns1" forKey:@"http://tempuri.org/Imports"];
 	[[USGlobals sharedInstance].wsdlStandardNamespaces setObject:@"tns1" forKey:@"http://schemas.datacontract.org/2004/07/Xplore.Framework.Common.DataProvider.DTO"];
 	[[USGlobals sharedInstance].wsdlStandardNamespaces setObject:@"tns2" forKey:@"http://schemas.microsoft.com/2003/10/Serialization/Arrays"];
@@ -2654,12 +2786,12 @@
 	[[USGlobals sharedInstance].wsdlStandardNamespaces setObject:@"tns4" forKey:@"http://schemas.datacontract.org/2004/07/Xplore.Framework.Common.DataProvider.DTO.In"];
 	[[USGlobals sharedInstance].wsdlStandardNamespaces setObject:@"tns5" forKey:@"http://schemas.microsoft.com/2003/10/Serialization/"];
 }
-+ (BasicHttpBinding_IDataProviderService *)BasicHttpBinding_IDataProviderService
++ (BasicHttpBinding_IDataProviderServiceBinding *)BasicHttpBinding_IDataProviderServiceBinding
 {
-	return [[[BasicHttpBinding_IDataProviderService alloc] initWithAddress:@"http://saxm.comscore.com/DataProviderService.svc"] autorelease];
+	return [[[BasicHttpBinding_IDataProviderServiceBinding alloc] initWithAddress:@"http://saxm.comscore.com/DataProviderService.svc"] autorelease];
 }
 @end
-@implementation BasicHttpBinding_IDataProviderService
+@implementation BasicHttpBinding_IDataProviderServiceBinding
 @synthesize address;
 @synthesize defaultTimeout;
 @synthesize logXMLInOut;
@@ -2693,7 +2825,7 @@
 		[cookies addObject:toAdd];
 	}
 }
-- (BasicHttpBinding_IDataProviderServiceResponse *)performSynchronousOperation:(BasicHttpBinding_IDataProviderServiceOperation *)operation
+- (BasicHttpBinding_IDataProviderServiceBindingResponse *)performSynchronousOperation:(BasicHttpBinding_IDataProviderServiceBindingOperation *)operation
 {
 	synchronousOperationComplete = NO;
 	[operation start];
@@ -2704,147 +2836,147 @@
 	while (!synchronousOperationComplete && [theRL runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]]);
 	return operation.response;
 }
-- (void)performAsynchronousOperation:(BasicHttpBinding_IDataProviderServiceOperation *)operation
+- (void)performAsynchronousOperation:(BasicHttpBinding_IDataProviderServiceBindingOperation *)operation
 {
 	[operation start];
 }
-- (void) operation:(BasicHttpBinding_IDataProviderServiceOperation *)operation completedWithResponse:(BasicHttpBinding_IDataProviderServiceResponse *)response
+- (void) operation:(BasicHttpBinding_IDataProviderServiceBindingOperation *)operation completedWithResponse:(BasicHttpBinding_IDataProviderServiceBindingResponse *)response
 {
 	synchronousOperationComplete = YES;
 }
-- (BasicHttpBinding_IDataProviderServiceResponse *)GetDataProviderConfigUsingParameters:(DataProviderService_GetDataProviderConfig *)aParameters 
+- (BasicHttpBinding_IDataProviderServiceBindingResponse *)GetDataProviderConfigUsingParameters:(DataProviderServiceSvc_GetDataProviderConfig *)aParameters 
 {
-	return [self performSynchronousOperation:[[(BasicHttpBinding_IDataProviderService_GetDataProviderConfig*)[BasicHttpBinding_IDataProviderService_GetDataProviderConfig alloc] initWithBinding:self delegate:self
+	return [self performSynchronousOperation:[[(BasicHttpBinding_IDataProviderServiceBinding_GetDataProviderConfig*)[BasicHttpBinding_IDataProviderServiceBinding_GetDataProviderConfig alloc] initWithBinding:self delegate:self
 																							parameters:aParameters
 																							] autorelease]];
 }
-- (void)GetDataProviderConfigAsyncUsingParameters:(DataProviderService_GetDataProviderConfig *)aParameters  delegate:(id<BasicHttpBinding_IDataProviderServiceResponseDelegate>)responseDelegate
+- (void)GetDataProviderConfigAsyncUsingParameters:(DataProviderServiceSvc_GetDataProviderConfig *)aParameters  delegate:(id<BasicHttpBinding_IDataProviderServiceBindingResponseDelegate>)responseDelegate
 {
-	[self performAsynchronousOperation: [[(BasicHttpBinding_IDataProviderService_GetDataProviderConfig*)[BasicHttpBinding_IDataProviderService_GetDataProviderConfig alloc] initWithBinding:self delegate:responseDelegate
+	[self performAsynchronousOperation: [[(BasicHttpBinding_IDataProviderServiceBinding_GetDataProviderConfig*)[BasicHttpBinding_IDataProviderServiceBinding_GetDataProviderConfig alloc] initWithBinding:self delegate:responseDelegate
 																							 parameters:aParameters
 																							 ] autorelease]];
 }
-- (BasicHttpBinding_IDataProviderServiceResponse *)GetDataUsingParameters:(DataProviderService_GetData *)aParameters 
+- (BasicHttpBinding_IDataProviderServiceBindingResponse *)GetDataUsingParameters:(DataProviderServiceSvc_GetData *)aParameters 
 {
-	return [self performSynchronousOperation:[[(BasicHttpBinding_IDataProviderService_GetData*)[BasicHttpBinding_IDataProviderService_GetData alloc] initWithBinding:self delegate:self
+	return [self performSynchronousOperation:[[(BasicHttpBinding_IDataProviderServiceBinding_GetData*)[BasicHttpBinding_IDataProviderServiceBinding_GetData alloc] initWithBinding:self delegate:self
 																							parameters:aParameters
 																							] autorelease]];
 }
-- (void)GetDataAsyncUsingParameters:(DataProviderService_GetData *)aParameters  delegate:(id<BasicHttpBinding_IDataProviderServiceResponseDelegate>)responseDelegate
+- (void)GetDataAsyncUsingParameters:(DataProviderServiceSvc_GetData *)aParameters  delegate:(id<BasicHttpBinding_IDataProviderServiceBindingResponseDelegate>)responseDelegate
 {
-	[self performAsynchronousOperation: [[(BasicHttpBinding_IDataProviderService_GetData*)[BasicHttpBinding_IDataProviderService_GetData alloc] initWithBinding:self delegate:responseDelegate
+	[self performAsynchronousOperation: [[(BasicHttpBinding_IDataProviderServiceBinding_GetData*)[BasicHttpBinding_IDataProviderServiceBinding_GetData alloc] initWithBinding:self delegate:responseDelegate
 																							 parameters:aParameters
 																							 ] autorelease]];
 }
-- (BasicHttpBinding_IDataProviderServiceResponse *)CancelGetDataUsingParameters:(DataProviderService_CancelGetData *)aParameters 
+- (BasicHttpBinding_IDataProviderServiceBindingResponse *)CancelGetDataUsingParameters:(DataProviderServiceSvc_CancelGetData *)aParameters 
 {
-	return [self performSynchronousOperation:[[(BasicHttpBinding_IDataProviderService_CancelGetData*)[BasicHttpBinding_IDataProviderService_CancelGetData alloc] initWithBinding:self delegate:self
+	return [self performSynchronousOperation:[[(BasicHttpBinding_IDataProviderServiceBinding_CancelGetData*)[BasicHttpBinding_IDataProviderServiceBinding_CancelGetData alloc] initWithBinding:self delegate:self
 																							parameters:aParameters
 																							] autorelease]];
 }
-- (void)CancelGetDataAsyncUsingParameters:(DataProviderService_CancelGetData *)aParameters  delegate:(id<BasicHttpBinding_IDataProviderServiceResponseDelegate>)responseDelegate
+- (void)CancelGetDataAsyncUsingParameters:(DataProviderServiceSvc_CancelGetData *)aParameters  delegate:(id<BasicHttpBinding_IDataProviderServiceBindingResponseDelegate>)responseDelegate
 {
-	[self performAsynchronousOperation: [[(BasicHttpBinding_IDataProviderService_CancelGetData*)[BasicHttpBinding_IDataProviderService_CancelGetData alloc] initWithBinding:self delegate:responseDelegate
+	[self performAsynchronousOperation: [[(BasicHttpBinding_IDataProviderServiceBinding_CancelGetData*)[BasicHttpBinding_IDataProviderServiceBinding_CancelGetData alloc] initWithBinding:self delegate:responseDelegate
 																							 parameters:aParameters
 																							 ] autorelease]];
 }
-- (BasicHttpBinding_IDataProviderServiceResponse *)GetExportDataUsingParameters:(DataProviderService_GetExportData *)aParameters 
+- (BasicHttpBinding_IDataProviderServiceBindingResponse *)GetExportDataUsingParameters:(DataProviderServiceSvc_GetExportData *)aParameters 
 {
-	return [self performSynchronousOperation:[[(BasicHttpBinding_IDataProviderService_GetExportData*)[BasicHttpBinding_IDataProviderService_GetExportData alloc] initWithBinding:self delegate:self
+	return [self performSynchronousOperation:[[(BasicHttpBinding_IDataProviderServiceBinding_GetExportData*)[BasicHttpBinding_IDataProviderServiceBinding_GetExportData alloc] initWithBinding:self delegate:self
 																							parameters:aParameters
 																							] autorelease]];
 }
-- (void)GetExportDataAsyncUsingParameters:(DataProviderService_GetExportData *)aParameters  delegate:(id<BasicHttpBinding_IDataProviderServiceResponseDelegate>)responseDelegate
+- (void)GetExportDataAsyncUsingParameters:(DataProviderServiceSvc_GetExportData *)aParameters  delegate:(id<BasicHttpBinding_IDataProviderServiceBindingResponseDelegate>)responseDelegate
 {
-	[self performAsynchronousOperation: [[(BasicHttpBinding_IDataProviderService_GetExportData*)[BasicHttpBinding_IDataProviderService_GetExportData alloc] initWithBinding:self delegate:responseDelegate
+	[self performAsynchronousOperation: [[(BasicHttpBinding_IDataProviderServiceBinding_GetExportData*)[BasicHttpBinding_IDataProviderServiceBinding_GetExportData alloc] initWithBinding:self delegate:responseDelegate
 																							 parameters:aParameters
 																							 ] autorelease]];
 }
-- (BasicHttpBinding_IDataProviderServiceResponse *)GetTopologyDiagramConfigUsingParameters:(DataProviderService_GetTopologyDiagramConfig *)aParameters 
+- (BasicHttpBinding_IDataProviderServiceBindingResponse *)GetTopologyDiagramConfigUsingParameters:(DataProviderServiceSvc_GetTopologyDiagramConfig *)aParameters 
 {
-	return [self performSynchronousOperation:[[(BasicHttpBinding_IDataProviderService_GetTopologyDiagramConfig*)[BasicHttpBinding_IDataProviderService_GetTopologyDiagramConfig alloc] initWithBinding:self delegate:self
+	return [self performSynchronousOperation:[[(BasicHttpBinding_IDataProviderServiceBinding_GetTopologyDiagramConfig*)[BasicHttpBinding_IDataProviderServiceBinding_GetTopologyDiagramConfig alloc] initWithBinding:self delegate:self
 																							parameters:aParameters
 																							] autorelease]];
 }
-- (void)GetTopologyDiagramConfigAsyncUsingParameters:(DataProviderService_GetTopologyDiagramConfig *)aParameters  delegate:(id<BasicHttpBinding_IDataProviderServiceResponseDelegate>)responseDelegate
+- (void)GetTopologyDiagramConfigAsyncUsingParameters:(DataProviderServiceSvc_GetTopologyDiagramConfig *)aParameters  delegate:(id<BasicHttpBinding_IDataProviderServiceBindingResponseDelegate>)responseDelegate
 {
-	[self performAsynchronousOperation: [[(BasicHttpBinding_IDataProviderService_GetTopologyDiagramConfig*)[BasicHttpBinding_IDataProviderService_GetTopologyDiagramConfig alloc] initWithBinding:self delegate:responseDelegate
+	[self performAsynchronousOperation: [[(BasicHttpBinding_IDataProviderServiceBinding_GetTopologyDiagramConfig*)[BasicHttpBinding_IDataProviderServiceBinding_GetTopologyDiagramConfig alloc] initWithBinding:self delegate:responseDelegate
 																							 parameters:aParameters
 																							 ] autorelease]];
 }
-- (BasicHttpBinding_IDataProviderServiceResponse *)GetTopologyDiagramDataUsingParameters:(DataProviderService_GetTopologyDiagramData *)aParameters 
+- (BasicHttpBinding_IDataProviderServiceBindingResponse *)GetTopologyDiagramDataUsingParameters:(DataProviderServiceSvc_GetTopologyDiagramData *)aParameters 
 {
-	return [self performSynchronousOperation:[[(BasicHttpBinding_IDataProviderService_GetTopologyDiagramData*)[BasicHttpBinding_IDataProviderService_GetTopologyDiagramData alloc] initWithBinding:self delegate:self
+	return [self performSynchronousOperation:[[(BasicHttpBinding_IDataProviderServiceBinding_GetTopologyDiagramData*)[BasicHttpBinding_IDataProviderServiceBinding_GetTopologyDiagramData alloc] initWithBinding:self delegate:self
 																							parameters:aParameters
 																							] autorelease]];
 }
-- (void)GetTopologyDiagramDataAsyncUsingParameters:(DataProviderService_GetTopologyDiagramData *)aParameters  delegate:(id<BasicHttpBinding_IDataProviderServiceResponseDelegate>)responseDelegate
+- (void)GetTopologyDiagramDataAsyncUsingParameters:(DataProviderServiceSvc_GetTopologyDiagramData *)aParameters  delegate:(id<BasicHttpBinding_IDataProviderServiceBindingResponseDelegate>)responseDelegate
 {
-	[self performAsynchronousOperation: [[(BasicHttpBinding_IDataProviderService_GetTopologyDiagramData*)[BasicHttpBinding_IDataProviderService_GetTopologyDiagramData alloc] initWithBinding:self delegate:responseDelegate
+	[self performAsynchronousOperation: [[(BasicHttpBinding_IDataProviderServiceBinding_GetTopologyDiagramData*)[BasicHttpBinding_IDataProviderServiceBinding_GetTopologyDiagramData alloc] initWithBinding:self delegate:responseDelegate
 																							 parameters:aParameters
 																							 ] autorelease]];
 }
-- (BasicHttpBinding_IDataProviderServiceResponse *)MarkExceptionUsingParameters:(DataProviderService_MarkException *)aParameters 
+- (BasicHttpBinding_IDataProviderServiceBindingResponse *)MarkExceptionUsingParameters:(DataProviderServiceSvc_MarkException *)aParameters 
 {
-	return [self performSynchronousOperation:[[(BasicHttpBinding_IDataProviderService_MarkException*)[BasicHttpBinding_IDataProviderService_MarkException alloc] initWithBinding:self delegate:self
+	return [self performSynchronousOperation:[[(BasicHttpBinding_IDataProviderServiceBinding_MarkException*)[BasicHttpBinding_IDataProviderServiceBinding_MarkException alloc] initWithBinding:self delegate:self
 																							parameters:aParameters
 																							] autorelease]];
 }
-- (void)MarkExceptionAsyncUsingParameters:(DataProviderService_MarkException *)aParameters  delegate:(id<BasicHttpBinding_IDataProviderServiceResponseDelegate>)responseDelegate
+- (void)MarkExceptionAsyncUsingParameters:(DataProviderServiceSvc_MarkException *)aParameters  delegate:(id<BasicHttpBinding_IDataProviderServiceBindingResponseDelegate>)responseDelegate
 {
-	[self performAsynchronousOperation: [[(BasicHttpBinding_IDataProviderService_MarkException*)[BasicHttpBinding_IDataProviderService_MarkException alloc] initWithBinding:self delegate:responseDelegate
+	[self performAsynchronousOperation: [[(BasicHttpBinding_IDataProviderServiceBinding_MarkException*)[BasicHttpBinding_IDataProviderServiceBinding_MarkException alloc] initWithBinding:self delegate:responseDelegate
 																							 parameters:aParameters
 																							 ] autorelease]];
 }
-- (BasicHttpBinding_IDataProviderServiceResponse *)UnmarkExceptionUsingParameters:(DataProviderService_UnmarkException *)aParameters 
+- (BasicHttpBinding_IDataProviderServiceBindingResponse *)UnmarkExceptionUsingParameters:(DataProviderServiceSvc_UnmarkException *)aParameters 
 {
-	return [self performSynchronousOperation:[[(BasicHttpBinding_IDataProviderService_UnmarkException*)[BasicHttpBinding_IDataProviderService_UnmarkException alloc] initWithBinding:self delegate:self
+	return [self performSynchronousOperation:[[(BasicHttpBinding_IDataProviderServiceBinding_UnmarkException*)[BasicHttpBinding_IDataProviderServiceBinding_UnmarkException alloc] initWithBinding:self delegate:self
 																							parameters:aParameters
 																							] autorelease]];
 }
-- (void)UnmarkExceptionAsyncUsingParameters:(DataProviderService_UnmarkException *)aParameters  delegate:(id<BasicHttpBinding_IDataProviderServiceResponseDelegate>)responseDelegate
+- (void)UnmarkExceptionAsyncUsingParameters:(DataProviderServiceSvc_UnmarkException *)aParameters  delegate:(id<BasicHttpBinding_IDataProviderServiceBindingResponseDelegate>)responseDelegate
 {
-	[self performAsynchronousOperation: [[(BasicHttpBinding_IDataProviderService_UnmarkException*)[BasicHttpBinding_IDataProviderService_UnmarkException alloc] initWithBinding:self delegate:responseDelegate
+	[self performAsynchronousOperation: [[(BasicHttpBinding_IDataProviderServiceBinding_UnmarkException*)[BasicHttpBinding_IDataProviderServiceBinding_UnmarkException alloc] initWithBinding:self delegate:responseDelegate
 																							 parameters:aParameters
 																							 ] autorelease]];
 }
-- (BasicHttpBinding_IDataProviderServiceResponse *)CreateAnnotationUsingParameters:(DataProviderService_CreateAnnotation *)aParameters 
+- (BasicHttpBinding_IDataProviderServiceBindingResponse *)CreateAnnotationUsingParameters:(DataProviderServiceSvc_CreateAnnotation *)aParameters 
 {
-	return [self performSynchronousOperation:[[(BasicHttpBinding_IDataProviderService_CreateAnnotation*)[BasicHttpBinding_IDataProviderService_CreateAnnotation alloc] initWithBinding:self delegate:self
+	return [self performSynchronousOperation:[[(BasicHttpBinding_IDataProviderServiceBinding_CreateAnnotation*)[BasicHttpBinding_IDataProviderServiceBinding_CreateAnnotation alloc] initWithBinding:self delegate:self
 																							parameters:aParameters
 																							] autorelease]];
 }
-- (void)CreateAnnotationAsyncUsingParameters:(DataProviderService_CreateAnnotation *)aParameters  delegate:(id<BasicHttpBinding_IDataProviderServiceResponseDelegate>)responseDelegate
+- (void)CreateAnnotationAsyncUsingParameters:(DataProviderServiceSvc_CreateAnnotation *)aParameters  delegate:(id<BasicHttpBinding_IDataProviderServiceBindingResponseDelegate>)responseDelegate
 {
-	[self performAsynchronousOperation: [[(BasicHttpBinding_IDataProviderService_CreateAnnotation*)[BasicHttpBinding_IDataProviderService_CreateAnnotation alloc] initWithBinding:self delegate:responseDelegate
+	[self performAsynchronousOperation: [[(BasicHttpBinding_IDataProviderServiceBinding_CreateAnnotation*)[BasicHttpBinding_IDataProviderServiceBinding_CreateAnnotation alloc] initWithBinding:self delegate:responseDelegate
 																							 parameters:aParameters
 																							 ] autorelease]];
 }
-- (BasicHttpBinding_IDataProviderServiceResponse *)UpdateAnnotationUsingParameters:(DataProviderService_UpdateAnnotation *)aParameters 
+- (BasicHttpBinding_IDataProviderServiceBindingResponse *)UpdateAnnotationUsingParameters:(DataProviderServiceSvc_UpdateAnnotation *)aParameters 
 {
-	return [self performSynchronousOperation:[[(BasicHttpBinding_IDataProviderService_UpdateAnnotation*)[BasicHttpBinding_IDataProviderService_UpdateAnnotation alloc] initWithBinding:self delegate:self
+	return [self performSynchronousOperation:[[(BasicHttpBinding_IDataProviderServiceBinding_UpdateAnnotation*)[BasicHttpBinding_IDataProviderServiceBinding_UpdateAnnotation alloc] initWithBinding:self delegate:self
 																							parameters:aParameters
 																							] autorelease]];
 }
-- (void)UpdateAnnotationAsyncUsingParameters:(DataProviderService_UpdateAnnotation *)aParameters  delegate:(id<BasicHttpBinding_IDataProviderServiceResponseDelegate>)responseDelegate
+- (void)UpdateAnnotationAsyncUsingParameters:(DataProviderServiceSvc_UpdateAnnotation *)aParameters  delegate:(id<BasicHttpBinding_IDataProviderServiceBindingResponseDelegate>)responseDelegate
 {
-	[self performAsynchronousOperation: [[(BasicHttpBinding_IDataProviderService_UpdateAnnotation*)[BasicHttpBinding_IDataProviderService_UpdateAnnotation alloc] initWithBinding:self delegate:responseDelegate
+	[self performAsynchronousOperation: [[(BasicHttpBinding_IDataProviderServiceBinding_UpdateAnnotation*)[BasicHttpBinding_IDataProviderServiceBinding_UpdateAnnotation alloc] initWithBinding:self delegate:responseDelegate
 																							 parameters:aParameters
 																							 ] autorelease]];
 }
-- (BasicHttpBinding_IDataProviderServiceResponse *)RemoveAnnotationUsingParameters:(DataProviderService_RemoveAnnotation *)aParameters 
+- (BasicHttpBinding_IDataProviderServiceBindingResponse *)RemoveAnnotationUsingParameters:(DataProviderServiceSvc_RemoveAnnotation *)aParameters 
 {
-	return [self performSynchronousOperation:[[(BasicHttpBinding_IDataProviderService_RemoveAnnotation*)[BasicHttpBinding_IDataProviderService_RemoveAnnotation alloc] initWithBinding:self delegate:self
+	return [self performSynchronousOperation:[[(BasicHttpBinding_IDataProviderServiceBinding_RemoveAnnotation*)[BasicHttpBinding_IDataProviderServiceBinding_RemoveAnnotation alloc] initWithBinding:self delegate:self
 																							parameters:aParameters
 																							] autorelease]];
 }
-- (void)RemoveAnnotationAsyncUsingParameters:(DataProviderService_RemoveAnnotation *)aParameters  delegate:(id<BasicHttpBinding_IDataProviderServiceResponseDelegate>)responseDelegate
+- (void)RemoveAnnotationAsyncUsingParameters:(DataProviderServiceSvc_RemoveAnnotation *)aParameters  delegate:(id<BasicHttpBinding_IDataProviderServiceBindingResponseDelegate>)responseDelegate
 {
-	[self performAsynchronousOperation: [[(BasicHttpBinding_IDataProviderService_RemoveAnnotation*)[BasicHttpBinding_IDataProviderService_RemoveAnnotation alloc] initWithBinding:self delegate:responseDelegate
+	[self performAsynchronousOperation: [[(BasicHttpBinding_IDataProviderServiceBinding_RemoveAnnotation*)[BasicHttpBinding_IDataProviderServiceBinding_RemoveAnnotation alloc] initWithBinding:self delegate:responseDelegate
 																							 parameters:aParameters
 																							 ] autorelease]];
 }
-- (void)sendHTTPCallUsingBody:(NSString *)outputBody soapAction:(NSString *)soapAction forOperation:(BasicHttpBinding_IDataProviderServiceOperation *)operation
+- (void)sendHTTPCallUsingBody:(NSString *)outputBody soapAction:(NSString *)soapAction forOperation:(BasicHttpBinding_IDataProviderServiceBindingOperation *)operation
 {
 	NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:self.address 
 																												 cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData
@@ -2880,15 +3012,15 @@
 	[super dealloc];
 }
 @end
-@implementation BasicHttpBinding_IDataProviderServiceOperation
+@implementation BasicHttpBinding_IDataProviderServiceBindingOperation
 @synthesize binding;
 @synthesize response;
 @synthesize delegate;
 @synthesize responseData;
 @synthesize urlConnection;
-- (id)initWithBinding:(BasicHttpBinding_IDataProviderService *)aBinding delegate:(id<BasicHttpBinding_IDataProviderServiceResponseDelegate>)aDelegate
+- (id)initWithBinding:(BasicHttpBinding_IDataProviderServiceBinding *)aBinding delegate:(id<BasicHttpBinding_IDataProviderServiceBindingResponseDelegate>)aDelegate
 {
-	if (self = [super init]) {
+	if ((self = [super init])) {
 		self.binding = aBinding;
 		response = nil;
 		self.delegate = aDelegate;
@@ -2938,12 +3070,12 @@
 		if ([httpResponse statusCode] >= 400) {
 			NSDictionary *userInfo = [NSDictionary dictionaryWithObject:[NSHTTPURLResponse localizedStringForStatusCode:[httpResponse statusCode]] forKey:NSLocalizedDescriptionKey];
 				
-			error = [NSError errorWithDomain:@"BasicHttpBinding_IDataProviderServiceResponseHTTP" code:[httpResponse statusCode] userInfo:userInfo];
+			error = [NSError errorWithDomain:@"BasicHttpBinding_IDataProviderServiceBindingResponseHTTP" code:[httpResponse statusCode] userInfo:userInfo];
 		} else {
 			NSDictionary *userInfo = [NSDictionary dictionaryWithObject:
 																[NSString stringWithFormat: @"Unexpected response MIME type to SOAP call:%@", urlResponse.MIMEType]
 																													 forKey:NSLocalizedDescriptionKey];
-			error = [NSError errorWithDomain:@"BasicHttpBinding_IDataProviderServiceResponseHTTP" code:1 userInfo:userInfo];
+			error = [NSError errorWithDomain:@"BasicHttpBinding_IDataProviderServiceBindingResponseHTTP" code:1 userInfo:userInfo];
 		}
 				
 		[self connection:connection didFailWithError:error];
@@ -2976,10 +3108,10 @@
 	[super dealloc];
 }
 @end
-@implementation BasicHttpBinding_IDataProviderService_GetDataProviderConfig
+@implementation BasicHttpBinding_IDataProviderServiceBinding_GetDataProviderConfig
 @synthesize parameters;
-- (id)initWithBinding:(BasicHttpBinding_IDataProviderService *)aBinding delegate:(id<BasicHttpBinding_IDataProviderServiceResponseDelegate>)responseDelegate
-parameters:(DataProviderService_GetDataProviderConfig *)aParameters
+- (id)initWithBinding:(BasicHttpBinding_IDataProviderServiceBinding *)aBinding delegate:(id<BasicHttpBinding_IDataProviderServiceBindingResponseDelegate>)responseDelegate
+parameters:(DataProviderServiceSvc_GetDataProviderConfig *)aParameters
 {
 	if((self = [super initWithBinding:aBinding delegate:responseDelegate])) {
 		self.parameters = aParameters;
@@ -2996,9 +3128,9 @@ parameters:(DataProviderService_GetDataProviderConfig *)aParameters
 - (void)main
 {
 	[response autorelease];
-	response = [BasicHttpBinding_IDataProviderServiceResponse new];
+	response = [BasicHttpBinding_IDataProviderServiceBindingResponse new];
 	
-	BasicHttpBinding_IDataProviderService_envelope *envelope = [BasicHttpBinding_IDataProviderService_envelope sharedInstance];
+	BasicHttpBinding_IDataProviderServiceBinding_envelope *envelope = [BasicHttpBinding_IDataProviderServiceBinding_envelope sharedInstance];
 	
 	NSMutableDictionary *headerElements = nil;
 	headerElements = [NSMutableDictionary dictionary];
@@ -3023,11 +3155,13 @@ parameters:(DataProviderService_GetDataProviderConfig *)aParameters
 		}
 		
 		doc = xmlParseMemory([responseData bytes], [responseData length]);
+        
+        
 		
 		if (doc == NULL) {
 			NSDictionary *userInfo = [NSDictionary dictionaryWithObject:@"Errors while parsing returned XML" forKey:NSLocalizedDescriptionKey];
 			
-			response.error = [NSError errorWithDomain:@"BasicHttpBinding_IDataProviderServiceResponseXML" code:1 userInfo:userInfo];
+			response.error = [NSError errorWithDomain:@"BasicHttpBinding_IDataProviderServiceBindingResponseXML" code:1 userInfo:userInfo];
 			[delegate operation:self completedWithResponse:response];
 		} else {
 			cur = xmlDocGetRootElement(doc);
@@ -3043,16 +3177,16 @@ parameters:(DataProviderService_GetDataProviderConfig *)aParameters
 						for(bodyNode=cur->children ; bodyNode != NULL ; bodyNode = bodyNode->next) {
 							if(cur->type == XML_ELEMENT_NODE) {
 								if(xmlStrEqual(bodyNode->name, (const xmlChar *) "GetDataProviderConfigResponse")) {
-									DataProviderService_GetDataProviderConfigResponse *bodyObject = [DataProviderService_GetDataProviderConfigResponse deserializeNode:bodyNode];
+									DataProviderServiceSvc_GetDataProviderConfigResponse *bodyObject = [DataProviderServiceSvc_GetDataProviderConfigResponse deserializeNode:bodyNode];
 									//NSAssert1(bodyObject != nil, @"Errors while parsing body %s", bodyNode->name);
 									if (bodyObject != nil) [responseBodyParts addObject:bodyObject];
 								}
-                                                                else if (xmlStrEqual(bodyNode->ns->prefix, (const xmlChar *) "soap") && 
-                                                                         xmlStrEqual(bodyNode->name, (const xmlChar *) "Fault")) {
+								if (xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix) && 
+									xmlStrEqual(bodyNode->name, (const xmlChar *) "Fault")) {
 									SOAPFault *bodyObject = [SOAPFault deserializeNode:bodyNode];
 									//NSAssert1(bodyObject != nil, @"Errors while parsing body %s", bodyNode->name);
 									if (bodyObject != nil) [responseBodyParts addObject:bodyObject];
-                                                                }
+								}
 							}
 						}
 						
@@ -3069,10 +3203,10 @@ parameters:(DataProviderService_GetDataProviderConfig *)aParameters
 	}
 }
 @end
-@implementation BasicHttpBinding_IDataProviderService_GetData
+@implementation BasicHttpBinding_IDataProviderServiceBinding_GetData
 @synthesize parameters;
-- (id)initWithBinding:(BasicHttpBinding_IDataProviderService *)aBinding delegate:(id<BasicHttpBinding_IDataProviderServiceResponseDelegate>)responseDelegate
-parameters:(DataProviderService_GetData *)aParameters
+- (id)initWithBinding:(BasicHttpBinding_IDataProviderServiceBinding *)aBinding delegate:(id<BasicHttpBinding_IDataProviderServiceBindingResponseDelegate>)responseDelegate
+parameters:(DataProviderServiceSvc_GetData *)aParameters
 {
 	if((self = [super initWithBinding:aBinding delegate:responseDelegate])) {
 		self.parameters = aParameters;
@@ -3089,9 +3223,9 @@ parameters:(DataProviderService_GetData *)aParameters
 - (void)main
 {
 	[response autorelease];
-	response = [BasicHttpBinding_IDataProviderServiceResponse new];
+	response = [BasicHttpBinding_IDataProviderServiceBindingResponse new];
 	
-	BasicHttpBinding_IDataProviderService_envelope *envelope = [BasicHttpBinding_IDataProviderService_envelope sharedInstance];
+	BasicHttpBinding_IDataProviderServiceBinding_envelope *envelope = [BasicHttpBinding_IDataProviderServiceBinding_envelope sharedInstance];
 	
 	NSMutableDictionary *headerElements = nil;
 	headerElements = [NSMutableDictionary dictionary];
@@ -3120,7 +3254,7 @@ parameters:(DataProviderService_GetData *)aParameters
 		if (doc == NULL) {
 			NSDictionary *userInfo = [NSDictionary dictionaryWithObject:@"Errors while parsing returned XML" forKey:NSLocalizedDescriptionKey];
 			
-			response.error = [NSError errorWithDomain:@"BasicHttpBinding_IDataProviderServiceResponseXML" code:1 userInfo:userInfo];
+			response.error = [NSError errorWithDomain:@"BasicHttpBinding_IDataProviderServiceBindingResponseXML" code:1 userInfo:userInfo];
 			[delegate operation:self completedWithResponse:response];
 		} else {
 			cur = xmlDocGetRootElement(doc);
@@ -3136,16 +3270,16 @@ parameters:(DataProviderService_GetData *)aParameters
 						for(bodyNode=cur->children ; bodyNode != NULL ; bodyNode = bodyNode->next) {
 							if(cur->type == XML_ELEMENT_NODE) {
 								if(xmlStrEqual(bodyNode->name, (const xmlChar *) "GetDataResponse")) {
-									DataProviderService_GetDataResponse *bodyObject = [DataProviderService_GetDataResponse deserializeNode:bodyNode];
+									DataProviderServiceSvc_GetDataResponse *bodyObject = [DataProviderServiceSvc_GetDataResponse deserializeNode:bodyNode];
 									//NSAssert1(bodyObject != nil, @"Errors while parsing body %s", bodyNode->name);
 									if (bodyObject != nil) [responseBodyParts addObject:bodyObject];
 								}
-                                                                else if (xmlStrEqual(bodyNode->ns->prefix, (const xmlChar *) "soap") && 
-                                                                         xmlStrEqual(bodyNode->name, (const xmlChar *) "Fault")) {
+								if (xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix) && 
+									xmlStrEqual(bodyNode->name, (const xmlChar *) "Fault")) {
 									SOAPFault *bodyObject = [SOAPFault deserializeNode:bodyNode];
 									//NSAssert1(bodyObject != nil, @"Errors while parsing body %s", bodyNode->name);
 									if (bodyObject != nil) [responseBodyParts addObject:bodyObject];
-                                                                }
+								}
 							}
 						}
 						
@@ -3162,10 +3296,10 @@ parameters:(DataProviderService_GetData *)aParameters
 	}
 }
 @end
-@implementation BasicHttpBinding_IDataProviderService_CancelGetData
+@implementation BasicHttpBinding_IDataProviderServiceBinding_CancelGetData
 @synthesize parameters;
-- (id)initWithBinding:(BasicHttpBinding_IDataProviderService *)aBinding delegate:(id<BasicHttpBinding_IDataProviderServiceResponseDelegate>)responseDelegate
-parameters:(DataProviderService_CancelGetData *)aParameters
+- (id)initWithBinding:(BasicHttpBinding_IDataProviderServiceBinding *)aBinding delegate:(id<BasicHttpBinding_IDataProviderServiceBindingResponseDelegate>)responseDelegate
+parameters:(DataProviderServiceSvc_CancelGetData *)aParameters
 {
 	if((self = [super initWithBinding:aBinding delegate:responseDelegate])) {
 		self.parameters = aParameters;
@@ -3182,9 +3316,9 @@ parameters:(DataProviderService_CancelGetData *)aParameters
 - (void)main
 {
 	[response autorelease];
-	response = [BasicHttpBinding_IDataProviderServiceResponse new];
+	response = [BasicHttpBinding_IDataProviderServiceBindingResponse new];
 	
-	BasicHttpBinding_IDataProviderService_envelope *envelope = [BasicHttpBinding_IDataProviderService_envelope sharedInstance];
+	BasicHttpBinding_IDataProviderServiceBinding_envelope *envelope = [BasicHttpBinding_IDataProviderServiceBinding_envelope sharedInstance];
 	
 	NSMutableDictionary *headerElements = nil;
 	headerElements = [NSMutableDictionary dictionary];
@@ -3213,7 +3347,7 @@ parameters:(DataProviderService_CancelGetData *)aParameters
 		if (doc == NULL) {
 			NSDictionary *userInfo = [NSDictionary dictionaryWithObject:@"Errors while parsing returned XML" forKey:NSLocalizedDescriptionKey];
 			
-			response.error = [NSError errorWithDomain:@"BasicHttpBinding_IDataProviderServiceResponseXML" code:1 userInfo:userInfo];
+			response.error = [NSError errorWithDomain:@"BasicHttpBinding_IDataProviderServiceBindingResponseXML" code:1 userInfo:userInfo];
 			[delegate operation:self completedWithResponse:response];
 		} else {
 			cur = xmlDocGetRootElement(doc);
@@ -3229,16 +3363,16 @@ parameters:(DataProviderService_CancelGetData *)aParameters
 						for(bodyNode=cur->children ; bodyNode != NULL ; bodyNode = bodyNode->next) {
 							if(cur->type == XML_ELEMENT_NODE) {
 								if(xmlStrEqual(bodyNode->name, (const xmlChar *) "CancelGetDataResponse")) {
-									DataProviderService_CancelGetDataResponse *bodyObject = [DataProviderService_CancelGetDataResponse deserializeNode:bodyNode];
+									DataProviderServiceSvc_CancelGetDataResponse *bodyObject = [DataProviderServiceSvc_CancelGetDataResponse deserializeNode:bodyNode];
 									//NSAssert1(bodyObject != nil, @"Errors while parsing body %s", bodyNode->name);
 									if (bodyObject != nil) [responseBodyParts addObject:bodyObject];
 								}
-                                                                else if (xmlStrEqual(bodyNode->ns->prefix, (const xmlChar *) "soap") && 
-                                                                         xmlStrEqual(bodyNode->name, (const xmlChar *) "Fault")) {
+								if (xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix) && 
+									xmlStrEqual(bodyNode->name, (const xmlChar *) "Fault")) {
 									SOAPFault *bodyObject = [SOAPFault deserializeNode:bodyNode];
 									//NSAssert1(bodyObject != nil, @"Errors while parsing body %s", bodyNode->name);
 									if (bodyObject != nil) [responseBodyParts addObject:bodyObject];
-                                                                }
+								}
 							}
 						}
 						
@@ -3255,10 +3389,10 @@ parameters:(DataProviderService_CancelGetData *)aParameters
 	}
 }
 @end
-@implementation BasicHttpBinding_IDataProviderService_GetExportData
+@implementation BasicHttpBinding_IDataProviderServiceBinding_GetExportData
 @synthesize parameters;
-- (id)initWithBinding:(BasicHttpBinding_IDataProviderService *)aBinding delegate:(id<BasicHttpBinding_IDataProviderServiceResponseDelegate>)responseDelegate
-parameters:(DataProviderService_GetExportData *)aParameters
+- (id)initWithBinding:(BasicHttpBinding_IDataProviderServiceBinding *)aBinding delegate:(id<BasicHttpBinding_IDataProviderServiceBindingResponseDelegate>)responseDelegate
+parameters:(DataProviderServiceSvc_GetExportData *)aParameters
 {
 	if((self = [super initWithBinding:aBinding delegate:responseDelegate])) {
 		self.parameters = aParameters;
@@ -3275,9 +3409,9 @@ parameters:(DataProviderService_GetExportData *)aParameters
 - (void)main
 {
 	[response autorelease];
-	response = [BasicHttpBinding_IDataProviderServiceResponse new];
+	response = [BasicHttpBinding_IDataProviderServiceBindingResponse new];
 	
-	BasicHttpBinding_IDataProviderService_envelope *envelope = [BasicHttpBinding_IDataProviderService_envelope sharedInstance];
+	BasicHttpBinding_IDataProviderServiceBinding_envelope *envelope = [BasicHttpBinding_IDataProviderServiceBinding_envelope sharedInstance];
 	
 	NSMutableDictionary *headerElements = nil;
 	headerElements = [NSMutableDictionary dictionary];
@@ -3306,7 +3440,7 @@ parameters:(DataProviderService_GetExportData *)aParameters
 		if (doc == NULL) {
 			NSDictionary *userInfo = [NSDictionary dictionaryWithObject:@"Errors while parsing returned XML" forKey:NSLocalizedDescriptionKey];
 			
-			response.error = [NSError errorWithDomain:@"BasicHttpBinding_IDataProviderServiceResponseXML" code:1 userInfo:userInfo];
+			response.error = [NSError errorWithDomain:@"BasicHttpBinding_IDataProviderServiceBindingResponseXML" code:1 userInfo:userInfo];
 			[delegate operation:self completedWithResponse:response];
 		} else {
 			cur = xmlDocGetRootElement(doc);
@@ -3322,16 +3456,16 @@ parameters:(DataProviderService_GetExportData *)aParameters
 						for(bodyNode=cur->children ; bodyNode != NULL ; bodyNode = bodyNode->next) {
 							if(cur->type == XML_ELEMENT_NODE) {
 								if(xmlStrEqual(bodyNode->name, (const xmlChar *) "GetExportDataResponse")) {
-									DataProviderService_GetExportDataResponse *bodyObject = [DataProviderService_GetExportDataResponse deserializeNode:bodyNode];
+									DataProviderServiceSvc_GetExportDataResponse *bodyObject = [DataProviderServiceSvc_GetExportDataResponse deserializeNode:bodyNode];
 									//NSAssert1(bodyObject != nil, @"Errors while parsing body %s", bodyNode->name);
 									if (bodyObject != nil) [responseBodyParts addObject:bodyObject];
 								}
-                                                                else if (xmlStrEqual(bodyNode->ns->prefix, (const xmlChar *) "soap") && 
-                                                                         xmlStrEqual(bodyNode->name, (const xmlChar *) "Fault")) {
+								if (xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix) && 
+									xmlStrEqual(bodyNode->name, (const xmlChar *) "Fault")) {
 									SOAPFault *bodyObject = [SOAPFault deserializeNode:bodyNode];
 									//NSAssert1(bodyObject != nil, @"Errors while parsing body %s", bodyNode->name);
 									if (bodyObject != nil) [responseBodyParts addObject:bodyObject];
-                                                                }
+								}
 							}
 						}
 						
@@ -3348,10 +3482,10 @@ parameters:(DataProviderService_GetExportData *)aParameters
 	}
 }
 @end
-@implementation BasicHttpBinding_IDataProviderService_GetTopologyDiagramConfig
+@implementation BasicHttpBinding_IDataProviderServiceBinding_GetTopologyDiagramConfig
 @synthesize parameters;
-- (id)initWithBinding:(BasicHttpBinding_IDataProviderService *)aBinding delegate:(id<BasicHttpBinding_IDataProviderServiceResponseDelegate>)responseDelegate
-parameters:(DataProviderService_GetTopologyDiagramConfig *)aParameters
+- (id)initWithBinding:(BasicHttpBinding_IDataProviderServiceBinding *)aBinding delegate:(id<BasicHttpBinding_IDataProviderServiceBindingResponseDelegate>)responseDelegate
+parameters:(DataProviderServiceSvc_GetTopologyDiagramConfig *)aParameters
 {
 	if((self = [super initWithBinding:aBinding delegate:responseDelegate])) {
 		self.parameters = aParameters;
@@ -3368,9 +3502,9 @@ parameters:(DataProviderService_GetTopologyDiagramConfig *)aParameters
 - (void)main
 {
 	[response autorelease];
-	response = [BasicHttpBinding_IDataProviderServiceResponse new];
+	response = [BasicHttpBinding_IDataProviderServiceBindingResponse new];
 	
-	BasicHttpBinding_IDataProviderService_envelope *envelope = [BasicHttpBinding_IDataProviderService_envelope sharedInstance];
+	BasicHttpBinding_IDataProviderServiceBinding_envelope *envelope = [BasicHttpBinding_IDataProviderServiceBinding_envelope sharedInstance];
 	
 	NSMutableDictionary *headerElements = nil;
 	headerElements = [NSMutableDictionary dictionary];
@@ -3399,7 +3533,7 @@ parameters:(DataProviderService_GetTopologyDiagramConfig *)aParameters
 		if (doc == NULL) {
 			NSDictionary *userInfo = [NSDictionary dictionaryWithObject:@"Errors while parsing returned XML" forKey:NSLocalizedDescriptionKey];
 			
-			response.error = [NSError errorWithDomain:@"BasicHttpBinding_IDataProviderServiceResponseXML" code:1 userInfo:userInfo];
+			response.error = [NSError errorWithDomain:@"BasicHttpBinding_IDataProviderServiceBindingResponseXML" code:1 userInfo:userInfo];
 			[delegate operation:self completedWithResponse:response];
 		} else {
 			cur = xmlDocGetRootElement(doc);
@@ -3415,16 +3549,16 @@ parameters:(DataProviderService_GetTopologyDiagramConfig *)aParameters
 						for(bodyNode=cur->children ; bodyNode != NULL ; bodyNode = bodyNode->next) {
 							if(cur->type == XML_ELEMENT_NODE) {
 								if(xmlStrEqual(bodyNode->name, (const xmlChar *) "GetTopologyDiagramConfigResponse")) {
-									DataProviderService_GetTopologyDiagramConfigResponse *bodyObject = [DataProviderService_GetTopologyDiagramConfigResponse deserializeNode:bodyNode];
+									DataProviderServiceSvc_GetTopologyDiagramConfigResponse *bodyObject = [DataProviderServiceSvc_GetTopologyDiagramConfigResponse deserializeNode:bodyNode];
 									//NSAssert1(bodyObject != nil, @"Errors while parsing body %s", bodyNode->name);
 									if (bodyObject != nil) [responseBodyParts addObject:bodyObject];
 								}
-                                                                else if (xmlStrEqual(bodyNode->ns->prefix, (const xmlChar *) "soap") && 
-                                                                         xmlStrEqual(bodyNode->name, (const xmlChar *) "Fault")) {
+								if (xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix) && 
+									xmlStrEqual(bodyNode->name, (const xmlChar *) "Fault")) {
 									SOAPFault *bodyObject = [SOAPFault deserializeNode:bodyNode];
 									//NSAssert1(bodyObject != nil, @"Errors while parsing body %s", bodyNode->name);
 									if (bodyObject != nil) [responseBodyParts addObject:bodyObject];
-                                                                }
+								}
 							}
 						}
 						
@@ -3441,10 +3575,10 @@ parameters:(DataProviderService_GetTopologyDiagramConfig *)aParameters
 	}
 }
 @end
-@implementation BasicHttpBinding_IDataProviderService_GetTopologyDiagramData
+@implementation BasicHttpBinding_IDataProviderServiceBinding_GetTopologyDiagramData
 @synthesize parameters;
-- (id)initWithBinding:(BasicHttpBinding_IDataProviderService *)aBinding delegate:(id<BasicHttpBinding_IDataProviderServiceResponseDelegate>)responseDelegate
-parameters:(DataProviderService_GetTopologyDiagramData *)aParameters
+- (id)initWithBinding:(BasicHttpBinding_IDataProviderServiceBinding *)aBinding delegate:(id<BasicHttpBinding_IDataProviderServiceBindingResponseDelegate>)responseDelegate
+parameters:(DataProviderServiceSvc_GetTopologyDiagramData *)aParameters
 {
 	if((self = [super initWithBinding:aBinding delegate:responseDelegate])) {
 		self.parameters = aParameters;
@@ -3461,9 +3595,9 @@ parameters:(DataProviderService_GetTopologyDiagramData *)aParameters
 - (void)main
 {
 	[response autorelease];
-	response = [BasicHttpBinding_IDataProviderServiceResponse new];
+	response = [BasicHttpBinding_IDataProviderServiceBindingResponse new];
 	
-	BasicHttpBinding_IDataProviderService_envelope *envelope = [BasicHttpBinding_IDataProviderService_envelope sharedInstance];
+	BasicHttpBinding_IDataProviderServiceBinding_envelope *envelope = [BasicHttpBinding_IDataProviderServiceBinding_envelope sharedInstance];
 	
 	NSMutableDictionary *headerElements = nil;
 	headerElements = [NSMutableDictionary dictionary];
@@ -3492,7 +3626,7 @@ parameters:(DataProviderService_GetTopologyDiagramData *)aParameters
 		if (doc == NULL) {
 			NSDictionary *userInfo = [NSDictionary dictionaryWithObject:@"Errors while parsing returned XML" forKey:NSLocalizedDescriptionKey];
 			
-			response.error = [NSError errorWithDomain:@"BasicHttpBinding_IDataProviderServiceResponseXML" code:1 userInfo:userInfo];
+			response.error = [NSError errorWithDomain:@"BasicHttpBinding_IDataProviderServiceBindingResponseXML" code:1 userInfo:userInfo];
 			[delegate operation:self completedWithResponse:response];
 		} else {
 			cur = xmlDocGetRootElement(doc);
@@ -3508,16 +3642,16 @@ parameters:(DataProviderService_GetTopologyDiagramData *)aParameters
 						for(bodyNode=cur->children ; bodyNode != NULL ; bodyNode = bodyNode->next) {
 							if(cur->type == XML_ELEMENT_NODE) {
 								if(xmlStrEqual(bodyNode->name, (const xmlChar *) "GetTopologyDiagramDataResponse")) {
-									DataProviderService_GetTopologyDiagramDataResponse *bodyObject = [DataProviderService_GetTopologyDiagramDataResponse deserializeNode:bodyNode];
+									DataProviderServiceSvc_GetTopologyDiagramDataResponse *bodyObject = [DataProviderServiceSvc_GetTopologyDiagramDataResponse deserializeNode:bodyNode];
 									//NSAssert1(bodyObject != nil, @"Errors while parsing body %s", bodyNode->name);
 									if (bodyObject != nil) [responseBodyParts addObject:bodyObject];
 								}
-                                                                else if (xmlStrEqual(bodyNode->ns->prefix, (const xmlChar *) "soap") && 
-                                                                         xmlStrEqual(bodyNode->name, (const xmlChar *) "Fault")) {
+								if (xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix) && 
+									xmlStrEqual(bodyNode->name, (const xmlChar *) "Fault")) {
 									SOAPFault *bodyObject = [SOAPFault deserializeNode:bodyNode];
 									//NSAssert1(bodyObject != nil, @"Errors while parsing body %s", bodyNode->name);
 									if (bodyObject != nil) [responseBodyParts addObject:bodyObject];
-                                                                }
+								}
 							}
 						}
 						
@@ -3534,10 +3668,10 @@ parameters:(DataProviderService_GetTopologyDiagramData *)aParameters
 	}
 }
 @end
-@implementation BasicHttpBinding_IDataProviderService_MarkException
+@implementation BasicHttpBinding_IDataProviderServiceBinding_MarkException
 @synthesize parameters;
-- (id)initWithBinding:(BasicHttpBinding_IDataProviderService *)aBinding delegate:(id<BasicHttpBinding_IDataProviderServiceResponseDelegate>)responseDelegate
-parameters:(DataProviderService_MarkException *)aParameters
+- (id)initWithBinding:(BasicHttpBinding_IDataProviderServiceBinding *)aBinding delegate:(id<BasicHttpBinding_IDataProviderServiceBindingResponseDelegate>)responseDelegate
+parameters:(DataProviderServiceSvc_MarkException *)aParameters
 {
 	if((self = [super initWithBinding:aBinding delegate:responseDelegate])) {
 		self.parameters = aParameters;
@@ -3554,9 +3688,9 @@ parameters:(DataProviderService_MarkException *)aParameters
 - (void)main
 {
 	[response autorelease];
-	response = [BasicHttpBinding_IDataProviderServiceResponse new];
+	response = [BasicHttpBinding_IDataProviderServiceBindingResponse new];
 	
-	BasicHttpBinding_IDataProviderService_envelope *envelope = [BasicHttpBinding_IDataProviderService_envelope sharedInstance];
+	BasicHttpBinding_IDataProviderServiceBinding_envelope *envelope = [BasicHttpBinding_IDataProviderServiceBinding_envelope sharedInstance];
 	
 	NSMutableDictionary *headerElements = nil;
 	headerElements = [NSMutableDictionary dictionary];
@@ -3585,7 +3719,7 @@ parameters:(DataProviderService_MarkException *)aParameters
 		if (doc == NULL) {
 			NSDictionary *userInfo = [NSDictionary dictionaryWithObject:@"Errors while parsing returned XML" forKey:NSLocalizedDescriptionKey];
 			
-			response.error = [NSError errorWithDomain:@"BasicHttpBinding_IDataProviderServiceResponseXML" code:1 userInfo:userInfo];
+			response.error = [NSError errorWithDomain:@"BasicHttpBinding_IDataProviderServiceBindingResponseXML" code:1 userInfo:userInfo];
 			[delegate operation:self completedWithResponse:response];
 		} else {
 			cur = xmlDocGetRootElement(doc);
@@ -3601,16 +3735,16 @@ parameters:(DataProviderService_MarkException *)aParameters
 						for(bodyNode=cur->children ; bodyNode != NULL ; bodyNode = bodyNode->next) {
 							if(cur->type == XML_ELEMENT_NODE) {
 								if(xmlStrEqual(bodyNode->name, (const xmlChar *) "MarkExceptionResponse")) {
-									DataProviderService_MarkExceptionResponse *bodyObject = [DataProviderService_MarkExceptionResponse deserializeNode:bodyNode];
+									DataProviderServiceSvc_MarkExceptionResponse *bodyObject = [DataProviderServiceSvc_MarkExceptionResponse deserializeNode:bodyNode];
 									//NSAssert1(bodyObject != nil, @"Errors while parsing body %s", bodyNode->name);
 									if (bodyObject != nil) [responseBodyParts addObject:bodyObject];
 								}
-                                                                else if (xmlStrEqual(bodyNode->ns->prefix, (const xmlChar *) "soap") && 
-                                                                         xmlStrEqual(bodyNode->name, (const xmlChar *) "Fault")) {
+								if (xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix) && 
+									xmlStrEqual(bodyNode->name, (const xmlChar *) "Fault")) {
 									SOAPFault *bodyObject = [SOAPFault deserializeNode:bodyNode];
 									//NSAssert1(bodyObject != nil, @"Errors while parsing body %s", bodyNode->name);
 									if (bodyObject != nil) [responseBodyParts addObject:bodyObject];
-                                                                }
+								}
 							}
 						}
 						
@@ -3627,10 +3761,10 @@ parameters:(DataProviderService_MarkException *)aParameters
 	}
 }
 @end
-@implementation BasicHttpBinding_IDataProviderService_UnmarkException
+@implementation BasicHttpBinding_IDataProviderServiceBinding_UnmarkException
 @synthesize parameters;
-- (id)initWithBinding:(BasicHttpBinding_IDataProviderService *)aBinding delegate:(id<BasicHttpBinding_IDataProviderServiceResponseDelegate>)responseDelegate
-parameters:(DataProviderService_UnmarkException *)aParameters
+- (id)initWithBinding:(BasicHttpBinding_IDataProviderServiceBinding *)aBinding delegate:(id<BasicHttpBinding_IDataProviderServiceBindingResponseDelegate>)responseDelegate
+parameters:(DataProviderServiceSvc_UnmarkException *)aParameters
 {
 	if((self = [super initWithBinding:aBinding delegate:responseDelegate])) {
 		self.parameters = aParameters;
@@ -3647,9 +3781,9 @@ parameters:(DataProviderService_UnmarkException *)aParameters
 - (void)main
 {
 	[response autorelease];
-	response = [BasicHttpBinding_IDataProviderServiceResponse new];
+	response = [BasicHttpBinding_IDataProviderServiceBindingResponse new];
 	
-	BasicHttpBinding_IDataProviderService_envelope *envelope = [BasicHttpBinding_IDataProviderService_envelope sharedInstance];
+	BasicHttpBinding_IDataProviderServiceBinding_envelope *envelope = [BasicHttpBinding_IDataProviderServiceBinding_envelope sharedInstance];
 	
 	NSMutableDictionary *headerElements = nil;
 	headerElements = [NSMutableDictionary dictionary];
@@ -3678,7 +3812,7 @@ parameters:(DataProviderService_UnmarkException *)aParameters
 		if (doc == NULL) {
 			NSDictionary *userInfo = [NSDictionary dictionaryWithObject:@"Errors while parsing returned XML" forKey:NSLocalizedDescriptionKey];
 			
-			response.error = [NSError errorWithDomain:@"BasicHttpBinding_IDataProviderServiceResponseXML" code:1 userInfo:userInfo];
+			response.error = [NSError errorWithDomain:@"BasicHttpBinding_IDataProviderServiceBindingResponseXML" code:1 userInfo:userInfo];
 			[delegate operation:self completedWithResponse:response];
 		} else {
 			cur = xmlDocGetRootElement(doc);
@@ -3694,16 +3828,16 @@ parameters:(DataProviderService_UnmarkException *)aParameters
 						for(bodyNode=cur->children ; bodyNode != NULL ; bodyNode = bodyNode->next) {
 							if(cur->type == XML_ELEMENT_NODE) {
 								if(xmlStrEqual(bodyNode->name, (const xmlChar *) "UnmarkExceptionResponse")) {
-									DataProviderService_UnmarkExceptionResponse *bodyObject = [DataProviderService_UnmarkExceptionResponse deserializeNode:bodyNode];
+									DataProviderServiceSvc_UnmarkExceptionResponse *bodyObject = [DataProviderServiceSvc_UnmarkExceptionResponse deserializeNode:bodyNode];
 									//NSAssert1(bodyObject != nil, @"Errors while parsing body %s", bodyNode->name);
 									if (bodyObject != nil) [responseBodyParts addObject:bodyObject];
 								}
-                                                                else if (xmlStrEqual(bodyNode->ns->prefix, (const xmlChar *) "soap") && 
-                                                                         xmlStrEqual(bodyNode->name, (const xmlChar *) "Fault")) {
+								if (xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix) && 
+									xmlStrEqual(bodyNode->name, (const xmlChar *) "Fault")) {
 									SOAPFault *bodyObject = [SOAPFault deserializeNode:bodyNode];
 									//NSAssert1(bodyObject != nil, @"Errors while parsing body %s", bodyNode->name);
 									if (bodyObject != nil) [responseBodyParts addObject:bodyObject];
-                                                                }
+								}
 							}
 						}
 						
@@ -3720,10 +3854,10 @@ parameters:(DataProviderService_UnmarkException *)aParameters
 	}
 }
 @end
-@implementation BasicHttpBinding_IDataProviderService_CreateAnnotation
+@implementation BasicHttpBinding_IDataProviderServiceBinding_CreateAnnotation
 @synthesize parameters;
-- (id)initWithBinding:(BasicHttpBinding_IDataProviderService *)aBinding delegate:(id<BasicHttpBinding_IDataProviderServiceResponseDelegate>)responseDelegate
-parameters:(DataProviderService_CreateAnnotation *)aParameters
+- (id)initWithBinding:(BasicHttpBinding_IDataProviderServiceBinding *)aBinding delegate:(id<BasicHttpBinding_IDataProviderServiceBindingResponseDelegate>)responseDelegate
+parameters:(DataProviderServiceSvc_CreateAnnotation *)aParameters
 {
 	if((self = [super initWithBinding:aBinding delegate:responseDelegate])) {
 		self.parameters = aParameters;
@@ -3740,9 +3874,9 @@ parameters:(DataProviderService_CreateAnnotation *)aParameters
 - (void)main
 {
 	[response autorelease];
-	response = [BasicHttpBinding_IDataProviderServiceResponse new];
+	response = [BasicHttpBinding_IDataProviderServiceBindingResponse new];
 	
-	BasicHttpBinding_IDataProviderService_envelope *envelope = [BasicHttpBinding_IDataProviderService_envelope sharedInstance];
+	BasicHttpBinding_IDataProviderServiceBinding_envelope *envelope = [BasicHttpBinding_IDataProviderServiceBinding_envelope sharedInstance];
 	
 	NSMutableDictionary *headerElements = nil;
 	headerElements = [NSMutableDictionary dictionary];
@@ -3771,7 +3905,7 @@ parameters:(DataProviderService_CreateAnnotation *)aParameters
 		if (doc == NULL) {
 			NSDictionary *userInfo = [NSDictionary dictionaryWithObject:@"Errors while parsing returned XML" forKey:NSLocalizedDescriptionKey];
 			
-			response.error = [NSError errorWithDomain:@"BasicHttpBinding_IDataProviderServiceResponseXML" code:1 userInfo:userInfo];
+			response.error = [NSError errorWithDomain:@"BasicHttpBinding_IDataProviderServiceBindingResponseXML" code:1 userInfo:userInfo];
 			[delegate operation:self completedWithResponse:response];
 		} else {
 			cur = xmlDocGetRootElement(doc);
@@ -3787,16 +3921,16 @@ parameters:(DataProviderService_CreateAnnotation *)aParameters
 						for(bodyNode=cur->children ; bodyNode != NULL ; bodyNode = bodyNode->next) {
 							if(cur->type == XML_ELEMENT_NODE) {
 								if(xmlStrEqual(bodyNode->name, (const xmlChar *) "CreateAnnotationResponse")) {
-									DataProviderService_CreateAnnotationResponse *bodyObject = [DataProviderService_CreateAnnotationResponse deserializeNode:bodyNode];
+									DataProviderServiceSvc_CreateAnnotationResponse *bodyObject = [DataProviderServiceSvc_CreateAnnotationResponse deserializeNode:bodyNode];
 									//NSAssert1(bodyObject != nil, @"Errors while parsing body %s", bodyNode->name);
 									if (bodyObject != nil) [responseBodyParts addObject:bodyObject];
 								}
-                                                                else if (xmlStrEqual(bodyNode->ns->prefix, (const xmlChar *) "soap") && 
-                                                                         xmlStrEqual(bodyNode->name, (const xmlChar *) "Fault")) {
+								if (xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix) && 
+									xmlStrEqual(bodyNode->name, (const xmlChar *) "Fault")) {
 									SOAPFault *bodyObject = [SOAPFault deserializeNode:bodyNode];
 									//NSAssert1(bodyObject != nil, @"Errors while parsing body %s", bodyNode->name);
 									if (bodyObject != nil) [responseBodyParts addObject:bodyObject];
-                                                                }
+								}
 							}
 						}
 						
@@ -3813,10 +3947,10 @@ parameters:(DataProviderService_CreateAnnotation *)aParameters
 	}
 }
 @end
-@implementation BasicHttpBinding_IDataProviderService_UpdateAnnotation
+@implementation BasicHttpBinding_IDataProviderServiceBinding_UpdateAnnotation
 @synthesize parameters;
-- (id)initWithBinding:(BasicHttpBinding_IDataProviderService *)aBinding delegate:(id<BasicHttpBinding_IDataProviderServiceResponseDelegate>)responseDelegate
-parameters:(DataProviderService_UpdateAnnotation *)aParameters
+- (id)initWithBinding:(BasicHttpBinding_IDataProviderServiceBinding *)aBinding delegate:(id<BasicHttpBinding_IDataProviderServiceBindingResponseDelegate>)responseDelegate
+parameters:(DataProviderServiceSvc_UpdateAnnotation *)aParameters
 {
 	if((self = [super initWithBinding:aBinding delegate:responseDelegate])) {
 		self.parameters = aParameters;
@@ -3833,9 +3967,9 @@ parameters:(DataProviderService_UpdateAnnotation *)aParameters
 - (void)main
 {
 	[response autorelease];
-	response = [BasicHttpBinding_IDataProviderServiceResponse new];
+	response = [BasicHttpBinding_IDataProviderServiceBindingResponse new];
 	
-	BasicHttpBinding_IDataProviderService_envelope *envelope = [BasicHttpBinding_IDataProviderService_envelope sharedInstance];
+	BasicHttpBinding_IDataProviderServiceBinding_envelope *envelope = [BasicHttpBinding_IDataProviderServiceBinding_envelope sharedInstance];
 	
 	NSMutableDictionary *headerElements = nil;
 	headerElements = [NSMutableDictionary dictionary];
@@ -3864,7 +3998,7 @@ parameters:(DataProviderService_UpdateAnnotation *)aParameters
 		if (doc == NULL) {
 			NSDictionary *userInfo = [NSDictionary dictionaryWithObject:@"Errors while parsing returned XML" forKey:NSLocalizedDescriptionKey];
 			
-			response.error = [NSError errorWithDomain:@"BasicHttpBinding_IDataProviderServiceResponseXML" code:1 userInfo:userInfo];
+			response.error = [NSError errorWithDomain:@"BasicHttpBinding_IDataProviderServiceBindingResponseXML" code:1 userInfo:userInfo];
 			[delegate operation:self completedWithResponse:response];
 		} else {
 			cur = xmlDocGetRootElement(doc);
@@ -3880,16 +4014,16 @@ parameters:(DataProviderService_UpdateAnnotation *)aParameters
 						for(bodyNode=cur->children ; bodyNode != NULL ; bodyNode = bodyNode->next) {
 							if(cur->type == XML_ELEMENT_NODE) {
 								if(xmlStrEqual(bodyNode->name, (const xmlChar *) "UpdateAnnotationResponse")) {
-									DataProviderService_UpdateAnnotationResponse *bodyObject = [DataProviderService_UpdateAnnotationResponse deserializeNode:bodyNode];
+									DataProviderServiceSvc_UpdateAnnotationResponse *bodyObject = [DataProviderServiceSvc_UpdateAnnotationResponse deserializeNode:bodyNode];
 									//NSAssert1(bodyObject != nil, @"Errors while parsing body %s", bodyNode->name);
 									if (bodyObject != nil) [responseBodyParts addObject:bodyObject];
 								}
-                                                                else if (xmlStrEqual(bodyNode->ns->prefix, (const xmlChar *) "soap") && 
-                                                                         xmlStrEqual(bodyNode->name, (const xmlChar *) "Fault")) {
+								if (xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix) && 
+									xmlStrEqual(bodyNode->name, (const xmlChar *) "Fault")) {
 									SOAPFault *bodyObject = [SOAPFault deserializeNode:bodyNode];
 									//NSAssert1(bodyObject != nil, @"Errors while parsing body %s", bodyNode->name);
 									if (bodyObject != nil) [responseBodyParts addObject:bodyObject];
-                                                                }
+								}
 							}
 						}
 						
@@ -3906,10 +4040,10 @@ parameters:(DataProviderService_UpdateAnnotation *)aParameters
 	}
 }
 @end
-@implementation BasicHttpBinding_IDataProviderService_RemoveAnnotation
+@implementation BasicHttpBinding_IDataProviderServiceBinding_RemoveAnnotation
 @synthesize parameters;
-- (id)initWithBinding:(BasicHttpBinding_IDataProviderService *)aBinding delegate:(id<BasicHttpBinding_IDataProviderServiceResponseDelegate>)responseDelegate
-parameters:(DataProviderService_RemoveAnnotation *)aParameters
+- (id)initWithBinding:(BasicHttpBinding_IDataProviderServiceBinding *)aBinding delegate:(id<BasicHttpBinding_IDataProviderServiceBindingResponseDelegate>)responseDelegate
+parameters:(DataProviderServiceSvc_RemoveAnnotation *)aParameters
 {
 	if((self = [super initWithBinding:aBinding delegate:responseDelegate])) {
 		self.parameters = aParameters;
@@ -3926,9 +4060,9 @@ parameters:(DataProviderService_RemoveAnnotation *)aParameters
 - (void)main
 {
 	[response autorelease];
-	response = [BasicHttpBinding_IDataProviderServiceResponse new];
+	response = [BasicHttpBinding_IDataProviderServiceBindingResponse new];
 	
-	BasicHttpBinding_IDataProviderService_envelope *envelope = [BasicHttpBinding_IDataProviderService_envelope sharedInstance];
+	BasicHttpBinding_IDataProviderServiceBinding_envelope *envelope = [BasicHttpBinding_IDataProviderServiceBinding_envelope sharedInstance];
 	
 	NSMutableDictionary *headerElements = nil;
 	headerElements = [NSMutableDictionary dictionary];
@@ -3957,7 +4091,7 @@ parameters:(DataProviderService_RemoveAnnotation *)aParameters
 		if (doc == NULL) {
 			NSDictionary *userInfo = [NSDictionary dictionaryWithObject:@"Errors while parsing returned XML" forKey:NSLocalizedDescriptionKey];
 			
-			response.error = [NSError errorWithDomain:@"BasicHttpBinding_IDataProviderServiceResponseXML" code:1 userInfo:userInfo];
+			response.error = [NSError errorWithDomain:@"BasicHttpBinding_IDataProviderServiceBindingResponseXML" code:1 userInfo:userInfo];
 			[delegate operation:self completedWithResponse:response];
 		} else {
 			cur = xmlDocGetRootElement(doc);
@@ -3973,16 +4107,16 @@ parameters:(DataProviderService_RemoveAnnotation *)aParameters
 						for(bodyNode=cur->children ; bodyNode != NULL ; bodyNode = bodyNode->next) {
 							if(cur->type == XML_ELEMENT_NODE) {
 								if(xmlStrEqual(bodyNode->name, (const xmlChar *) "RemoveAnnotationResponse")) {
-									DataProviderService_RemoveAnnotationResponse *bodyObject = [DataProviderService_RemoveAnnotationResponse deserializeNode:bodyNode];
+									DataProviderServiceSvc_RemoveAnnotationResponse *bodyObject = [DataProviderServiceSvc_RemoveAnnotationResponse deserializeNode:bodyNode];
 									//NSAssert1(bodyObject != nil, @"Errors while parsing body %s", bodyNode->name);
 									if (bodyObject != nil) [responseBodyParts addObject:bodyObject];
 								}
-                                                                else if (xmlStrEqual(bodyNode->ns->prefix, (const xmlChar *) "soap") && 
-                                                                         xmlStrEqual(bodyNode->name, (const xmlChar *) "Fault")) {
+								if (xmlStrEqual(bodyNode->ns->prefix, cur->ns->prefix) && 
+									xmlStrEqual(bodyNode->name, (const xmlChar *) "Fault")) {
 									SOAPFault *bodyObject = [SOAPFault deserializeNode:bodyNode];
 									//NSAssert1(bodyObject != nil, @"Errors while parsing body %s", bodyNode->name);
 									if (bodyObject != nil) [responseBodyParts addObject:bodyObject];
-                                                                }
+								}
 							}
 						}
 						
@@ -3999,15 +4133,15 @@ parameters:(DataProviderService_RemoveAnnotation *)aParameters
 	}
 }
 @end
-static BasicHttpBinding_IDataProviderService_envelope *BasicHttpBinding_IDataProviderServiceSharedEnvelopeInstance = nil;
-@implementation BasicHttpBinding_IDataProviderService_envelope
-+ (BasicHttpBinding_IDataProviderService_envelope *)sharedInstance
+static BasicHttpBinding_IDataProviderServiceBinding_envelope *BasicHttpBinding_IDataProviderServiceBindingSharedEnvelopeInstance = nil;
+@implementation BasicHttpBinding_IDataProviderServiceBinding_envelope
++ (BasicHttpBinding_IDataProviderServiceBinding_envelope *)sharedInstance
 {
-	if(BasicHttpBinding_IDataProviderServiceSharedEnvelopeInstance == nil) {
-		BasicHttpBinding_IDataProviderServiceSharedEnvelopeInstance = [BasicHttpBinding_IDataProviderService_envelope new];
+	if(BasicHttpBinding_IDataProviderServiceBindingSharedEnvelopeInstance == nil) {
+		BasicHttpBinding_IDataProviderServiceBindingSharedEnvelopeInstance = [BasicHttpBinding_IDataProviderServiceBinding_envelope new];
 	}
 	
-	return BasicHttpBinding_IDataProviderServiceSharedEnvelopeInstance;
+	return BasicHttpBinding_IDataProviderServiceBindingSharedEnvelopeInstance;
 }
 - (NSString *)serializedFormUsingHeaderElements:(NSDictionary *)headerElements bodyElements:(NSDictionary *)bodyElements
 {
@@ -4031,7 +4165,7 @@ static BasicHttpBinding_IDataProviderService_envelope *BasicHttpBinding_IDataPro
 	xmlNewNsProp(root, xslNs, (const xmlChar*)"version", (const xmlChar*)"1.0");
 	
 	xmlNewNs(root, (const xmlChar*)"http://www.w3.org/2001/XMLSchema", (const xmlChar*)"xs");
-	xmlNewNs(root, (const xmlChar*)"http://tempuri.org/", (const xmlChar*)"DataProviderService");
+	xmlNewNs(root, (const xmlChar*)"http://tempuri.org/", (const xmlChar*)"DataProviderServiceSvc");
 	xmlNewNs(root, (const xmlChar*)"http://tempuri.org/Imports", (const xmlChar*)"ns1");
 	xmlNewNs(root, (const xmlChar*)"http://schemas.datacontract.org/2004/07/Xplore.Framework.Common.DataProvider.DTO", (const xmlChar*)"tns1");
 	xmlNewNs(root, (const xmlChar*)"http://schemas.microsoft.com/2003/10/Serialization/Arrays", (const xmlChar*)"tns2");
@@ -4045,7 +4179,7 @@ static BasicHttpBinding_IDataProviderService_envelope *BasicHttpBinding_IDataPro
 		
 		for(NSString *key in [headerElements allKeys]) {
 			id header = [headerElements objectForKey:key];
-			xmlAddChild(headerNode, [header xmlNodeForDoc:doc elementName:key]);
+			xmlAddChild(headerNode, [header xmlNodeForDoc:doc elementName:key elementNSPrefix:nil]);
 		}
 	}
 	
@@ -4055,7 +4189,7 @@ static BasicHttpBinding_IDataProviderService_envelope *BasicHttpBinding_IDataPro
 		
 		for(NSString *key in [bodyElements allKeys]) {
 			id body = [bodyElements objectForKey:key];
-			xmlAddChild(bodyNode, [body xmlNodeForDoc:doc elementName:key]);
+			xmlAddChild(bodyNode, [body xmlNodeForDoc:doc elementName:key elementNSPrefix:nil]);
 		}
 	}
 	
@@ -4070,7 +4204,7 @@ static BasicHttpBinding_IDataProviderService_envelope *BasicHttpBinding_IDataPro
 	return serializedForm;
 }
 @end
-@implementation BasicHttpBinding_IDataProviderServiceResponse
+@implementation BasicHttpBinding_IDataProviderServiceBindingResponse
 @synthesize headers;
 @synthesize bodyParts;
 @synthesize error;

@@ -22,15 +22,20 @@
 {
 	return @"tns2";
 }
-- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName
+- (xmlNodePtr)xmlNodeForDoc:(xmlDocPtr)doc elementName:(NSString *)elName elementNSPrefix:(NSString *)elNSPrefix
 {
-	xmlNodePtr root = xmlDocGetRootElement(doc);
+	NSString *nodeName = nil;
+	if(elNSPrefix != nil && [elNSPrefix length] > 0)
+	{
+		nodeName = [NSString stringWithFormat:@"%@:%@", elNSPrefix, elName];
+	}
+	else
+	{
+		nodeName = [NSString stringWithFormat:@"%@:%@", @"tns2", elName];
+	}
 	
-	xmlNsPtr xsi = xmlSearchNs(doc, root, (const xmlChar*)"xsi");
+	xmlNodePtr node = xmlNewDocNode(doc, NULL, [nodeName xmlString], NULL);
 	
-	xmlNodePtr node = xmlNewDocNode(doc, NULL, (const xmlChar*)[elName UTF8String], NULL);
-	xmlSetNsProp(node, xsi, (const xmlChar*)"type", (const xmlChar*)"tns2:ArrayOfstring");
-	xmlSetNsProp(node, nil, (const xmlChar*)"xmlns", (const xmlChar*)"http://schemas.microsoft.com/2003/10/Serialization/Arrays");
 	
 	[self addAttributesToNode:node];
 	
@@ -47,7 +52,7 @@
 	
 	if(self.string != 0) {
 		for(NSString * child in self.string) {
-			xmlAddChild(node, [child xmlNodeForDoc:node->doc elementName:@"string"]);
+			xmlAddChild(node, [child xmlNodeForDoc:node->doc elementName:@"string" elementNSPrefix:@"tns2"]);
 		}
 	}
 }
@@ -106,7 +111,7 @@
 						NSString *prefix = [elementTypeArray objectAtIndex:0];
 						NSString *localName = [elementTypeArray objectAtIndex:1];
 						
-						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, (const xmlChar *)[prefix UTF8String]);
+						xmlNsPtr elementNamespace = xmlSearchNs(cur->doc, cur, [prefix xmlString]);
 						
 						NSString *standardPrefix = [[USGlobals sharedInstance].wsdlStandardNamespaces objectForKey:[NSString stringWithCString:(char*)elementNamespace->href encoding:NSUTF8StringEncoding]];
 						

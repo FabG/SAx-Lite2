@@ -3,5 +3,5 @@
 #import <libxml/tree.h>
 #import "USGlobals.h"
 @class NSNumber ;
+@class NSDate ;
 @class NSString ;
-typedef  tns5_duration;

@@ -7,7 +7,6 @@
 //
 
 #import "SAxRequestGetData.h"
-#import "DataProviderService.h"
 
 @implementation SAxRequestGetData
 
