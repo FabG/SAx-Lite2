@@ -1,5 +1,5 @@
 //
-//  SAxPodStore.h
+//  SAxMetadaStore.h
 //  SAx Lite2
 //
 //  Created by Fabrice Guillaume on 2/10/13.
@@ -8,10 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
-@interface SAxPodStore : NSObject {
-    NSString *col;
-    NSString *row;
-    
+@interface SAxMetadataStore : NSObject
+{
     // MetaData properties
     NSMutableString *metaDataId;
     NSMutableString *metaDataName;

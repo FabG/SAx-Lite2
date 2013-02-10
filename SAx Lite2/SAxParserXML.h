@@ -7,25 +7,39 @@
 //
 
 #import <Foundation/Foundation.h>
-
-@class SAxPodStore;
+#import "SAxMetadataStore.h"
+#import "SAxDataStore.h"
+@class SAxMetadataStore;
 
 @interface SAxParserXML : NSObject
 {
     // an ad hoc string to hold element value
     NSMutableString *currentElementValue;
     
-    // pod object
-    SAxPodStore *pod;
+    // col object
+    SAxMetadataStore *metaCol;
     
-    // array of pod objects
-    NSMutableArray *pods;
+    // array of col objects
+    NSMutableArray *metaCols;
+    
+    // row object
+    SAxDataStore *dataRow;
+    
+    // array of row objects
+    NSMutableArray *dataRows;
+    
+    Boolean metaDataExtracted;
+    NSMutableArray * dataProperties;
+    
 }
 
-@property (nonatomic, retain) SAxPodStore *pod;
-@property (nonatomic, retain) NSMutableArray *pods;
+@property (nonatomic, retain) SAxMetadataStore *metaCol;
+@property (nonatomic, retain) NSMutableArray *metaCols;
+@property (nonatomic, retain) SAxDataStore *dataRow;
+@property (nonatomic, retain) NSMutableArray *dataRows;
+@property (nonatomic, retain) NSMutableArray *dataProperties;
 
 - (SAxParserXML *) initXMLParser;
-//- (void) doParseXML:(NSData *)data;
+
 
 @end

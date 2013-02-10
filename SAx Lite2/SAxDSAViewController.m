@@ -12,7 +12,7 @@
 #import "ShinobiLicense.h"
 #import "SAxSOAPProxyGetData.h"
 #import "SAxParserXML.h"
-#import "SAxPodStore.h"
+#import "SAxMetadataStore.h"
 
 @interface SAxDSAViewController ()
 
@@ -116,9 +116,19 @@
     
     // Get result asynchronsouly
     // Indicator name is the 3rd of the Metadata section
-    dNSLog(@"[SAxDSA] pods count:%d", [[parser pods] count]);
-    NSString *indicator = [[NSString alloc]initWithFormat:[[[parser pods] objectAtIndex:3] metaDataName]];
+    dNSLog(@"[SAxDSA] MetaData properties count:%d", [[parser metaCols] count]);
+    NSString *indicator = [[NSString alloc]initWithFormat:[[[parser metaCols] objectAtIndex:3] metaDataName]];
     dNSLog(@"[SAxDSA] Indicator Name:%@", indicator);
+    
+
+    // Series Name and Values are 3rd and 4th of the Data section
+    dNSLog(@"[SAxDSA] Data count (Series):", [[parser dataRows]count]);
+    for (int i=0; i< [[parser dataRows]count]; i++)
+    {
+        dNSLog(@"[SAxDSA  - Serie Name: %@", [[[parser dataRows]objectAtIndex:i]dataSerieName]);
+        dNSLog(@"[SAxDSA  - Serie Value: %@", [[[parser dataRows]objectAtIndex:i]dataSerieValue]);
+        
+    }
     
     // Update shinobi chart
     dNSLog(@"[SAxDSA] Update chart for selected pod:%@", podName);
