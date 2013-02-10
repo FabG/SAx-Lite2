@@ -29,6 +29,7 @@
 		1BA64A1F16C70FC80006A56C /* USGlobals.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BA64A1216C70FC80006A56C /* USGlobals.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		1BA64A2016C70FC80006A56C /* xs.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BA64A1416C70FC80006A56C /* xs.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		1BA75EF716C74E120017623A /* SAxParserXML.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BA75EF616C74E120017623A /* SAxParserXML.m */; };
+		1BA75EFA16C7E0C90017623A /* SAxPodStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BA75EF916C7E0C90017623A /* SAxPodStore.m */; };
 		1BAB4F9916C543C70029E78C /* ShinobiLicense.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BAB4F9816C543C70029E78C /* ShinobiLicense.m */; };
 		1BAB4F9B16C545200029E78C /* ShinobiSettings.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1BAB4F9A16C545200029E78C /* ShinobiSettings.plist */; };
 		1BAB4F9F16C55B830029E78C /* SAxRequestGetData.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BAB4F9E16C55B830029E78C /* SAxRequestGetData.m */; };
@@ -99,6 +100,8 @@
 		1BA64A1416C70FC80006A56C /* xs.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = xs.m; sourceTree = "<group>"; };
 		1BA75EF516C74E120017623A /* SAxParserXML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAxParserXML.h; sourceTree = "<group>"; };
 		1BA75EF616C74E120017623A /* SAxParserXML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAxParserXML.m; sourceTree = "<group>"; };
+		1BA75EF816C7E0C90017623A /* SAxPodStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAxPodStore.h; sourceTree = "<group>"; };
+		1BA75EF916C7E0C90017623A /* SAxPodStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAxPodStore.m; sourceTree = "<group>"; };
 		1BAB4F9716C543C70029E78C /* ShinobiLicense.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShinobiLicense.h; sourceTree = "<group>"; };
 		1BAB4F9816C543C70029E78C /* ShinobiLicense.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShinobiLicense.m; sourceTree = "<group>"; };
 		1BAB4F9A16C545200029E78C /* ShinobiSettings.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ShinobiSettings.plist; sourceTree = "<group>"; };
@@ -180,6 +183,8 @@
 				1BA75EF616C74E120017623A /* SAxParserXML.m */,
 				1BAB4F9D16C55B830029E78C /* SAxRequestGetData.h */,
 				1BAB4F9E16C55B830029E78C /* SAxRequestGetData.m */,
+				1BA75EF816C7E0C90017623A /* SAxPodStore.h */,
+				1BA75EF916C7E0C90017623A /* SAxPodStore.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -415,6 +420,7 @@
 				1BA64A1F16C70FC80006A56C /* USGlobals.m in Sources */,
 				1BA64A2016C70FC80006A56C /* xs.m in Sources */,
 				1BA75EF716C74E120017623A /* SAxParserXML.m in Sources */,
+				1BA75EFA16C7E0C90017623A /* SAxPodStore.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

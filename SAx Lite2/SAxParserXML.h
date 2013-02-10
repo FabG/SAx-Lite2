@@ -8,21 +8,24 @@
 
 #import <Foundation/Foundation.h>
 
-@interface SAxParserXML : NSObject < NSXMLParserDelegate >
+@class SAxPodStore;
+
+@interface SAxParserXML : NSObject
 {
-    NSMutableString *currentString;
-    NSMutableString *metadata;
-    NSMutableString *data;
-    NSMutableString *SeriesTitle;
-    NSMutableString *SeriesName;
-    NSMutableArray *SeriesValue;
+    // an ad hoc string to hold element value
+    NSMutableString *currentElementValue;
+    
+    // pod object
+    SAxPodStore *pod;
+    
+    // array of pod objects
+    NSMutableArray *pods;
 }
 
--(void) parse: (NSData *)xmlData;
-- (void) parser:( NSXMLParser *) parser
-            didStartElement:( NSString *)elementName
-            namespaceURI:( NSString *) namespaceURI
-            qualifiedName:( NSString *) qualifiedName
-     attributes:( NSDictionary *) attributeDict;
+@property (nonatomic, retain) SAxPodStore *pod;
+@property (nonatomic, retain) NSMutableArray *pods;
+
+- (SAxParserXML *) initXMLParser;
+//- (void) doParseXML:(NSData *)data;
 
 @end

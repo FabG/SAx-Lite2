@@ -12,7 +12,7 @@
 #import "ShinobiLicense.h"
 #import "SAxSOAPProxyGetData.h"
 #import "SAxParserXML.h"
-
+#import "SAxPodStore.h"
 
 @interface SAxDSAViewController ()
 
@@ -89,13 +89,36 @@
     // Send the request asynchronously
     SAxSOAPProxyGetData *request = [[SAxSOAPProxyGetData alloc]init];
     [request processRequestGetData];
-    //[request processRequestGetDataProviderConfig];
     
     // Parse XML results
-    SAxParserXML *parserXML = [[SAxParserXML alloc]init];
-    [parserXML parse:request.xmlData];
+    dNSLog(@"[SAxDSA] Launching the parser");
+    
+    // create and init NSXMLParser object
+    NSXMLParser *nsXmlParser = [[NSXMLParser alloc] initWithData:[request xmlData]];
+    
+    // create and init our delegate
+    SAxParserXML *parser = [[SAxParserXML alloc] initXMLParser];
+    
+    // set delegate
+    [nsXmlParser setDelegate:parser];
+    
+    // parsing...
+    BOOL success = [nsXmlParser parse];
+    
+    // test the result
+    if (!success) {
+        dNSLog(@"\t[SAxParser] Error parsing document!");
+        // Add alert...
+        return;
+    }
+    
+    dNSLog(@"\t[SAxParser] No errors");
     
     // Get result asynchronsouly
+    // Indicator name is the 3rd of the Metadata section
+    dNSLog(@"[SAxDSA] pods count:%d", [[parser pods] count]);
+    NSString *indicator = [[NSString alloc]initWithFormat:[[[parser pods] objectAtIndex:3] metaDataName]];
+    dNSLog(@"[SAxDSA] Indicator Name:%@", indicator);
     
     // Update shinobi chart
     dNSLog(@"[SAxDSA] Update chart for selected pod:%@", podName);
@@ -222,9 +245,6 @@
     
     return datapoint;
 }
-
-
-
 
 
 

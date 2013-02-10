@@ -7,83 +7,100 @@
 //
 
 #import "SAxParserXML.h"
+#import "SAxPodStore.h"
 
 @implementation SAxParserXML
--(void) parse: (NSData *)xmlData
-{
-    dNSLog(@"[SAxParser] Start Parsing...");
-    // Create the parser object with the data received from the web service
-    NSXMLParser *parser = [[ NSXMLParser alloc] initWithData:xmlData];
-    
-    // Give it a delegate - ignore the warning here for now
-    [parser setDelegate:self];
-    
-    // Tell it to start parsing - the document will be parsed and
-    // the delegate of NSXMLParser will get all of its delegate messages
-    // sent to it before this line finishes execution - it is blocking
-    [parser parse];
-    
-    // Get rid of the XML data as we no longer need it
-    xmlData = nil;
 
+@synthesize pod, pods;
+
+- (SAxParserXML *) initXMLParser
+{
+    // init array of pods
+    pods = [[NSMutableArray alloc] init];
+    return self;
+    
 }
 
-// delegate method
-// We will look for the following elements and add them to a mutable array
-// Elements:
-// "col": the 3rd gives the Pod Title
-// "row": the 3rd provides the Measure name and the 4th the Measure Value
-
-- (void) parser:( NSXMLParser *) parser
-                didStartElement:( NSString *)elementName
-                namespaceURI:( NSString *) namespaceURI
-                qualifiedName:( NSString *) qualifiedName
-                attributes:( NSDictionary *) attributeDict
-{
-    NSLog(@"[SAxParser]  -> %@ found a %@ element", self, elementName);
-
-    if ([ elementName isEqual:@"MetaData"])
-    {
-        // If the parser saw a channel, create new instance, store in our ivar
-        metadata = [[NSMutableString alloc] init];
-        
-        // Add the item to our array and release our hold on it
-        [metadata appendString:elementName];
-        NSLog(@"[SAxParser]  -> Start MetaData: %@", metadata);
-    }
-}
-
+// Parse the start of an element
 - (void)parser:(NSXMLParser *)parser
- didEndElement:(NSString *)elementName
-  namespaceURI:(NSString *)namespaceURI
- qualifiedName:(NSString *)qName
+            didStartElement:(NSString *)elementName
+            namespaceURI:(NSString *)namespaceURI
+            qualifiedName:(NSString *)qualifiedName
+            attributes:(NSDictionary *)attributeDict
 {
-    NSLog(@"[SAxParser] parser:didEndElement");
-    // If we were in an element that we were collecting the string for,
-    // this appropriately releases our hold on it and the permanent ivar keeps
-    // ownership of it. If we weren't parsing such an element, currentString
-    // is nil already.
-    currentString = nil;
+    if ([elementName isEqualToString:@"col"]) {
+        // Our xml looks like
+        // 	<col id="Network_id" name="Network_id" type="number" />
+        
+        NSLog(@"\t[SAxParser] col element found – create a new instance...");
+        pod = [[SAxPodStore alloc] init];
+        
+        //We do not have any attributes in the user elements, but if
+        // you do, you can extract them here:
+        // user.att = [[attributeDict objectForKey:@"<att name>"] ...];                                                 
+        pod.metaDataId = [attributeDict objectForKey:@"id"];
+        pod.metaDataName = [attributeDict objectForKey:@"name"];
+        pod.metaDataType = [attributeDict objectForKey:@"type"];
+        
+        dNSLog(@"\t[SAxParser]  -> id=%@", pod.metaDataId);
+        dNSLog(@"\t[SAxParser]  -> name=%@", pod.metaDataName);
+        dNSLog(@"\t[SAxParser]  -> type=%@", pod.metaDataType);
+    }
     
-    // If the element that ended was the channel, give up control to
-    // who gave us control in the first place
-    /*
-    if ([elementName isEqual:@"channel"]) {
-        [parser setDelegate:parentParserDelegate];
-        [self trimItemTitles];
-    
-     }
-     */
-    NSLog(@"[SAxParser]  -> Finish MetaData: %@", metadata);
 }
 
-- (void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)str
+// Parse an element value
+- (void)parser:(NSXMLParser *)parser
+            foundCharacters:(NSString *)string
 {
-    [currentString appendString:str];
+    if (!currentElementValue)
+    {
+        // init the ad hoc string with the value
+        currentElementValue = [[NSMutableString alloc] initWithString:string];
+    } else
+    {
+        // append value to the ad hoc string
+        [currentElementValue appendString:string];
+    }
+    dNSLog(@"\t[SAxParser]  -> Processing value for : %@", string);
+
 }
 
-
+// Parse the end of an element
+- (void)parser:(NSXMLParser *)parser
+            didEndElement:(NSString *)elementName
+            namespaceURI:(NSString *)namespaceURI
+            qualifiedName:(NSString *)qName
+{
     
+    if ([elementName isEqualToString:@"GetData"]) {
+        // We reached the end of the XML document: </GetData>
+        dNSLog(@"\t[SAxParser] Parsing finished");
+        return;
+    }
+    
+    if ([elementName isEqualToString:@"col"]) {
+        // We are done with col entry – add the parsed col
+        // object to our pod array
+        [pods addObject:pod];
+        dNSLog(@"\t[SAxParser]  -> pod added. Pod count#%d", [pods count]);
+        
+        // release user object
+        pod = nil;
+
+    } else
+    {
+        // The parser hit one of the element values.
+        // This syntax is possible because User object
+        // property names match the XML user element names
+        [pod setValue:currentElementValue forKey:elementName];
+    }
+    
+    currentElementValue = nil;
+}
+
+ 
+
 /* XML Response received
  <GetData>
  <MetaData>
