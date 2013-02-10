@@ -9,9 +9,12 @@
 #import <Foundation/Foundation.h>
 #import "DataProviderServiceSvc.h"
 
-@interface SAxSOAPProxyGetData : NSObject
+@interface SAxSOAPProxyGetData : NSObject 
 
 -(void)processRequestGetData;
 -(void)processResponseGetData :(BasicHttpBinding_IDataProviderServiceBindingResponse *)soapResponse;
+-(void)processRequestGetDataProviderConfig;
+-(void)processResponseGetDataProviderConfig:(BasicHttpBinding_IDataProviderServiceBindingResponse*)soapResponse;
+@property (nonatomic, strong) NSData *xmlData;
 
 @end

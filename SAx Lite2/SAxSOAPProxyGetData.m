@@ -15,7 +15,9 @@
 // "Add tag to service name (avoid name conflicts)
 
 @implementation SAxSOAPProxyGetData
+@synthesize xmlData;
 
+// Config Request
 -(void)processRequestGetDataProviderConfig
 {
     dNSLog(@"\t[SOAP-Request] processRequestGetDataProviderConfig");
@@ -54,6 +56,7 @@
     
 }
 
+// Config Response
 -(void)processResponseGetDataProviderConfig :(BasicHttpBinding_IDataProviderServiceBindingResponse*)soapResponse
 {
     dNSLog(@"\t[SOAP-Response] Response received");
@@ -84,24 +87,21 @@
     }
 }
 
+// Pod Request
 -(void)processRequestGetData 
 {
     dNSLog(@"\t[SOAP-Request] processRequestGetData");
     
-    BasicHttpBinding_IDataProviderServiceBinding *binding =
-        [DataProviderServiceSvc BasicHttpBinding_IDataProviderServiceBinding];
-    
+    BasicHttpBinding_IDataProviderServiceBinding *binding = [DataProviderServiceSvc BasicHttpBinding_IDataProviderServiceBinding];
     BasicHttpBinding_IDataProviderServiceBindingResponse *response;
-    
-    DataProviderServiceSvc_GetData *request =
-        [[DataProviderServiceSvc_GetData alloc] init];
+    DataProviderServiceSvc_GetData *request = [[DataProviderServiceSvc_GetData alloc] init];
     
     // Context Info Parameter
     tns2_ArrayOfstring *contexInfo = [[tns2_ArrayOfstring alloc] init];
     [contexInfo addString:@"dashboardID=100001"];
     [contexInfo addString:@"podID=0"];
     [contexInfo addString:@"podModeID=0"];
-    [contexInfo addString:@"UserId=fg"];
+    [contexInfo addString:@"UserId=fminetti"];
     [contexInfo addString:@"versionID=332"];
     [contexInfo addString:@"DASH_POD_TYPE=Pod"];
     [contexInfo addString:@"podType=SQLPod"];
@@ -327,18 +327,20 @@
     request.parameters = parameters;
     
     // Send Request
+    response = [binding GetDataUsingParameters:request];
+    NSLog(@"request = %@", request.description);
+    dispatch_async(dispatch_get_main_queue(), ^{ [self processResponseGetData:response]; });
+    
+    // Send Request
     dNSLog(@"\t[SOAP-Request] Sending request, DashboardID = %d, PodID = %d", 100001, 0);
     dNSLog(@"\t[SOAP-Request] request = %@", request.description);
     dNSLog(@"\t[SOAP-Request] request parameters = %@", request.parameters.description);
     
     response = [binding GetDataUsingParameters:request];
-    
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self processResponseGetData:response];
-    });
+
 }
 
-
+// Pod answer
 -(void)processResponseGetData :(BasicHttpBinding_IDataProviderServiceBindingResponse *)soapResponse
 {
     dNSLog(@"\t[SOAP-Response] Response received");
@@ -366,6 +368,9 @@
         dNSLog(@"\t codeText=%@", dataResponse.GetDataResult.Code);
         dNSLog(@"\t descriptionText=%@", dataResponse.GetDataResult.Description);
         dNSLog(@"\t resultObject=%@", dataResponse.GetDataResult.ResultObject);
+        
+        // Assign returned string to NSData type to be parsed
+        xmlData = [dataResponse.GetDataResult.ResultObject dataUsingEncoding:NSUTF8StringEncoding];
         
     }
 }

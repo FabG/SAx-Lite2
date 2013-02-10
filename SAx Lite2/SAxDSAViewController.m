@@ -11,6 +11,7 @@
 #import "SAxDSAPodTableViewController.h"
 #import "ShinobiLicense.h"
 #import "SAxSOAPProxyGetData.h"
+#import "SAxParserXML.h"
 
 
 @interface SAxDSAViewController ()
@@ -88,16 +89,13 @@
     // Send the request asynchronously
     SAxSOAPProxyGetData *request = [[SAxSOAPProxyGetData alloc]init];
     [request processRequestGetData];
-    
-    //[self processRequestGetDataProviderConfig];
-    
-    //SAxRequestGetData *request = [[SAxRequestGetData alloc]init];
-    // [request fecthData];
-    
-    // The delegate of an NSURLConnection is responsible for overseeing the connection and for
-    // collectin the data returned from the request
+    //[request processRequestGetDataProviderConfig];
     
     // Parse XML results
+    SAxParserXML *parserXML = [[SAxParserXML alloc]init];
+    [parserXML parse:request.xmlData];
+    
+    // Get result asynchronsouly
     
     // Update shinobi chart
     dNSLog(@"[SAxDSA] Update chart for selected pod:%@", podName);
