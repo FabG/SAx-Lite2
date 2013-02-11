@@ -21,6 +21,7 @@
 @implementation SAxDSAViewController
 
 @synthesize popover, podName, labelSAx;
+@synthesize seriesPointsNames, seriesPointsValues;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -122,13 +123,25 @@
     
 
     // Series Name and Values are 3rd and 4th of the Data section
-    dNSLog(@"[SAxDSA] Data count (Series):", [[parser dataRows]count]);
+    seriesPointsCount = [[parser dataRows]count];
+    dNSLog(@"[SAxDSA] Data count (Series):%d", seriesPointsCount);
+    
+    seriesPointsNames = [[NSMutableArray alloc] init];
+    seriesPointsValues = [[NSMutableArray alloc] init];
     for (int i=0; i< [[parser dataRows]count]; i++)
     {
         dNSLog(@"[SAxDSA  - Serie Name: %@", [[[parser dataRows]objectAtIndex:i]dataSerieName]);
-        dNSLog(@"[SAxDSA  - Serie Value: %@", [[[parser dataRows]objectAtIndex:i]dataSerieValue]);
+        NSString *name = [[NSString alloc]initWithString:[[[parser dataRows]objectAtIndex:i]dataSerieName]];
         
+        [seriesPointsNames addObject:name];
+        
+        dNSLog(@"[SAxDSA  - Serie Value: %@", [[[parser dataRows]objectAtIndex:i]dataSerieValue]);
+        NSString *value = [[NSString alloc] initWithString:[[[parser dataRows]objectAtIndex:i]dataSerieValue]];
+        
+        [seriesPointsValues addObject:value];
+
     }
+    
     
     // Update shinobi chart
     dNSLog(@"[SAxDSA] Update chart for selected pod:%@", podName);
@@ -217,7 +230,7 @@
 // Shinobi delegate methods
 // Returns the number of series in the specified chart
 - (int)numberOfSeriesInSChart:(ShinobiChart *)chart {
-    return 3;
+    return 1;
 }
 
 // Returns the series at the specified index for a given chart
@@ -234,10 +247,9 @@
 
 // Determine the number of data points that the series will contain.
 - (int)sChart:(ShinobiChart *)chart numberOfDataPointsForSeriesAtIndex:(int)seriesIndex {
-    // In this example each series has 10 points
-    return 4;
+
+    return seriesPointsCount;
     
-    // need to count the resulted data set
 }
 
 
@@ -245,14 +257,12 @@
 - (id<SChartData>)sChart:(ShinobiChart *)chart dataPointAtIndex:(int)dataIndex forSeriesAtIndex:(int)seriesIndex {
     
     SChartRadialDataPoint *datapoint = [SChartRadialDataPoint new];
-
-    // Pass the values form the service...
-    //datapoint.name = [[_osData osTypes] objectAtIndex:dataIndex];
-    //datapoint.value = [[_osData osData] objectForKey:dp.name];
     
-    datapoint.name = @"test";
-    datapoint.value = [[NSNumber alloc] initWithFloat:3.2];
+    datapoint.name = [seriesPointsNames objectAtIndex:dataIndex];
+    datapoint.value = [seriesPointsValues objectAtIndex:dataIndex];
     
+    //datapoint.name = @"test";
+    //datapoint.value = [NSNumber numberWithInt:4];
     return datapoint;
 }
 

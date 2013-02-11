@@ -14,10 +14,13 @@
 @interface SAxDSAViewController : UIViewController <DismissDelegate, UIPopoverControllerDelegate, SChartDatasource>
 {
     ShinobiChart *chart;
+    NSUInteger seriesPointsCount;
 }
 @property (strong,nonatomic) UIPopoverController *popover;
 @property (nonatomic, strong) NSString *podName;
-@property (weak, nonatomic) IBOutlet UILabel *labelSAx;
+@property (nonatomic, weak) IBOutlet UILabel *labelSAx;
+@property (nonatomic, strong) NSMutableArray *seriesPointsNames;
+@property (nonatomic, strong) NSMutableArray *seriesPointsValues;
 //@property (strong, nonatomic) ShinobiChart *chart;
 
 - (IBAction) buttonPodListTapped:(id)sender;
