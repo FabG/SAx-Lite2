@@ -201,7 +201,11 @@
 
     }
     
+    // Add local filters
+    dNSLog(@"[SAxDSA] Add loal filters");
+    [self addFilterButtons:6];
     
+
     // Update shinobi chart
     dNSLog(@"[SAxDSA] Update chart for selected pod:%@", podName);
     
@@ -246,7 +250,7 @@
     NSDate *licenseDate = [ShinobiLicense getShinobiLicenseDate];
     NSDate *today = [NSDate date];
 
-    CGRect pieFrame = CGRectMake(26,100,712,830);
+    CGRect pieFrame = CGRectMake(26,110,712,830);
     shinoChart = [ShinobiChart pieChartForOSDataWithFrame:pieFrame];
     
     //pieFrame = self.view.bounds;
@@ -363,5 +367,71 @@
         }
     }
 }
+
+// Local pickers (button) to add dynamically
+-(void) addFilterButtons: (int) filterNb
+{
+    dNSLog(@"[SAxDSA] Adding Pod filters");
+
+    int ystart = 18;    
+    int xstart = 25;
+    int offset = 20;
+    int filterRows = 1;
+    
+    if (filterNb < 7)
+        ystart = 35;
+    
+    int buttonWidth = 100;
+    int buttonHeight = 30;
+    int buttonXoffset = xstart;
+    int buttonYoffset = ystart;
+    int j =1;
+    
+    for( int i = 0; i < filterNb; i++ ) {
+        j = i;
+        if (i < 6) {
+            buttonYoffset = ystart*filterRows;
+            buttonXoffset = (offset+buttonWidth)*j+xstart; 
+        } else {
+            buttonYoffset = ystart*2+buttonHeight;
+            buttonXoffset = (offset+buttonWidth)*(j-6)+xstart;
+        } 
+       
+
+        
+        dNSLog(@"[SAxDSA] buttonYoffset = %d", buttonYoffset);
+
+        CGRect buttonsFrame = CGRectMake(buttonXoffset,buttonYoffset,buttonWidth,buttonHeight);
+        dNSLog(@"[SAxDSA] CGRectMake = [%f, %f, %f, %f]", buttonsFrame.origin.x, buttonsFrame.origin.y, buttonsFrame.size.width, buttonsFrame.size.height);
+        
+        UIButton* filterButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [filterButton setTag:i];
+        [filterButton setFrame:buttonsFrame];
+        [filterButton addTarget:self action:@selector(buttonFilterClicked:) forControlEvents:UIControlEventTouchUpInside];
+        
+        filterButton.backgroundColor = [UIColor darkGrayColor];
+        
+        filterButton.tintColor = [UIColor whiteColor];
+        filterButton.layer.borderColor = [UIColor blackColor].CGColor;
+        filterButton.layer.borderWidth = 0.5f;
+        filterButton.layer.cornerRadius = 10.0f;
+        
+        [filterButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
+        [filterButton setTitleColor:[UIColor blackColor] forState:UIControlStateSelected];
+        [filterButton setTitle:@"Filter" forState:UIControlStateNormal];
+        
+        [self.view addSubview:filterButton];
+    }
+
+
+}
+
+
+- (void)buttonFilterClicked:(UIButton*)button
+{
+    NSLog(@"Button %ld clicked.", (long int)[button tag]);
+}
+
+
 
 @end
