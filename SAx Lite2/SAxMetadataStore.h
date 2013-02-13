@@ -10,7 +10,8 @@
 
 @interface SAxMetadataStore : NSObject
 {
-    // MetaData properties
+    
+    // DATA - MetaData properties
     NSMutableString *metaDataId;
     NSMutableString *metaDataName;
     NSMutableString *metaDataType;
@@ -23,5 +24,6 @@
 @property (nonatomic, retain) NSString *metaDataId;
 @property (nonatomic, retain) NSString *metaDataName;
 @property (nonatomic, retain) NSString *metaDataType;
+
 
 @end

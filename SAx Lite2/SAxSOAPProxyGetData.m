@@ -15,7 +15,7 @@
 // "Add tag to service name (avoid name conflicts)
 
 @implementation SAxSOAPProxyGetData
-@synthesize xmlData;
+@synthesize xmlData, xmlConfigData;
 
 // Config Request
 -(void)processRequestGetDataProviderConfig
@@ -33,7 +33,7 @@
     [contexInfo addString:@"dashboardID=100001"];
     [contexInfo addString:@"podID=0"];
     [contexInfo addString:@"podModeID=0"];
-    [contexInfo addString:@"UserId=fminetti"];
+    [contexInfo addString:@"UserId=fguillaume"];
     [contexInfo addString:@"versionID=332"];
     [contexInfo addString:@"DASH_POD_TYPE=Pod"];
     [contexInfo addString:@"podType=SQLPod"];
@@ -52,14 +52,21 @@
     
     // Send Request
     response = [binding GetDataProviderConfigUsingParameters:request];
+    NSLog(@"request = %@", request.description);
     dispatch_async(dispatch_get_main_queue(), ^{ [self processResponseGetDataProviderConfig:response]; });
+    
+    // Send Request
+    dNSLog(@"\t[SOAP-Request] Sending request, DashboardID = %d, PodID = %d", 100001, 0);
+    dNSLog(@"\t[SOAP-Request] request = %@", request.description);
+    
+    response = [binding GetDataUsingParameters:request];
     
 }
 
 // Config Response
 -(void)processResponseGetDataProviderConfig :(BasicHttpBinding_IDataProviderServiceBindingResponse*)soapResponse
 {
-    dNSLog(@"\t[SOAP-Response] Response received");
+    dNSLog(@"\t[SOAP-Response] --- CONFIGDATA Response received ---");
     NSArray *responseBodyParts = soapResponse.bodyParts;
     
     id bodyPart;
@@ -78,14 +85,20 @@
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Server Error" message:errorMsg delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
         [alert show];
     }
-    else if ([bodyPart isKindOfClass:[DataProviderServiceSvc_GetDataProviderConfigResponse class]]) {
+    else if ([bodyPart isKindOfClass:[DataProviderServiceSvc_GetDataProviderConfigResponse class]])
+    {
         DataProviderServiceSvc_GetDataProviderConfigResponse *dataProviderConfigResponse = bodyPart;
         
         dNSLog(@"\t codeText=%@", dataProviderConfigResponse.GetDataProviderConfigResult.Code);
         dNSLog(@"\t descriptionText=%@", dataProviderConfigResponse.GetDataProviderConfigResult.Description);
         dNSLog(@"\t resultObject=%@", dataProviderConfigResponse.GetDataProviderConfigResult.ResultObject);
+
+        // Assign returned string to NSData type to be parsed
+        xmlConfigData = [dataProviderConfigResponse.GetDataProviderConfigResult.ResultObject dataUsingEncoding:NSUTF8StringEncoding];
     }
 }
+
+
 
 // Pod Request
 -(void)processRequestGetData 
@@ -101,7 +114,7 @@
     [contexInfo addString:@"dashboardID=100001"];
     [contexInfo addString:@"podID=0"];
     [contexInfo addString:@"podModeID=0"];
-    [contexInfo addString:@"UserId=fminetti"];
+    [contexInfo addString:@"UserId=fguillaume"];
     [contexInfo addString:@"versionID=332"];
     [contexInfo addString:@"DASH_POD_TYPE=Pod"];
     [contexInfo addString:@"podType=SQLPod"];
@@ -343,7 +356,7 @@
 // Pod answer
 -(void)processResponseGetData :(BasicHttpBinding_IDataProviderServiceBindingResponse *)soapResponse
 {
-    dNSLog(@"\t[SOAP-Response] Response received");
+    dNSLog(@"\t[SOAP-Response] --- DATA Response received ---");
     NSArray *responseBodyParts = soapResponse.bodyParts;
     id bodyPart;
     

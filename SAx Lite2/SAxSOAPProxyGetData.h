@@ -15,6 +15,7 @@
 -(void)processResponseGetData :(BasicHttpBinding_IDataProviderServiceBindingResponse *)soapResponse;
 -(void)processRequestGetDataProviderConfig;
 -(void)processResponseGetDataProviderConfig:(BasicHttpBinding_IDataProviderServiceBindingResponse*)soapResponse;
+@property (nonatomic, strong) NSData *xmlConfigData;
 @property (nonatomic, strong) NSData *xmlData;
 
 @end

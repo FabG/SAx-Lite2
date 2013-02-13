@@ -62,6 +62,7 @@
 		1BDD07F116C34B8A00126EEC /* colorful_chart.png in Resources */ = {isa = PBXBuildFile; fileRef = 1BDD07F016C34B8A00126EEC /* colorful_chart.png */; };
 		1BDD080416C448C800126EEC /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BDD080316C448C800126EEC /* QuartzCore.framework */; };
 		1BDD080616C448D100126EEC /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BDD080516C448D100126EEC /* OpenGLES.framework */; };
+		1BEFD14D16C965900027C490 /* SAxConfigStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BEFD14C16C965900027C490 /* SAxConfigStore.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -146,6 +147,8 @@
 		1BDD07F016C34B8A00126EEC /* colorful_chart.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = colorful_chart.png; sourceTree = "<group>"; };
 		1BDD080316C448C800126EEC /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		1BDD080516C448D100126EEC /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		1BEFD14B16C965900027C490 /* SAxConfigStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAxConfigStore.h; sourceTree = "<group>"; };
+		1BEFD14C16C965900027C490 /* SAxConfigStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAxConfigStore.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -186,6 +189,8 @@
 				1BAB4F9E16C55B830029E78C /* SAxRequestGetData.m */,
 				1BA75EF516C74E120017623A /* SAxParserXML.h */,
 				1BA75EF616C74E120017623A /* SAxParserXML.m */,
+				1BEFD14B16C965900027C490 /* SAxConfigStore.h */,
+				1BEFD14C16C965900027C490 /* SAxConfigStore.m */,
 				1BA75EF816C7E0C90017623A /* SAxMetadataStore.h */,
 				1BA75EF916C7E0C90017623A /* SAxMetadataStore.m */,
 				1BA75EFB16C8514F0017623A /* SAxDataStore.h */,
@@ -427,6 +432,7 @@
 				1BA75EF716C74E120017623A /* SAxParserXML.m in Sources */,
 				1BA75EFA16C7E0C90017623A /* SAxMetadataStore.m in Sources */,
 				1BA75EFD16C8514F0017623A /* SAxDataStore.m in Sources */,
+				1BEFD14D16C965900027C490 /* SAxConfigStore.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

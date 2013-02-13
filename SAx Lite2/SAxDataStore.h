@@ -19,10 +19,10 @@
     
 }
 
-@property (nonatomic, retain) NSString *dataPosition;
-@property (nonatomic, retain) NSString *dataId;
-@property (nonatomic, retain) NSString *dataSerieName;
-@property (nonatomic, retain) NSString *dataSerieValue;
-@property (nonatomic, retain) NSString *dataRowId;
+@property (nonatomic, retain) NSMutableString *dataPosition;
+@property (nonatomic, retain) NSMutableString *dataId;
+@property (nonatomic, retain) NSMutableString *dataSerieName;
+@property (nonatomic, retain) NSMutableString *dataSerieValue;
+@property (nonatomic, retain) NSMutableString *dataRowId;
 
 @end

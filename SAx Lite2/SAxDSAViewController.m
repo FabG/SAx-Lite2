@@ -86,16 +86,66 @@
 
 -(void) updateChart
 {
-    dNSLog(@"[SAxDSA] Prepping the request to send to the webservice:%@", podName);
-    // Send the request asynchronously
+    BOOL success = YES;
+    
+    // XML CONFIG Data - Parsing
+    // Getting the config data for the pod
+    // We will use this mainly for the chart type - see CHART_STYLE_XML_METADATA
+    // Ex: <Property name="CHART_STYLE_XML_METADATA" value="<chart type="pie"
+    // chartPieGroupThreshold="3" legendPlacement="bottom">
+    
+    // NOTE - I am commeting out the Config data parsing as it errors out with and Error 65
+    // because of 2 <Property> tags that have a lot of "" values for the <value> tag
+    // See OLAP_POD_LOCAL_TREE_FILTER_DataServicesHierarchy and GRID_ROW_ACTIONS
+    // If we find a way to not have the parser exit on these errors, we can get the chart type
+    // .. using the <Property name="CHART_STYLE_XML_METADATA" value="<chart type="...
+    // I will hard code for bow the chart type
+    /*
+    SAxSOAPProxyGetData *requestConfig = [[SAxSOAPProxyGetData alloc]init];
+    [requestConfig processRequestGetDataProviderConfig];
+    
+    // Parse XML Config results
+    dNSLog(@"[SAxDSA] Launching the parser for Config data");
+    
+    // create and init NSXMLParser object
+    NSXMLParser *nsXmlParserConfig = [[NSXMLParser alloc] initWithData:[requestConfig xmlConfigData]];
+    [nsXmlParserConfig setShouldProcessNamespaces:NO];
+    [nsXmlParserConfig setShouldReportNamespacePrefixes:NO];
+    [nsXmlParserConfig setShouldResolveExternalEntities:NO];
+    
+    // create and init our delegate
+    SAxParserXML *parserConfig = [[SAxParserXML alloc] initXMLParser];
+    
+    // set delegate
+    [nsXmlParserConfig setDelegate:parserConfig];
+    
+    // parsing...
+    success = [nsXmlParserConfig parse];
+    
+    // test the result
+    if (!success) {
+        dNSLog(@"\t[SAxParser] Error parsing CONFIG DATA!");
+        // Add alert...
+        return;
+    }
+    */
+    
+    NSString *chartType = @"pie";   // temporaryly hardcoded because of Config parser issues
+    
+    // XML DATA - Parsing
+    // Getting the actual series name/values for the pod
     SAxSOAPProxyGetData *request = [[SAxSOAPProxyGetData alloc]init];
     [request processRequestGetData];
     
-    // Parse XML results
-    dNSLog(@"[SAxDSA] Launching the parser");
+    // Parse XML Data results
+    dNSLog(@"[SAxDSA] Launching the parser for data");
     
     // create and init NSXMLParser object
     NSXMLParser *nsXmlParser = [[NSXMLParser alloc] initWithData:[request xmlData]];
+    
+    [nsXmlParser setShouldProcessNamespaces:NO];
+    [nsXmlParser setShouldReportNamespacePrefixes:NO];
+    [nsXmlParser setShouldResolveExternalEntities:NO];
     
     // create and init our delegate
     SAxParserXML *parser = [[SAxParserXML alloc] initXMLParser];
@@ -104,41 +154,45 @@
     [nsXmlParser setDelegate:parser];
     
     // parsing...
-    BOOL success = [nsXmlParser parse];
+    success = [nsXmlParser parse];
     
     // test the result
     if (!success) {
-        dNSLog(@"\t[SAxParser] Error parsing document!");
+        dNSLog(@"\t[SAxParser] Error parsing DATA!");
         // Add alert...
         return;
     }
-    
-    dNSLog(@"\t[SAxParser] No errors");
-    
-    // Get result asynchronsouly
+
+        
+    // DATA series
     // Indicator name is the 3rd of the Metadata section
-    dNSLog(@"[SAxDSA] MetaData properties count:%d", [[parser metaCols] count]);
+    dNSLog(@"[SAxDSA] DATA: MetaData properties count:%d", [[parser metaCols] count]);
     NSString *indicator = [[NSString alloc]initWithFormat:[[[parser metaCols] objectAtIndex:3] metaDataName]];
-    dNSLog(@"[SAxDSA] Indicator Name:%@", indicator);
+    dNSLog(@"[SAxDSA] DATA: Indicator Name:%@", indicator);
     
 
     // Series Name and Values are 3rd and 4th of the Data section
     seriesPointsCount = [[parser dataRows]count];
-    dNSLog(@"[SAxDSA] Data count (Series):%d", seriesPointsCount);
+    dNSLog(@"[SAxDSA] DATA: Data count (Series):%d", seriesPointsCount);
     
     seriesPointsNames = [[NSMutableArray alloc] init];
     seriesPointsValues = [[NSMutableArray alloc] init];
+    float sum = 0;
     for (int i=0; i< [[parser dataRows]count]; i++)
     {
-        dNSLog(@"[SAxDSA  - Serie Name: %@", [[[parser dataRows]objectAtIndex:i]dataSerieName]);
+        dNSLog(@"[SAxDSA  DATA: - Serie Name: %@", [[[parser dataRows]objectAtIndex:i]dataSerieName]);
         NSString *name = [[NSString alloc]initWithString:[[[parser dataRows]objectAtIndex:i]dataSerieName]];
         
         [seriesPointsNames addObject:name];
         
-        dNSLog(@"[SAxDSA  - Serie Value: %@", [[[parser dataRows]objectAtIndex:i]dataSerieValue]);
+        dNSLog(@"[SAxDSA  DATA: - Serie Value: %@", [[[parser dataRows]objectAtIndex:i]dataSerieValue]);
         NSString *value = [[NSString alloc] initWithString:[[[parser dataRows]objectAtIndex:i]dataSerieValue]];
         
         [seriesPointsValues addObject:value];
+        
+        // Sum the values for % display if pie chart
+        if ([chartType isEqualToString:@"pie"])
+            sum = sum + [[seriesPointsValues objectAtIndex:i]floatValue];
 
     }
     
@@ -146,9 +200,29 @@
     // Update shinobi chart
     dNSLog(@"[SAxDSA] Update chart for selected pod:%@", podName);
     
-    
     // Clear previous chart and load new one
-    [self drawPieChart];
+    if ([chartType isEqualToString:@"pie"])
+    {
+        // Need to update the returned values to be % (sum of all is 100)
+        for (int i = 0 ; i < [seriesPointsValues count]; i++)
+        {
+            float num = 0.0;
+            num =[[seriesPointsValues objectAtIndex:i]floatValue]/sum*100;
+            NSString *value = [NSString stringWithFormat:@"%f",num];
+            [seriesPointsValues setObject:value atIndexedSubscript:i];
+        }
+        
+        dNSLog(@"[SAxDSA CHART: pie chart type - drawing...");
+        dNSLog(@"[SAxDSA CHART: sum denominator = %f", sum);
+        
+        [self drawPieChart];
+        
+    } else if ([chartType isEqualToString:@"lines"])
+    {
+        dNSLog(@"[SAxDSA CHART: line chart type - drawing...");
+        
+    }
+
 }
 
 

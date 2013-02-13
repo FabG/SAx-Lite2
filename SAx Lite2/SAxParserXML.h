@@ -8,13 +8,21 @@
 
 #import <Foundation/Foundation.h>
 #import "SAxMetadataStore.h"
+#import "SAxConfigStore.h"
 #import "SAxDataStore.h"
+
 @class SAxMetadataStore;
 
 @interface SAxParserXML : NSObject
 {
     // an ad hoc string to hold element value
     NSMutableString *currentElementValue;
+    
+    // property object
+    SAxConfigStore *propertyConf;
+    
+    // array of property objects
+    NSMutableArray *properties;
     
     // col object
     SAxMetadataStore *metaCol;
@@ -29,15 +37,17 @@
     NSMutableArray *dataRows;
     
     Boolean metaDataExtracted;
-    NSMutableArray * dataProperties;
+    NSMutableArray * dataMetaProperties;
     
 }
 
+@property (nonatomic, retain) SAxConfigStore *property;
+@property (nonatomic, retain) NSMutableArray *properties;
 @property (nonatomic, retain) SAxMetadataStore *metaCol;
 @property (nonatomic, retain) NSMutableArray *metaCols;
 @property (nonatomic, retain) SAxDataStore *dataRow;
 @property (nonatomic, retain) NSMutableArray *dataRows;
-@property (nonatomic, retain) NSMutableArray *dataProperties;
+@property (nonatomic, retain) NSMutableArray *dataMetaProperties;
 
 - (SAxParserXML *) initXMLParser;
 

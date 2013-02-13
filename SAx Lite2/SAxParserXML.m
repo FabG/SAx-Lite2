@@ -10,18 +10,32 @@
 
 @implementation SAxParserXML
 
-@synthesize metaCol, metaCols, dataRow, dataRows, dataProperties;
+@synthesize property, properties, metaCol, metaCols, dataRow, dataRows, dataMetaProperties;
 
 - (SAxParserXML *) initXMLParser
 {
     // init array of pods
+    properties = [[NSMutableArray alloc]init];
     metaCols = [[NSMutableArray alloc] init];
     dataRows = [[NSMutableArray alloc] init];
-    dataProperties = [[NSMutableArray alloc] init];
+    dataMetaProperties = [[NSMutableArray alloc] init];
     metaDataExtracted = NO;
     return self;
     
 }
+
+// Note, some property items have several "" and this causes the addObject to fail.
+// Given we don't need those for the pod definition (we just need the chart type), we
+// will discart them - this may need to be refactored down the road as this does not scale
+// Because this parser is event driven, we can't check for ""
+// Here is the error received: NSXMLParserSpaceRequiredError = 65
+// Here are the 2 tags causing pb - they have a huge list of "" separated properties for
+// the <value> tag
+/*
+<Property name="OLAP_POD_LOCAL_TREE_FILTER_DataServicesHierarchy" value="{"ID":"DataServicesHierarchy","Type":"hierarchyTree","Label":"Data Services Hierarchy","TreeIDs":"CIMXM_DATA_SERVICES_HIERARCHY","DefaultValue":"","DisplayLabel":"Data Services","MultiSelection":"true","ConnectionParentFilter":"","SynchInfo":null,"UseServerCache":true}" />
+<Property name="GRID_ROW_ACTIONS" value="[{"eventType":"POD_SYNCH_ACTION","actionLabel":"Data Services Synch","actionIcon":"../GenericSkin/Img/Launchpad/generic_trigger.png","additionalInfo":"synchType=DATA_CLICK_FILTER$synchKey=SQL_DataServices_Synch","rules":[]},{"eventType":"LAUNCHPAD_ACTION","actionLabel":"Drill Down","actionIcon":"../GenericSkin/Img/Launchpad/drillDown.png","additionalInfo":{"EnabledLevels":"","Actions":[{"type":"DrillDown","drillDownEnabledLevels":"1:3","drillDownTreeFilterId":"DataServicesHierarchy","drillDownColId":"Network_id"}]},"rules":[]}]" />
+<Property name="OLAP_POD_GLOBAL_FILTERS" value="Indicators:Date:CustomerType:BillingType:SegmentType:CustomerOption:Gender:Age:TariffPlan:Options:Device:OS:Location:Roaming:NetworkType" />
+*/
 
 // Parse the start of an element
 - (void)parser:(NSXMLParser *)parser
@@ -30,12 +44,29 @@
             qualifiedName:(NSString *)qualifiedName
             attributes:(NSDictionary *)attributeDict
 {
+    
+    if ([elementName isEqualToString:@"Property"]) {
+        dNSLog(@"Property");
+        // The Config xml xml looks like
+        // 		<Property name="CACHE_SETTINGS" value="CONTENT_MANAGER" />
+
+        // Extracting attributes for the property element
+        
+        NSLog(@"\t[SAxParser] <Property> element found");
+        propertyConf = [[SAxConfigStore alloc] init];
+        
+        propertyConf.propertyName = [attributeDict objectForKey:@"name"];
+        propertyConf.propertyValue = [attributeDict objectForKey:@"value"];
+        
+        dNSLog(@"\t[SAxParser]  -> name=%@", propertyConf.propertyName);
+        dNSLog(@"\t[SAxParser]  -> value=%@", propertyConf.propertyValue);
+    }
 
     if ([elementName isEqualToString:@"col"]) {
-        // Our xml looks like
+        // The Metadata xml looks like
         // 	<col id="Network_id" name="Network_id" type="number" />
         
-        NSLog(@"\t[SAxParser] col element found – create a new instance...");
+        NSLog(@"\t[SAxParser] <col> element found");
         metaCol = [[SAxMetadataStore alloc] init];
         
         // Extracting attributes for the col element                                            
@@ -56,7 +87,7 @@
         // Note that the properties come from the Metadata section
         // An the metadata section always comes first so we can loop through it
         // to extract the property names. Example: No, Network-id, service_x0020_group,...
-        NSMutableArray *dataProperties2 = [[NSMutableArray alloc]init];
+        NSMutableArray *dataMetaProperties2 = [[NSMutableArray alloc]init];
         
         // We will do that just once
         if (!metaDataExtracted)
@@ -68,25 +99,25 @@
             {
                 dNSLog(@"\t[SAxParser]   - property #%d: [%@]", i+1, [[metaCols objectAtIndex:i] metaDataId]);
                 
-                [dataProperties addObject:(NSString *)[[metaCols objectAtIndex:i] metaDataId]];
-                [dataProperties2 addObject:[[metaCols objectAtIndex:i] metaDataId]];
+                [dataMetaProperties addObject:(NSString *)[[metaCols objectAtIndex:i] metaDataId]];
+                [dataMetaProperties2 addObject:[[metaCols objectAtIndex:i] metaDataId]];
                 
-                dNSLog(@"\t[SAxParser]  Adding [%@] to dataProperties", [[metaCols objectAtIndex:i] metaDataId]);
+                dNSLog(@"\t[SAxParser]  Adding [%@] to dataMetaProperties", [[metaCols objectAtIndex:i] metaDataId]);
 
             }
             metaDataExtracted = YES;
         }
         // We now have an array that can be used to parse the <Data> section of the XML
-        dNSLog(@"\t[SAxParser]  %d properties added to dataProperties array", [dataProperties count]);
+        dNSLog(@"\t[SAxParser]  %d properties added to dataMetaProperties array", [dataMetaProperties count]);
     }
     
     if ([elementName isEqualToString:@"row"]) {
-        // Our xml looks like
+        // The Data xml looks like
         // 	<row No="1" Network_id="4" service_x0020_group="Browsing"
         //  Avg_x0020_Data_x0020_Volume_x0020_per_x0020_Session_x0020__x0028_MB_x0029_="0.13"
         //  ROWID="-788535925" />
         
-        NSLog(@"\t[SAxParser] row element found – create a new instance...");
+        NSLog(@"\t[SAxParser] <row> element found");
         dataRow = [[SAxDataStore alloc] init];
 
         if (!metaDataExtracted)
@@ -98,12 +129,13 @@
         
         // Getting the properties from the Metadata section
         // For this POC, we will keep this to 5 - may need to enhance with a loop
-        dNSLog(@"\t[SAxParser] [%@]", [attributeDict objectForKey:[dataProperties objectAtIndex:2]]);
-        dataRow.dataPosition = [attributeDict objectForKey:[dataProperties objectAtIndex:0]];
-        dataRow.dataId = [attributeDict objectForKey:[dataProperties objectAtIndex:1]];
-        dataRow.dataSerieName = [attributeDict objectForKey:[dataProperties objectAtIndex:2]];
-        dataRow.dataSerieValue = [attributeDict objectForKey:[dataProperties objectAtIndex:3]];
-        dataRow.dataRowId = [attributeDict objectForKey:[dataProperties objectAtIndex:4]];
+        dNSLog(@"\t[SAxParser] [%@]", [attributeDict objectForKey:[dataMetaProperties objectAtIndex:2]]);
+        dataRow.dataPosition = [attributeDict objectForKey:[dataMetaProperties objectAtIndex:0]];
+        dataRow.dataId = [attributeDict objectForKey:[dataMetaProperties objectAtIndex:1]];
+        dataRow.dataSerieName = [attributeDict objectForKey:[dataMetaProperties objectAtIndex:2]];
+        dataRow.dataSerieValue = [attributeDict objectForKey:[dataMetaProperties objectAtIndex:3]];
+
+        dataRow.dataRowId = [attributeDict objectForKey:[dataMetaProperties objectAtIndex:4]];
         
         dNSLog(@"\t[SAxParser]  -> dataPosition=%@", dataRow.dataPosition);
         dNSLog(@"\t[SAxParser]  -> dataId=%@", dataRow.dataId);
@@ -138,26 +170,44 @@
             qualifiedName:(NSString *)qName
 {
     
-    if ([elementName isEqualToString:@"GetData"]) {
-        // We reached the end of the XML document: </GetData>
+    if ([elementName isEqualToString:@"GetData"] ||
+        [elementName isEqualToString:@"DataProviderConfig"])
+    {
+        // We reached the end of the XML document: </DataProviderConfig> or </GetData>
         dNSLog(@"\t[SAxParser] Parsing finished");
         return;
     }
     
-    if ([elementName isEqualToString:@"col"]) {
+    
+    if ([elementName isEqualToString:@"Property"])
+    {
+        // We are done with property entry – add the parsed property
+        // object to our properties array
+        if (propertyConf) // add this check to not add the GRID_ROW_ACTIONS property
+        {
+            [properties addObject:propertyConf];
+            dNSLog(@"\t[SAxParser]  -> property added - properties count: %d", [properties count]);
+        }
+        
+        // release user object
+        property = nil;
+
+    } else if ([elementName isEqualToString:@"col"])
+    {
         // We are done with col entry – add the parsed col
         // object to our col array
         [metaCols addObject:metaCol];
-        dNSLog(@"\t[SAxParser]  -> metaCol added. metaCols count: %d", [metaCols count]);
+        dNSLog(@"\t[SAxParser]  -> metaCol added - metaCols count: %d", [metaCols count]);
         
         // release user object
         metaCol = nil;
-
-    } else if ([elementName isEqualToString:@"row"]) {
+        
+    } else if ([elementName isEqualToString:@"row"])
+    {
         // We are done with row entry – add the parsed row
         // object to our row array
         [dataRows addObject:dataRow];
-        dNSLog(@"\t[SAxParser]  -> dataRow added. dataRows count: %d", [dataRows count]);
+        dNSLog(@"\t[SAxParser]  -> dataRow added - dataRows count: %d", [dataRows count]);
         
         // release user object
         metaCol = nil;
@@ -173,6 +223,17 @@
     currentElementValue = nil;
 }
 
+// Error delegates methods
+- (void)parser:(NSXMLParser *)parser parseErrorOccurred:(NSError *)parseError{
+    NSLog(@"\t[SAxParser] Error %i, Description: %@, Line: %i, Column: %i", [parseError code],
+          [[parser parserError] localizedDescription], [parser lineNumber],
+          [parser columnNumber]);
+    
+}
+
+- (void)parser:(NSXMLParser *)parser validationErrorOccurred:(NSError *)validError{
+    NSLog(@"\t[SAxParser] valid Error: %@", validError);
+}
  
 
 /* XML Response received
