@@ -56,6 +56,7 @@
 		1BBC333D16C0475C00EBB576 /* SAxM_Launch_Pad_DSA_150x150.png in Resources */ = {isa = PBXBuildFile; fileRef = 1BBC333516C0475C00EBB576 /* SAxM_Launch_Pad_DSA_150x150.png */; };
 		1BBC333E16C0475C00EBB576 /* SAxM_Launch_Pad_TPA_150x150.png in Resources */ = {isa = PBXBuildFile; fileRef = 1BBC333616C0475C00EBB576 /* SAxM_Launch_Pad_TPA_150x150.png */; };
 		1BBC333F16C0475C00EBB576 /* SAxM_Launch_Pad_UR_150x150.png in Resources */ = {isa = PBXBuildFile; fileRef = 1BBC333716C0475C00EBB576 /* SAxM_Launch_Pad_UR_150x150.png */; };
+		1BBF938316CB3BFA00269A54 /* ShinobiChart+PieCharts.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BBF938216CB3BF900269A54 /* ShinobiChart+PieCharts.m */; };
 		1BDD07E716C3176300126EEC /* SAxDSAViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BDD07E616C3176300126EEC /* SAxDSAViewController.m */; };
 		1BDD07EA16C318C500126EEC /* SAxDSAPodTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BDD07E916C318C500126EEC /* SAxDSAPodTableViewController.m */; };
 		1BDD07EF16C3406700126EEC /* SAx_DashboardPods.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1BDD07EE16C3406700126EEC /* SAx_DashboardPods.plist */; };
@@ -139,6 +140,8 @@
 		1BBC333516C0475C00EBB576 /* SAxM_Launch_Pad_DSA_150x150.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SAxM_Launch_Pad_DSA_150x150.png; sourceTree = "<group>"; };
 		1BBC333616C0475C00EBB576 /* SAxM_Launch_Pad_TPA_150x150.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SAxM_Launch_Pad_TPA_150x150.png; sourceTree = "<group>"; };
 		1BBC333716C0475C00EBB576 /* SAxM_Launch_Pad_UR_150x150.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SAxM_Launch_Pad_UR_150x150.png; sourceTree = "<group>"; };
+		1BBF938116CB3BF900269A54 /* ShinobiChart+PieCharts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ShinobiChart+PieCharts.h"; sourceTree = "<group>"; };
+		1BBF938216CB3BF900269A54 /* ShinobiChart+PieCharts.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ShinobiChart+PieCharts.m"; sourceTree = "<group>"; };
 		1BDD07E516C3176300126EEC /* SAxDSAViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAxDSAViewController.h; sourceTree = "<group>"; };
 		1BDD07E616C3176300126EEC /* SAxDSAViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAxDSAViewController.m; sourceTree = "<group>"; };
 		1BDD07E816C318C500126EEC /* SAxDSAPodTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAxDSAPodTableViewController.h; sourceTree = "<group>"; };
@@ -176,6 +179,8 @@
 				1BAB4F9716C543C70029E78C /* ShinobiLicense.h */,
 				1BAB4F9816C543C70029E78C /* ShinobiLicense.m */,
 				1BAB4F9A16C545200029E78C /* ShinobiSettings.plist */,
+				1BBF938116CB3BF900269A54 /* ShinobiChart+PieCharts.h */,
+				1BBF938216CB3BF900269A54 /* ShinobiChart+PieCharts.m */,
 			);
 			name = Shinobi;
 			sourceTree = "<group>";
@@ -433,6 +438,7 @@
 				1BA75EFA16C7E0C90017623A /* SAxMetadataStore.m in Sources */,
 				1BA75EFD16C8514F0017623A /* SAxDataStore.m in Sources */,
 				1BEFD14D16C965900027C490 /* SAxConfigStore.m in Sources */,
+				1BBF938316CB3BFA00269A54 /* ShinobiChart+PieCharts.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -13,8 +13,11 @@
 #import "SAxSOAPProxyGetData.h"
 #import "SAxParserXML.h"
 #import "SAxMetadataStore.h"
+#import "ShinobiChart+PieCharts.h"
 
-@interface SAxDSAViewController ()
+@interface SAxDSAViewController () {
+    BOOL first;
+}
 
 @end
 
@@ -35,6 +38,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self.view setBackgroundColor:[UIColor grayColor]];
 	// Do any additional setup after loading the view.
     
     // create popover and point it to the table of pods
@@ -49,7 +53,8 @@
     
     labelSAx.text = @"Please select a pod from the list in the top right corner...";
 
-    
+    //Indicate that this is our first render
+    first = YES;
 }
 
 - (void)didReceiveMemoryWarning
@@ -241,7 +246,10 @@
     NSDate *licenseDate = [ShinobiLicense getShinobiLicenseDate];
     NSDate *today = [NSDate date];
 
-    chart = [[ShinobiChart alloc] initWithFrame:self.view.bounds];
+    CGRect pieFrame = CGRectMake(26,100,712,830);
+    shinoChart = [ShinobiChart pieChartForOSDataWithFrame:pieFrame];
+    
+    //pieFrame = self.view.bounds;
     
     if (!licenseKey)
     {
@@ -272,26 +280,26 @@
         return;
     }
     
-    chart.title = podName;
-    chart.theme.chartTitleStyle.position = SChartTitlePositionCenter;
+    shinoChart.title = podName;
+    shinoChart.theme.chartTitleStyle.position = SChartTitlePositionCenter;
     
     // Set the resizing mask to allow it to automatically resize when the screen orientation changes.
-    chart.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin |
+    shinoChart.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin |
     UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleTopMargin |
     UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleLeftMargin |
     UIViewAutoresizingFlexibleRightMargin;
     
-    chart.legend.hidden = NO;
-    chart.legend.position = SChartLegendPositionBottomMiddle;
-    chart.legend.maxSeriesPerLine = 1;
+    shinoChart.legend.hidden = NO;
+    shinoChart.legend.position = SChartLegendPositionBottomMiddle;
+    shinoChart.legend.maxSeriesPerLine = 1;
     
-    chart.licenseKey = licenseKey;
+    shinoChart.licenseKey = licenseKey;
 
-    chart.datasource = self;
-    //chart.delegate = self;
+    shinoChart.datasource = self;
+    //shinoChart = self;
     
     // Add the chart to the view controller
-    [self.view addSubview:chart];
+    [self.view addSubview:shinoChart];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -335,11 +343,25 @@
     datapoint.name = [seriesPointsNames objectAtIndex:dataIndex];
     datapoint.value = [seriesPointsValues objectAtIndex:dataIndex];
     
-    //datapoint.name = @"test";
-    //datapoint.value = [NSNumber numberWithInt:4];
     return datapoint;
 }
 
-
+- (void)sChart:(ShinobiChart *)chart alterLabel:(UILabel *)label forDatapoint:(SChartRadialDataPoint *)datapoint atSliceIndex:(int)index inRadialSeries:(SChartRadialSeries *)series
+{
+    //For our pie chart - stop displaying labels for narrow slices
+    if (chart == shinoChart) {
+        label.adjustsFontSizeToFitWidth = YES;
+        
+        if (datapoint.value.floatValue < 2.f) {
+            label.text = @"";
+            
+        }  else if (datapoint.value.floatValue < 15.f) {
+            label.adjustsFontSizeToFitWidth = YES;
+            CGRect f = label.frame;
+            f.size.width = 35.f;
+            label.frame = f;
+        }
+    }
+}
 
 @end
