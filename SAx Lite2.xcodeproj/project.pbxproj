@@ -9,6 +9,16 @@
 /* Begin PBXBuildFile section */
 		1B19663016C47A67003CE1B9 /* ShinobiCharts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B19662F16C47A67003CE1B9 /* ShinobiCharts.framework */; };
 		1B36CD8216C47E66000679A2 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B36CD8116C47E66000679A2 /* Security.framework */; };
+		1B3DD37A16CC2C35001EF7AE /* sax-72x72.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B3DD37916CC2C35001EF7AE /* sax-72x72.png */; };
+		1B3DD37C16CC2C45001EF7AE /* sax-144x144.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B3DD37B16CC2C45001EF7AE /* sax-144x144.png */; };
+		1B3DD37F16CD2BF1001EF7AE /* sax-lite-72x72.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B3DD37D16CD2BF1001EF7AE /* sax-lite-72x72.png */; };
+		1B3DD38016CD2BF1001EF7AE /* sax-lite-144x144.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B3DD37E16CD2BF1001EF7AE /* sax-lite-144x144.png */; };
+		1B3DD38216CD2BFF001EF7AE /* sax-lite-144x144.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B3DD38116CD2BFF001EF7AE /* sax-lite-144x144.png */; };
+		1B3DD38416CD2C07001EF7AE /* sax-lite-72x72.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B3DD38316CD2C07001EF7AE /* sax-lite-72x72.png */; };
+		1B3DD39C16CD3457001EF7AE /* OCCalendarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B3DD39416CD3457001EF7AE /* OCCalendarView.m */; };
+		1B3DD39D16CD3457001EF7AE /* OCCalendarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B3DD39616CD3457001EF7AE /* OCCalendarViewController.m */; };
+		1B3DD39E16CD3457001EF7AE /* OCDaysView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B3DD39816CD3457001EF7AE /* OCDaysView.m */; };
+		1B3DD39F16CD3457001EF7AE /* OCSelectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B3DD39A16CD3457001EF7AE /* OCSelectionView.m */; };
 		1B6EA5E316C0779600963111 /* SAxMLaunchController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B6EA5E216C0779600963111 /* SAxMLaunchController.m */; };
 		1B6EA5EB16C0A27300963111 /* SAxM_Launch_Pad_CIA_150x150_sel.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B6EA5E516C0A27300963111 /* SAxM_Launch_Pad_CIA_150x150_sel.png */; };
 		1B6EA5EC16C0A27300963111 /* SAxM_Launch_Pad_COA_150x150_sel.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B6EA5E616C0A27300963111 /* SAxM_Launch_Pad_COA_150x150_sel.png */; };
@@ -69,6 +79,21 @@
 /* Begin PBXFileReference section */
 		1B19662F16C47A67003CE1B9 /* ShinobiCharts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ShinobiCharts.framework; path = "../../../ShinobiCharts Trial/ShinobiCharts.embeddedframework/ShinobiCharts.framework"; sourceTree = "<group>"; };
 		1B36CD8116C47E66000679A2 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		1B3DD37916CC2C35001EF7AE /* sax-72x72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "sax-72x72.png"; path = "../sax-72x72.png"; sourceTree = "<group>"; };
+		1B3DD37B16CC2C45001EF7AE /* sax-144x144.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "sax-144x144.png"; path = "../sax-144x144.png"; sourceTree = "<group>"; };
+		1B3DD37D16CD2BF1001EF7AE /* sax-lite-72x72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "sax-lite-72x72.png"; path = "../../../../../../Pictures/comScore images/sax-lite-72x72.png"; sourceTree = "<group>"; };
+		1B3DD37E16CD2BF1001EF7AE /* sax-lite-144x144.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "sax-lite-144x144.png"; path = "../../../../../../Pictures/comScore images/sax-lite-144x144.png"; sourceTree = "<group>"; };
+		1B3DD38116CD2BFF001EF7AE /* sax-lite-144x144.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sax-lite-144x144.png"; sourceTree = "<group>"; };
+		1B3DD38316CD2C07001EF7AE /* sax-lite-72x72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sax-lite-72x72.png"; sourceTree = "<group>"; };
+		1B3DD39316CD3457001EF7AE /* OCCalendarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCCalendarView.h; sourceTree = "<group>"; };
+		1B3DD39416CD3457001EF7AE /* OCCalendarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCCalendarView.m; sourceTree = "<group>"; };
+		1B3DD39516CD3457001EF7AE /* OCCalendarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCCalendarViewController.h; sourceTree = "<group>"; };
+		1B3DD39616CD3457001EF7AE /* OCCalendarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCCalendarViewController.m; sourceTree = "<group>"; };
+		1B3DD39716CD3457001EF7AE /* OCDaysView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCDaysView.h; sourceTree = "<group>"; };
+		1B3DD39816CD3457001EF7AE /* OCDaysView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCDaysView.m; sourceTree = "<group>"; };
+		1B3DD39916CD3457001EF7AE /* OCSelectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCSelectionView.h; sourceTree = "<group>"; };
+		1B3DD39A16CD3457001EF7AE /* OCSelectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCSelectionView.m; sourceTree = "<group>"; };
+		1B3DD39B16CD3457001EF7AE /* OCTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCTypes.h; sourceTree = "<group>"; };
 		1B6EA5E116C0779600963111 /* SAxMLaunchController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAxMLaunchController.h; sourceTree = "<group>"; };
 		1B6EA5E216C0779600963111 /* SAxMLaunchController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAxMLaunchController.m; sourceTree = "<group>"; };
 		1B6EA5E516C0A27300963111 /* SAxM_Launch_Pad_CIA_150x150_sel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SAxM_Launch_Pad_CIA_150x150_sel.png; path = saxmiconsselected/SAxM_Launch_Pad_CIA_150x150_sel.png; sourceTree = "<group>"; };
@@ -173,6 +198,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1B3DD38516CD3410001EF7AE /* OCCalendar */ = {
+			isa = PBXGroup;
+			children = (
+				1B3DD39316CD3457001EF7AE /* OCCalendarView.h */,
+				1B3DD39416CD3457001EF7AE /* OCCalendarView.m */,
+				1B3DD39516CD3457001EF7AE /* OCCalendarViewController.h */,
+				1B3DD39616CD3457001EF7AE /* OCCalendarViewController.m */,
+				1B3DD39716CD3457001EF7AE /* OCDaysView.h */,
+				1B3DD39816CD3457001EF7AE /* OCDaysView.m */,
+				1B3DD39916CD3457001EF7AE /* OCSelectionView.h */,
+				1B3DD39A16CD3457001EF7AE /* OCSelectionView.m */,
+				1B3DD39B16CD3457001EF7AE /* OCTypes.h */,
+			);
+			name = OCCalendar;
+			sourceTree = "<group>";
+		};
 		1BAB4F9616C543880029E78C /* Shinobi */ = {
 			isa = PBXGroup;
 			children = (
@@ -238,6 +279,8 @@
 		1BBC32FD16C046D300EBB576 = {
 			isa = PBXGroup;
 			children = (
+				1B3DD38316CD2C07001EF7AE /* sax-lite-72x72.png */,
+				1B3DD38116CD2BFF001EF7AE /* sax-lite-144x144.png */,
 				1BBC330F16C046D300EBB576 /* SAx Lite2 */,
 				1BBC330816C046D300EBB576 /* Frameworks */,
 				1BBC330716C046D300EBB576 /* Products */,
@@ -270,6 +313,7 @@
 		1BBC330F16C046D300EBB576 /* SAx Lite2 */ = {
 			isa = PBXGroup;
 			children = (
+				1B3DD38516CD3410001EF7AE /* OCCalendar */,
 				1BAB4FA016C55FDF0029E78C /* SOAP */,
 				1BAB4F9C16C555B00029E78C /* Model */,
 				1BAB4F9616C543880029E78C /* Shinobi */,
@@ -309,6 +353,10 @@
 		1BBC332F16C0471800EBB576 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				1B3DD37D16CD2BF1001EF7AE /* sax-lite-72x72.png */,
+				1B3DD37E16CD2BF1001EF7AE /* sax-lite-144x144.png */,
+				1B3DD37B16CC2C45001EF7AE /* sax-144x144.png */,
+				1B3DD37916CC2C35001EF7AE /* sax-72x72.png */,
 				1BDD07F016C34B8A00126EEC /* colorful_chart.png */,
 				1B6EA5E516C0A27300963111 /* SAxM_Launch_Pad_CIA_150x150_sel.png */,
 				1B6EA5E616C0A27300963111 /* SAxM_Launch_Pad_COA_150x150_sel.png */,
@@ -403,6 +451,12 @@
 				1BDD07EF16C3406700126EEC /* SAx_DashboardPods.plist in Resources */,
 				1BDD07F116C34B8A00126EEC /* colorful_chart.png in Resources */,
 				1BAB4F9B16C545200029E78C /* ShinobiSettings.plist in Resources */,
+				1B3DD37A16CC2C35001EF7AE /* sax-72x72.png in Resources */,
+				1B3DD37C16CC2C45001EF7AE /* sax-144x144.png in Resources */,
+				1B3DD37F16CD2BF1001EF7AE /* sax-lite-72x72.png in Resources */,
+				1B3DD38016CD2BF1001EF7AE /* sax-lite-144x144.png in Resources */,
+				1B3DD38216CD2BFF001EF7AE /* sax-lite-144x144.png in Resources */,
+				1B3DD38416CD2C07001EF7AE /* sax-lite-72x72.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -439,6 +493,10 @@
 				1BA75EFD16C8514F0017623A /* SAxDataStore.m in Sources */,
 				1BEFD14D16C965900027C490 /* SAxConfigStore.m in Sources */,
 				1BBF938316CB3BFA00269A54 /* ShinobiChart+PieCharts.m in Sources */,
+				1B3DD39C16CD3457001EF7AE /* OCCalendarView.m in Sources */,
+				1B3DD39D16CD3457001EF7AE /* OCCalendarViewController.m in Sources */,
+				1B3DD39E16CD3457001EF7AE /* OCDaysView.m in Sources */,
+				1B3DD39F16CD3457001EF7AE /* OCSelectionView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -552,7 +610,7 @@
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = "-lxml2";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 2;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -580,7 +638,7 @@
 				"OTHER_CFLAGS[arch=*]" = "-DNS_BLOCK_ASSERTIONS=1";
 				OTHER_LDFLAGS = "-lxml2";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 2;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

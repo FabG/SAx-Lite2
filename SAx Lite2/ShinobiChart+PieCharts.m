@@ -25,7 +25,7 @@
     
     chart.legend.hidden = NO;
     chart.legend.position = SChartLegendPositionBottomMiddle;
-    chart.legend.maxSeriesPerLine = iPad ? 1 : 2;
+    chart.legend.maxSeriesPerLine = iPad ? 2 : 1;
     
     
     return chart;

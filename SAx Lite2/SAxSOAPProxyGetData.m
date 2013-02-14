@@ -101,9 +101,9 @@
 
 
 // Pod Request
--(void)processRequestGetData 
+-(void)processRequestGetData: (NSString *) dateFilterValue
 {
-    dNSLog(@"\t[SOAP-Request] processRequestGetData");
+    dNSLog(@"\t[SOAP-Request] processRequestGetData for Date: %@", dateFilterValue);
     
     BasicHttpBinding_IDataProviderServiceBinding *binding = [DataProviderServiceSvc BasicHttpBinding_IDataProviderServiceBinding];
     BasicHttpBinding_IDataProviderServiceBindingResponse *response;
@@ -155,7 +155,7 @@
     tns1_FilterDTO *filter4 = [[tns1_FilterDTO alloc] init];
     filter4.ComparisonOperator = nil;
     filter4.Name = @"GLOBAL_DATE_Date";
-    filter4.Value = @"Days~08/06/2012~08/06/2012";
+    filter4.Value = dateFilterValue;
     
     tns1_FilterDTO *filter5 = [[tns1_FilterDTO alloc] init];
     filter5.ComparisonOperator = nil;

@@ -137,11 +137,11 @@
 
         dataRow.dataRowId = [attributeDict objectForKey:[dataMetaProperties objectAtIndex:4]];
         
-        dNSLog(@"\t[SAxParser]  -> dataPosition=%@", dataRow.dataPosition);
-        dNSLog(@"\t[SAxParser]  -> dataId=%@", dataRow.dataId);
+        //dNSLog(@"\t[SAxParser]  -> dataPosition=%@", dataRow.dataPosition);
+        //dNSLog(@"\t[SAxParser]  -> dataId=%@", dataRow.dataId);
         dNSLog(@"\t[SAxParser]  -> dataSerieName=%@", dataRow.dataSerieName);
         dNSLog(@"\t[SAxParser]  -> dataSerieValue=%@", dataRow.dataSerieValue);
-        dNSLog(@"\t[SAxParser]  -> dataRowId=%@", dataRow.dataRowId);
+        //dNSLog(@"\t[SAxParser]  -> dataRowId=%@", dataRow.dataRowId);
     }
     
 }

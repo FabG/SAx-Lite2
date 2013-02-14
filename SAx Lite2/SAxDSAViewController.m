@@ -14,6 +14,7 @@
 #import "SAxParserXML.h"
 #import "SAxMetadataStore.h"
 #import "ShinobiChart+PieCharts.h"
+#import "OCCalendarViewController.h"
 
 @interface SAxDSAViewController () {
     BOOL first;
@@ -24,13 +25,14 @@
 @implementation SAxDSAViewController
 
 @synthesize popover, podName, labelSAx;
-@synthesize seriesPointsNames, seriesPointsValues;
+@synthesize seriesPointsNames, seriesPointsValues, podFilters;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        
     }
     return self;
 }
@@ -85,11 +87,14 @@
     dNSLog(@"[SAxDSA] Dismiss popover delegate");
     [popover dismissPopoverAnimated:YES];
     
-    [self updateChart];
-     
+    // Draw chart with default filters - should be for yesterday's data
+    // but for this demo we will put it as August 6
+    NSString *date = @"Days~08/06/2012~08/06/2012";
+    [self updateChart:date];
+    
 }
 
--(void) updateChart
+-(void) updateChart: (NSString *) dateFilterValue
 {
     BOOL success = YES;
     
@@ -138,10 +143,19 @@
     NSString *chartType = @"pie";   // temporaryly hardcoded because of Config parser issues
     
     // XML DATA - Parsing
+
+    
+    // loading indicator
+    UIActivityIndicatorView  *av = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge] ;
+    av.frame = CGRectMake(round((self.view.frame.size.width - 25) / 2), round((self.view.frame.size.height - 25) / 2), 25, 25);
+    av.tag  = 1;
+    [self.view addSubview:av];
+    [av startAnimating];
+    
     // Getting the actual series name/values for the pod
     SAxSOAPProxyGetData *request = [[SAxSOAPProxyGetData alloc]init];
-    [request processRequestGetData];
-    
+    [request processRequestGetData:dateFilterValue];
+
     // Parse XML Data results
     dNSLog(@"[SAxDSA] Launching the parser for data");
     
@@ -158,7 +172,7 @@
     // set delegate
     [nsXmlParser setDelegate:parser];
     
-    // parsing...
+    // parsing 
     success = [nsXmlParser parse];
     
     // test the result
@@ -201,9 +215,25 @@
 
     }
     
+    // remove loading indicator
+    UIActivityIndicatorView *tmpimg = (UIActivityIndicatorView *)[self.view viewWithTag:1];
+    [tmpimg removeFromSuperview];
+    
     // Add local filters
-    dNSLog(@"[SAxDSA] Add loal filters");
-    [self addFilterButtons:6];
+    // We should get them from the Congif xml properties
+    // Ex: 	<Property name="OLAP_POD_GLOBAL_FILTERS" value="Indicators:Date:CustomerType:BillingType:SegmentType:CustomerOption:Gender:Age:TariffPlan:Options:Device:OS:Location:Roaming:NetworkType" />
+    // However the NSXML Parser crashes because of the """"values for
+    // OLAP_POD_LOCAL_TREE_FILTER_DataServicesHierarchy and for GRID_ROW_ACTIONS
+    // So adding them here statically for now
+    
+    dNSLog(@"[SAxDSA] Add local filters");
+    // For now limiting to 12 filters - we can add more later
+    //  Taking out: @"Location", @"Roaming", @"Netwk Type"
+    podFilters = [[NSMutableArray alloc] initWithObjects:@"Indicators", @"Date", @"Cust Type", @"BillingType", @"Segmt Type", @"Cust Option", @"Gender", @"Age", @"Tariff Plan", @"Options", @"Device", @"OS", nil];
+    
+    // podFilters
+
+    [self addFilterButtons:(podFilters)];
     
 
     // Update shinobi chart
@@ -252,8 +282,6 @@
 
     CGRect pieFrame = CGRectMake(26,110,712,830);
     shinoChart = [ShinobiChart pieChartForOSDataWithFrame:pieFrame];
-    
-    //pieFrame = self.view.bounds;
     
     if (!licenseKey)
     {
@@ -369,47 +397,45 @@
 }
 
 // Local pickers (button) to add dynamically
--(void) addFilterButtons: (int) filterNb
+-(void) addFilterButtons: (NSMutableArray*) podFilter
 {
     dNSLog(@"[SAxDSA] Adding Pod filters");
 
-    int ystart = 18;    
-    int xstart = 25;
-    int offset = 20;
+    int ystart = 16;
+    int xstart = 26;
+    int offset = 18;
     int filterRows = 1;
     
-    if (filterNb < 7)
+    if ([podFilter count] < 7)
         ystart = 35;
     
-    int buttonWidth = 100;
-    int buttonHeight = 30;
+    int buttonWidth = 104;
+    int buttonHeight = 34;
     int buttonXoffset = xstart;
     int buttonYoffset = ystart;
     int j =1;
     
-    for( int i = 0; i < filterNb; i++ ) {
+    for( int i = 0; i < [podFilter count]; i++ ) {
         j = i;
         if (i < 6) {
             buttonYoffset = ystart*filterRows;
             buttonXoffset = (offset+buttonWidth)*j+xstart; 
         } else {
-            buttonYoffset = ystart*2+buttonHeight;
+            buttonYoffset = ystart*2+buttonHeight-4;
             buttonXoffset = (offset+buttonWidth)*(j-6)+xstart;
-        } 
-       
-
-        
-        dNSLog(@"[SAxDSA] buttonYoffset = %d", buttonYoffset);
+        }
 
         CGRect buttonsFrame = CGRectMake(buttonXoffset,buttonYoffset,buttonWidth,buttonHeight);
-        dNSLog(@"[SAxDSA] CGRectMake = [%f, %f, %f, %f]", buttonsFrame.origin.x, buttonsFrame.origin.y, buttonsFrame.size.width, buttonsFrame.size.height);
+        //dNSLog(@"[SAxDSA] CGRectMake = [%f, %f, %f, %f]", buttonsFrame.origin.x, buttonsFrame.origin.y, buttonsFrame.size.width, buttonsFrame.size.height);
         
         UIButton* filterButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        
         [filterButton setTag:i];
         [filterButton setFrame:buttonsFrame];
         [filterButton addTarget:self action:@selector(buttonFilterClicked:) forControlEvents:UIControlEventTouchUpInside];
         
         filterButton.backgroundColor = [UIColor darkGrayColor];
+
         
         filterButton.tintColor = [UIColor whiteColor];
         filterButton.layer.borderColor = [UIColor blackColor].CGColor;
@@ -418,18 +444,159 @@
         
         [filterButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
         [filterButton setTitleColor:[UIColor blackColor] forState:UIControlStateSelected];
-        [filterButton setTitle:@"Filter" forState:UIControlStateNormal];
+        [filterButton setTitle:[podFilter objectAtIndex:i] forState:UIControlStateNormal];
+        
+        CAGradientLayer *gradient = [CAGradientLayer layer];
+        gradient.frame = filterButton.bounds;
+        gradient.colors = [NSArray arrayWithObjects:
+                           (id)[[UIColor grayColor] CGColor],
+                           (id)[[UIColor blackColor] CGColor], nil];
+        [filterButton.layer insertSublayer:gradient atIndex:0];
         
         [self.view addSubview:filterButton];
     }
-
 
 }
 
 
 - (void)buttonFilterClicked:(UIButton*)button
 {
-    NSLog(@"Button %ld clicked.", (long int)[button tag]);
+    NSLog(@"[SAxDSA] Button #[%ld] Title: %@ touched", (long int)[button tag], [button titleForState:UIControlStateNormal]);
+    
+    if ([[button titleForState:UIControlStateNormal] isEqualToString:@"Date"])
+    {
+        dNSLog(@"[SAxDSA] DATE Selected");
+        // Use OCCalendar control to offer the user the selection of 1 day
+        // or a range of days
+        NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+        
+        //Here's where the magic happens
+        calVC = [[OCCalendarViewController alloc] initAtPoint:CGPointMake(167, 50) inView:self.view arrowPosition:OCArrowPositionCentered];
+        calVC.delegate = self;
+        
+        //Test ONLY - single selection
+        //calVC.selectionMode = OCSelectionSingleDate;
+        
+        //Now we're going to optionally set the start and end date of a pre-selected range.
+        NSDateComponents *sdateParts = [[NSDateComponents alloc] init];
+        [sdateParts setMonth:8];
+        [sdateParts setYear:2012];
+        [sdateParts setDay:6];
+        
+        NSDate *sDate = [calendar dateFromComponents:sdateParts];
+        
+        NSDateComponents *edateParts = [[NSDateComponents alloc] init];
+        [edateParts setMonth:8];
+        [edateParts setYear:2012];
+        [edateParts setDay:6];
+        
+        NSDate *eDate = [calendar dateFromComponents:edateParts];
+        
+        [calVC setStartDate:sDate];
+        [calVC setEndDate:eDate];
+        
+        //Add to the view.
+        [self.view addSubview:calVC.view];
+
+
+    }
+
+}
+
+// OCCalendar Delegate method
+
+#pragma mark OCCalendarDelegate Methods
+
+- (void)completedWithStartDate:(NSDate *)startDate endDate:(NSDate *)endDate {
+    // Format the start and end dates
+    NSLocale *locale = [NSLocale currentLocale];
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    NSString *DateFormat = [NSDateFormatter dateFormatFromTemplate:@"MM/dd/yyyy" options:0 locale:locale];
+
+    [formatter setDateFormat:DateFormat];
+    
+    NSLog(@"[SAxDSA] startDate:%@, endDate:%@", [formatter stringFromDate:startDate] ,
+          [formatter stringFromDate:endDate]);
+    
+    [self showToolTip:[NSString stringWithFormat:@"%@ - %@", [formatter stringFromDate:startDate], [formatter stringFromDate:endDate]]];
+    
+    [calVC.view removeFromSuperview];
+    
+    calVC.delegate = nil;
+    calVC = nil;
+
+    // Run a new request and refresh chart
+    //NSString *date = @"Days~08/07/2012~08/07/2012";
+    NSString *date = [NSString stringWithFormat:@"%@%@%@%@", @"Days~",[formatter stringFromDate:startDate],@"~",[formatter stringFromDate:endDate]];
+    dNSLog(@"[SAxDSA] Refreshing chart for Date: %@", date);
+
+    [self updateChart:date];
+    
+}
+
+-(void) completedWithNoSelection{
+    [calVC.view removeFromSuperview];
+    calVC.delegate = nil;
+    calVC = nil;
+}
+
+
+#pragma mark -
+#pragma mark Prettifying Methods...
+
+
+//Create our little toast notifications.....
+- (void)showToolTip:(NSString *)str {
+    if(toolTipLabel) {
+        [toolTipLabel removeFromSuperview];
+        toolTipLabel = nil;
+    }
+    dNSLog(@"[SAxDSA] showToolTip");
+    toolTipLabel = [ [UILabel alloc ] initWithFrame:CGRectMake(self.view.frame.size.width-260.0, self.view.frame.size.height-35.0, 250.0, 25) ];
+    toolTipLabel.textColor = [UIColor whiteColor];
+    toolTipLabel.backgroundColor = [UIColor colorWithWhite:0.0f alpha:0.5f];
+    toolTipLabel.layer.cornerRadius = 5.0f;
+    toolTipLabel.font = [UIFont fontWithName:@"Arial" size:(16.0)];
+    toolTipLabel.text = str;
+    
+    toolTipLabel.alpha = 0.0f;
+    
+    [self.view addSubview:toolTipLabel];
+    
+    [UIView beginAnimations:@"fadeInToolTip" context:nil];
+    [UIView setAnimationDuration:0.1f];
+    toolTipLabel.alpha = 1.0f;
+    [UIView commitAnimations];
+    
+    [self performSelector:@selector(fadeOutToolTip) withObject:nil afterDelay:2.5f];
+}
+
+- (void)fadeOutToolTip {
+    dNSLog(@"[SAxDSA] fadeOutToolTip");
+    if(toolTipLabel) {
+        [UIView beginAnimations:@"fadeOutToolTip" context:nil];
+        [UIView setAnimationDuration:0.1f];
+        toolTipLabel.alpha = 0.0f;
+        [UIView commitAnimations];
+        [toolTipLabel performSelector:@selector(removeFromSuperview) withObject:nil afterDelay:0.1f];
+        
+        toolTipLabel = nil;
+    }
+}
+
+
+#pragma mark -
+#pragma mark Gesture Recognizer
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
+    dNSLog(@"[SAxDSA] gestureRecognizer");
+    CGPoint insertPoint = [touch locationInView:self.view];
+    
+    calVC = [[OCCalendarViewController alloc] initAtPoint:insertPoint inView:self.view arrowPosition:OCArrowPositionCentered selectionMode:OCSelectionSingleDate];
+    calVC.delegate = self;
+    [self.view addSubview:calVC.view];
+    
+    return YES;
 }
 
 
