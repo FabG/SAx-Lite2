@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1B19663016C47A67003CE1B9 /* ShinobiCharts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B19662F16C47A67003CE1B9 /* ShinobiCharts.framework */; };
+		1B1A7FDA16CEE2A100AFCE20 /* LineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B1A7FD916CEE2A100AFCE20 /* LineView.m */; };
 		1B36CD8216C47E66000679A2 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B36CD8116C47E66000679A2 /* Security.framework */; };
 		1B3DD37A16CC2C35001EF7AE /* sax-72x72.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B3DD37916CC2C35001EF7AE /* sax-72x72.png */; };
 		1B3DD37C16CC2C45001EF7AE /* sax-144x144.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B3DD37B16CC2C45001EF7AE /* sax-144x144.png */; };
@@ -78,6 +79,8 @@
 
 /* Begin PBXFileReference section */
 		1B19662F16C47A67003CE1B9 /* ShinobiCharts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ShinobiCharts.framework; path = "../../../ShinobiCharts Trial/ShinobiCharts.embeddedframework/ShinobiCharts.framework"; sourceTree = "<group>"; };
+		1B1A7FD816CEE2A100AFCE20 /* LineView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LineView.h; sourceTree = "<group>"; };
+		1B1A7FD916CEE2A100AFCE20 /* LineView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LineView.m; sourceTree = "<group>"; };
 		1B36CD8116C47E66000679A2 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		1B3DD37916CC2C35001EF7AE /* sax-72x72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "sax-72x72.png"; path = "../sax-72x72.png"; sourceTree = "<group>"; };
 		1B3DD37B16CC2C45001EF7AE /* sax-144x144.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "sax-144x144.png"; path = "../sax-144x144.png"; sourceTree = "<group>"; };
@@ -217,6 +220,8 @@
 		1BAB4F9616C543880029E78C /* Shinobi */ = {
 			isa = PBXGroup;
 			children = (
+				1B1A7FD816CEE2A100AFCE20 /* LineView.h */,
+				1B1A7FD916CEE2A100AFCE20 /* LineView.m */,
 				1BAB4F9716C543C70029E78C /* ShinobiLicense.h */,
 				1BAB4F9816C543C70029E78C /* ShinobiLicense.m */,
 				1BAB4F9A16C545200029E78C /* ShinobiSettings.plist */,
@@ -497,6 +502,7 @@
 				1B3DD39D16CD3457001EF7AE /* OCCalendarViewController.m in Sources */,
 				1B3DD39E16CD3457001EF7AE /* OCDaysView.m in Sources */,
 				1B3DD39F16CD3457001EF7AE /* OCSelectionView.m in Sources */,
+				1B1A7FDA16CEE2A100AFCE20 /* LineView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

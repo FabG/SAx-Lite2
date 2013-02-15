@@ -15,9 +15,13 @@
 #import "SAxMetadataStore.h"
 #import "ShinobiChart+PieCharts.h"
 #import "OCCalendarViewController.h"
+#import <ShinobiCharts/SChartCanvas.h>
+#import "LineView.h"
+
 
 @interface SAxDSAViewController () {
     BOOL first;
+    LineView *lineView;
 }
 
 @end
@@ -247,7 +251,7 @@
         {
             float num = 0.0;
             num =[[seriesPointsValues objectAtIndex:i]floatValue]/sum*100;
-            NSString *value = [NSString stringWithFormat:@"%f",num];
+            NSString *value = [NSString stringWithFormat:@"%0.2f %%",num];
             [seriesPointsValues setObject:value atIndexedSubscript:i];
         }
         
@@ -323,15 +327,21 @@
     
     shinoChart.legend.hidden = NO;
     shinoChart.legend.position = SChartLegendPositionBottomMiddle;
-    shinoChart.legend.maxSeriesPerLine = 1;
+    shinoChart.legend.maxSeriesPerLine = 2;
     
     shinoChart.licenseKey = licenseKey;
 
     shinoChart.datasource = self;
+    shinoChart.delegate = self;
     //shinoChart = self;
     
+    lineView = [[LineView alloc] init];
+    [lineView setUserInteractionEnabled:NO];
+    [lineView setBackgroundColor:[UIColor clearColor]];
+    [shinoChart addSubview:lineView];
     // Add the chart to the view controller
     [self.view addSubview:shinoChart];
+
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -355,7 +365,7 @@
 
     // Set up the series
     pieSeries.title = [NSString stringWithFormat:@"serie %d", index];
-    
+    pieSeries.outerRadius = 200.0f;
     return pieSeries;
 }
 
@@ -378,6 +388,7 @@
     return datapoint;
 }
 
+/*
 - (void)sChart:(ShinobiChart *)chart alterLabel:(UILabel *)label forDatapoint:(SChartRadialDataPoint *)datapoint atSliceIndex:(int)index inRadialSeries:(SChartRadialSeries *)series
 {
     //For our pie chart - stop displaying labels for narrow slices
@@ -393,6 +404,64 @@
             f.size.width = 35.f;
             label.frame = f;
         }
+    }
+}
+ */
+
+- (void)sChart:(ShinobiChart *)chart alterLabel:(UILabel *)label forDatapoint:(SChartRadialDataPoint *)datapoint atSliceIndex:(int)index inRadialSeries:(SChartRadialSeries *)series
+{
+    if (datapoint.value.floatValue < 2.0f) {
+        label.text = @"";
+    } else {
+        SChartPieSeries *pieSeries = (SChartPieSeries *)series;
+        
+        float extrusion = 150.0f;
+        //get our radial point from our datasource method
+        
+        // three points:
+        CGPoint pieCenter;      // chart center for trig calculations
+        CGPoint oldLabelCenter; // original label center
+        CGPoint labelCenter;    // new label center
+        CGPoint endOfLine;     // we want our line to finish just short of our label
+        
+        pieCenter = [pieSeries getDonutCenter];
+        oldLabelCenter = labelCenter = [pieSeries getSliceCenter:index];
+        
+        // find the angle of the slice, and add on a little to the label's center
+        float xChange, yChange;
+        
+        xChange = pieCenter.x - labelCenter.x;
+        yChange = pieCenter.y - labelCenter.y;
+        
+        float angle = atan2f(xChange, yChange) + M_PI / 2.f;
+        // we do the M_PI / 2 adjustment because of how the pie is drawn internally
+        
+        labelCenter.x = oldLabelCenter.x + extrusion * cosf(angle);
+        labelCenter.y = oldLabelCenter.y - extrusion * sinf(angle);
+        
+        endOfLine.x = oldLabelCenter.x + (extrusion-30.f) * cosf(angle);
+        endOfLine.y = oldLabelCenter.y - (extrusion-30.f) * sinf(angle);
+        
+        label.textColor = [UIColor whiteColor];
+        [label sizeToFit];
+        [label setCenter:labelCenter]; // this must be after sizeToFit
+        [label setHidden:NO];
+        
+        // connect our old label point to our new label
+        [lineView addPointPair:oldLabelCenter second:endOfLine];
+    }
+}
+
+- (void) sChartRenderStarted:(ShinobiChart *)chart withFullRedraw:(BOOL)fullRedraw {
+    
+    //Draw our lines on if we're on our donut
+    if (chart == shinoChart) {
+        // position our view over the top of the GL canvas
+        CGRect glFrame = chart.canvas.glView.frame;
+        glFrame.origin.y = chart.canvas.frame.origin.y;
+        [lineView setFrame:glFrame];
+        // remove the old point-pairs from the line view
+        [lineView reset];
     }
 }
 
